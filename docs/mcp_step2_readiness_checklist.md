@@ -14,9 +14,9 @@ To execute Step 2 from Codex, we need the minimum MCP stack below.
 3. `Project root selection` call (server must target current Unity project path).
 4. `Editor state` call (ready/compiling/busy status).
 5. `Scene create tool` with parameters:
-   - `scene_name`
-   - `scene_path`
-   - `add_to_build_settings` (bool)
+   - `sceneName`
+   - `scenePath`
+   - `addToBuildSettings` (bool)
 6. `Scene save/verify tool`:
    - save created scene
    - verify file exists in AssetDatabase and disk
@@ -26,9 +26,9 @@ To execute Step 2 from Codex, we need the minimum MCP stack below.
    - deterministic error payloads (busy/not-connected/invalid-path)
 
 ## Step 2 Done Criteria (for our MCP)
-1. Codex calls `set_project_root` successfully.
-2. Codex calls `editor_state` and gets `ready=true`.
-3. Codex calls `scene_create` for `VS01_Rescue`.
+1. Codex calls `project_root.set` successfully.
+2. Codex calls `editor.state` and gets `ready=true`.
+3. Codex calls `scene.create` for `VS01_Rescue`.
 4. Scene appears at:
    - `Assets/Scenes/VerticalSlice/VS01_Rescue.unity`
    - `Assets/Scenes/VerticalSlice/VS01_Rescue.unity.meta`
@@ -38,7 +38,7 @@ To execute Step 2 from Codex, we need the minimum MCP stack below.
 ## Suggested implementation order (MCP-side)
 1. Create protocol contracts (`requests/responses/errors`).
 2. Implement Unity bridge bootstrap + heartbeat.
-3. Implement `set_project_root`, `editor_state`.
-4. Implement `scene_create` + `scene_save` + path validation.
-5. Implement `read_console`.
+3. Implement `project_root.set`, `editor.state`.
+4. Implement `scene.create` + `scene.save` + path validation.
+5. Implement `console.read`.
 6. Add smoke test script for Step 2 call chain.
