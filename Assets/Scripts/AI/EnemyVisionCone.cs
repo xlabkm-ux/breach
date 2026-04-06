@@ -12,6 +12,8 @@ namespace Breach.AI
         private OperativeMember detectedTarget;
         private float lastDetectionTime;
 
+        public float Radius => radius;
+        public float AngleDeg => angleDeg;
         public bool HasTarget => detectedTarget != null;
         public OperativeMember DetectedTarget => detectedTarget;
         public float LastDetectionTime => lastDetectionTime;
