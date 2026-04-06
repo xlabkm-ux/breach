@@ -101,6 +101,7 @@ namespace Breach.Mission
                 EnsureVisual(operative.gameObject, new Color(0.2f, 0.95f, 0.3f, 1f), 0.45f);
                 EnsureCollider(operative.gameObject, 0.35f);
                 EnsureTeam(operative.GetComponent<HealthComponent>(), TeamId.Squad);
+                EnsureDamageFeedback(operative.gameObject);
                 EnsureShooter(operative.gameObject);
 
                 if (i == 0 && operative.transform.position.sqrMagnitude < 0.01f)
@@ -154,6 +155,7 @@ namespace Breach.Mission
                 EnsureVisual(enemyObject, new Color(1f, 0.25f, 0.25f, 1f), 0.45f);
                 EnsureCollider(enemyObject, 0.35f);
                 EnsureTeam(health, TeamId.Enemy);
+                EnsureDamageFeedback(enemyObject);
 
                 if (enemyObject.transform.position.sqrMagnitude < 0.01f)
                 {
@@ -226,6 +228,7 @@ namespace Breach.Mission
             EnsureVisual(hostage.gameObject, new Color(1f, 0.9f, 0.15f, 1f), 0.42f);
             EnsureCollider(hostage.gameObject, 0.32f);
             EnsureTeam(hostage.GetComponent<HealthComponent>(), TeamId.Neutral);
+            EnsureDamageFeedback(hostage.gameObject);
 
             if (hostage.transform.position.sqrMagnitude < 0.01f)
             {
@@ -317,6 +320,14 @@ namespace Breach.Mission
             if (target.GetComponent<NoiseEmitter>() == null)
             {
                 target.AddComponent<NoiseEmitter>();
+            }
+        }
+
+        private static void EnsureDamageFeedback(GameObject target)
+        {
+            if (target.GetComponent<DamageFlashFeedback>() == null)
+            {
+                target.AddComponent<DamageFlashFeedback>();
             }
         }
     }

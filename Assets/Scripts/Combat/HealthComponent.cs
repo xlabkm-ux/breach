@@ -1,4 +1,5 @@
 using UnityEngine;
+using System;
 
 namespace Breach.Combat
 {
@@ -11,6 +12,8 @@ namespace Breach.Combat
         public TeamId Team => team;
         public int CurrentHealth => currentHealth;
         public bool IsDead => currentHealth <= 0;
+        public event Action<int, int> Damaged;
+        public event Action Died;
 
         private void Awake()
         {
@@ -25,8 +28,10 @@ namespace Breach.Combat
             }
 
             currentHealth = Mathf.Max(0, currentHealth - damage);
+            Damaged?.Invoke(damage, currentHealth);
             if (currentHealth == 0)
             {
+                Died?.Invoke();
                 gameObject.SetActive(false);
             }
 
