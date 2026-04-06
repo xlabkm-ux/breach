@@ -1,5 +1,8 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Breach.Mission
 {
@@ -13,6 +16,10 @@ namespace Breach.Mission
         private static Tile _roomTile;
         private static Tile _extractTile;
         private static Sprite _baseSprite;
+        private static Sprite _floorSprite;
+        private static Sprite _wallSprite;
+        private static Sprite _roomSprite;
+        private static Sprite _extractSprite;
 
         private void OnEnable()
         {
@@ -112,7 +119,15 @@ namespace Breach.Mission
 
         private static void EnsureTiles()
         {
-            if (_baseSprite == null)
+            if (_floorSprite == null || _wallSprite == null || _roomSprite == null || _extractSprite == null)
+            {
+                _floorSprite = TryLoadSprite("Assets/_Core/Graphics/Tiles/Kenney/tile_08.png");
+                _wallSprite = TryLoadSprite("Assets/_Core/Graphics/Tiles/Kenney/tile_11.png");
+                _roomSprite = TryLoadSprite("Assets/_Core/Graphics/Tiles/Kenney/tile_24.png");
+                _extractSprite = TryLoadSprite("Assets/_Core/Graphics/Tiles/Kenney/tile_57.png");
+            }
+
+            if (_baseSprite == null && (_floorSprite == null || _wallSprite == null || _roomSprite == null || _extractSprite == null))
             {
                 var texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);
                 texture.SetPixel(0, 0, Color.white);
@@ -120,18 +135,27 @@ namespace Breach.Mission
                 _baseSprite = Sprite.Create(texture, new Rect(0, 0, 1, 1), new Vector2(0.5f, 0.5f), 1f);
             }
 
-            _floorTile ??= BuildTile(new Color(0.18f, 0.2f, 0.23f));
-            _wallTile ??= BuildTile(new Color(0.35f, 0.35f, 0.38f));
-            _roomTile ??= BuildTile(new Color(0.22f, 0.28f, 0.22f));
-            _extractTile ??= BuildTile(new Color(0.1f, 0.45f, 0.55f));
+            _floorTile ??= BuildTile(_floorSprite ?? _baseSprite, new Color(0.9f, 0.9f, 0.95f));
+            _wallTile ??= BuildTile(_wallSprite ?? _baseSprite, new Color(0.9f, 0.9f, 0.9f));
+            _roomTile ??= BuildTile(_roomSprite ?? _baseSprite, new Color(0.95f, 0.95f, 0.95f));
+            _extractTile ??= BuildTile(_extractSprite ?? _baseSprite, new Color(0.8f, 1f, 0.95f));
         }
 
-        private static Tile BuildTile(Color color)
+        private static Tile BuildTile(Sprite sprite, Color color)
         {
             var tile = ScriptableObject.CreateInstance<Tile>();
-            tile.sprite = _baseSprite;
+            tile.sprite = sprite;
             tile.color = color;
             return tile;
+        }
+
+        private static Sprite TryLoadSprite(string path)
+        {
+#if UNITY_EDITOR
+            return AssetDatabase.LoadAssetAtPath<Sprite>(path);
+#else
+            return null;
+#endif
         }
     }
 }
