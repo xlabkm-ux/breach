@@ -32,5 +32,10 @@ namespace Breach.Combat
 
             return true;
         }
+
+        public void SetTeam(TeamId value)
+        {
+            team = value;
+        }
     }
 }
