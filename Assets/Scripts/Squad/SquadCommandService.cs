@@ -38,6 +38,11 @@ namespace Breach.Squad
             {
                 IssueMoveToSecondaryAtCursor();
             }
+
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                IssueAttackTargetToSecondaryAtCursor();
+            }
         }
 
         public void IssueMoveToSecondaryAtCursor()
@@ -78,6 +83,34 @@ namespace Breach.Squad
             }
 
             secondary.IssueFollow(active.transform);
+        }
+
+        public void IssueAttackTargetToSecondaryAtCursor()
+        {
+            var secondary = switchService.GetSecondaryOperative();
+            if (secondary == null)
+            {
+                return;
+            }
+
+            if (cachedCamera == null)
+            {
+                cachedCamera = Camera.main;
+                if (cachedCamera == null)
+                {
+                    return;
+                }
+            }
+
+            var screen = Input.mousePosition;
+            var world = cachedCamera.ScreenToWorldPoint(new Vector3(screen.x, screen.y, Mathf.Abs(cachedCamera.transform.position.z)));
+            var hit = Physics2D.OverlapPoint(new Vector2(world.x, world.y));
+            if (hit == null)
+            {
+                return;
+            }
+
+            secondary.IssueAttackTarget(hit.transform);
         }
     }
 }

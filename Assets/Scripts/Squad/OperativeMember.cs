@@ -7,7 +7,8 @@ namespace Breach.Squad
         None = 0,
         Hold = 1,
         MoveTo = 2,
-        Follow = 3
+        Follow = 3,
+        AttackTarget = 4
     }
 
     public sealed class OperativeMember : MonoBehaviour
@@ -19,6 +20,7 @@ namespace Breach.Squad
         private OperativeCommandMode commandMode = OperativeCommandMode.Hold;
         private Vector3 moveTarget;
         private Transform followTarget;
+        private Transform attackTarget;
 
         public string OperativeId => operativeId;
         public bool IsSelected => isSelected;
@@ -34,6 +36,10 @@ namespace Breach.Squad
             if (commandMode == OperativeCommandMode.Follow && followTarget != null)
             {
                 moveTarget = followTarget.position;
+            }
+            else if (commandMode == OperativeCommandMode.AttackTarget && attackTarget != null)
+            {
+                moveTarget = attackTarget.position;
             }
 
             var next = Vector3.MoveTowards(transform.position, moveTarget, moveSpeed * Time.deltaTime);
@@ -55,6 +61,7 @@ namespace Breach.Squad
             moveTarget = new Vector3(worldTarget.x, worldTarget.y, transform.position.z);
             commandMode = OperativeCommandMode.MoveTo;
             followTarget = null;
+            attackTarget = null;
         }
 
         public void IssueFollow(Transform target)
@@ -67,6 +74,20 @@ namespace Breach.Squad
             followTarget = target;
             moveTarget = target.position;
             commandMode = OperativeCommandMode.Follow;
+            attackTarget = null;
+        }
+
+        public void IssueAttackTarget(Transform target)
+        {
+            if (target == null)
+            {
+                return;
+            }
+
+            attackTarget = target;
+            moveTarget = target.position;
+            commandMode = OperativeCommandMode.AttackTarget;
+            followTarget = null;
         }
     }
 }
