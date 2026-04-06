@@ -288,6 +288,12 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.xlabkm.unity-mcp": {
+      "version": "file:../../MCPForUnity/dotnet-prototype/unity/com.xlabkm.unity-mcp",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,
