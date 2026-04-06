@@ -20,7 +20,12 @@ namespace Breach.Mission
         public bool HostageAlive => hostageAlive;
 
         public bool IsMissionFailed => !squadAlive || !hostageAlive;
-        public bool IsMissionSuccessCandidate => hostageExtracted && hostageAlive && squadAlive;
+        public bool IsMissionSuccessCandidate =>
+            infiltrationComplete &&
+            hostageFreed &&
+            hostageExtracted &&
+            hostageAlive &&
+            squadAlive;
 
         public void MarkInfiltrationComplete()
         {
