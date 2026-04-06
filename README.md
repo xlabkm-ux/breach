@@ -1,4 +1,4 @@
-# ZAHVAT Starter Kit
+# BREACH Starter Kit
 
 Стартовый комплект рабочих файлов для Unity 6 проекта на базе приложенных документов.
 
