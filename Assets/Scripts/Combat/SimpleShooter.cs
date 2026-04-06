@@ -1,5 +1,6 @@
 using Breach.Squad;
 using UnityEngine;
+using Breach.AI;
 
 namespace Breach.Combat
 {
@@ -12,6 +13,7 @@ namespace Breach.Combat
         private HealthComponent selfHealth;
         private OperativeMember operativeMember;
         private CombatResolver resolver;
+        private NoiseEmitter noiseEmitter;
 
         private void Awake()
         {
@@ -19,6 +21,7 @@ namespace Breach.Combat
             selfHealth = GetComponent<HealthComponent>();
             operativeMember = GetComponent<OperativeMember>();
             resolver = FindFirstObjectByType<CombatResolver>();
+            noiseEmitter = GetComponent<NoiseEmitter>();
         }
 
         private void Update()
@@ -73,6 +76,7 @@ namespace Breach.Combat
                 return;
             }
 
+            noiseEmitter?.EmitGunshotNoise();
             resolver.TryResolveHit(selfHealth, target, damagePerShot);
         }
     }

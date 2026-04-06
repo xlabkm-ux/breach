@@ -23,6 +23,11 @@ This project runs against `XLab.UnityMcp.Server` + Unity Editor bridge (`Library
 - Runtime result indicates missing Unity package: `com.unity.test-framework`.
 - Without this package, step-level automated verification for tests is blocked.
 
+5. Bridge responsiveness instability:
+- Intermittent `timeout waiting response` on basic runtime probes (`editor.state`, `asset.refresh`, `editor.compile_status`).
+- Heartbeat file may stop updating while command queue still receives requests.
+- This blocks reliable per-step verification even when tools exist in contract.
+
 ## Required MCP improvements
 1. Implement `graph.*` handlers in `McpBridgeProcessor` (Unity side) with real Visual Scripting asset operations.
 2. Add path-aware graph arguments:
@@ -33,8 +38,13 @@ This project runs against `XLab.UnityMcp.Server` + Unity Editor bridge (`Library
 5. Extend preflight with `tools.list` runtime probe from live bridge layer, not only server declaration.
 6. Implement bridge support for `tests.results` with stable summary payload (`passed`, `failed`, `skipped`, `duration`).
 7. Ensure `com.unity.test-framework` is part of baseline project dependencies for testable steps.
+8. Add bridge watchdog + recovery path:
+- stale heartbeat detection,
+- queue timeout diagnostics,
+- optional auto-restart instruction path for editor-side bridge processor.
 
 ## Impact on steps
 - Step 9 can complete C# command logic and scene wiring.
 - Full Visual Scripting orchestration part remains blocked until `graph.*` bridge support is added.
 - Step 12 test automation remains partially blocked until test-framework dependency and `tests.results` support are in place.
+- Any step requiring live Unity mutation/validation is at risk while bridge responsiveness is unstable.
