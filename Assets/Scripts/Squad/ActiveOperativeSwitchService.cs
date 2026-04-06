@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Breach.Core;
 
 namespace Breach.Squad
 {
@@ -38,7 +39,7 @@ namespace Breach.Squad
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.Tab))
+            if (InputCompat.GetKeyDown(KeyCode.Tab))
             {
                 SwitchToNext();
             }
@@ -83,3 +84,4 @@ namespace Breach.Squad
         }
     }
 }
+

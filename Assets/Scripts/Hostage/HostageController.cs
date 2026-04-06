@@ -1,4 +1,5 @@
 using Breach.Combat;
+using Breach.Core;
 using Breach.Mission;
 using Breach.Squad;
 using UnityEngine;
@@ -47,7 +48,7 @@ namespace Breach.Hostage
             if (!isFreed)
             {
                 var distance = Vector2.Distance(transform.position, activeOperative.transform.position);
-                if (distance <= interactionDistance && Input.GetKeyDown(KeyCode.E))
+                if (distance <= interactionDistance && InputCompat.GetKeyDown(KeyCode.E))
                 {
                     isFreed = true;
                     objectiveService?.MarkHostageFreed();

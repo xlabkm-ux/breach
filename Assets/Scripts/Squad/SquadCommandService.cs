@@ -1,4 +1,5 @@
 using UnityEngine;
+using Breach.Core;
 
 namespace Breach.Squad
 {
@@ -24,22 +25,22 @@ namespace Breach.Squad
                 return;
             }
 
-            if (Input.GetKeyDown(KeyCode.H))
+            if (InputCompat.GetKeyDown(KeyCode.H))
             {
                 IssueHoldToSecondary();
             }
 
-            if (Input.GetKeyDown(KeyCode.F))
+            if (InputCompat.GetKeyDown(KeyCode.F))
             {
                 IssueFollowToSecondary();
             }
 
-            if (Input.GetKeyDown(KeyCode.M))
+            if (InputCompat.GetKeyDown(KeyCode.M))
             {
                 IssueMoveToSecondaryAtCursor();
             }
 
-            if (Input.GetKeyDown(KeyCode.T))
+            if (InputCompat.GetKeyDown(KeyCode.T))
             {
                 IssueAttackTargetToSecondaryAtCursor();
             }
@@ -62,7 +63,7 @@ namespace Breach.Squad
                 }
             }
 
-            var screen = Input.mousePosition;
+            var screen = InputCompat.MousePosition;
             var world = cachedCamera.ScreenToWorldPoint(new Vector3(screen.x, screen.y, Mathf.Abs(cachedCamera.transform.position.z)));
             secondary.IssueMove(world);
         }
@@ -102,7 +103,7 @@ namespace Breach.Squad
                 }
             }
 
-            var screen = Input.mousePosition;
+            var screen = InputCompat.MousePosition;
             var world = cachedCamera.ScreenToWorldPoint(new Vector3(screen.x, screen.y, Mathf.Abs(cachedCamera.transform.position.z)));
             var hit = Physics2D.OverlapPoint(new Vector2(world.x, world.y));
             if (hit == null)
@@ -114,3 +115,4 @@ namespace Breach.Squad
         }
     }
 }
+

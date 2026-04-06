@@ -1,6 +1,7 @@
 using Breach.Squad;
 using UnityEngine;
 using Breach.AI;
+using Breach.Core;
 
 namespace Breach.Combat
 {
@@ -31,7 +32,7 @@ namespace Breach.Combat
                 return;
             }
 
-            if (!Input.GetMouseButtonDown(0))
+            if (!InputCompat.GetMouseButtonDown(0))
             {
                 return;
             }
@@ -55,7 +56,7 @@ namespace Breach.Combat
             }
 
             var from = transform.position;
-            var cursor = Input.mousePosition;
+            var cursor = InputCompat.MousePosition;
             var world = cachedCamera.ScreenToWorldPoint(new Vector3(cursor.x, cursor.y, Mathf.Abs(cachedCamera.transform.position.z)));
             var dir = (world - from);
             dir.z = 0f;
@@ -81,3 +82,4 @@ namespace Breach.Combat
         }
     }
 }
+

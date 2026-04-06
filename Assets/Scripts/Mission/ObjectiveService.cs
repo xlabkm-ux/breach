@@ -46,5 +46,19 @@ namespace Breach.Mission
         {
             hostageAlive = false;
         }
+
+        public void ApplySnapshot(
+            bool infiltrationCompleteValue,
+            bool hostageFreedValue,
+            bool hostageExtractedValue,
+            bool squadAliveValue,
+            bool hostageAliveValue)
+        {
+            infiltrationComplete = infiltrationCompleteValue;
+            hostageFreed = hostageFreedValue;
+            hostageExtracted = hostageExtractedValue;
+            squadAlive = squadAliveValue;
+            hostageAlive = hostageAliveValue;
+        }
     }
 }

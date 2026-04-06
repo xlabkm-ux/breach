@@ -48,6 +48,11 @@ namespace Breach.Mission
             return TryTransition(MissionState.Failed, out reason);
         }
 
+        public void ForceStateForLoad(MissionState state)
+        {
+            currentState = state;
+        }
+
         private static bool IsTransitionAllowed(MissionState from, MissionState to)
         {
             if (to == MissionState.Failed)
