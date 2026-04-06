@@ -6,6 +6,11 @@ namespace Breach.Combat
     {
         [SerializeField] private bool friendlyFireEnabled = true;
 
+        public void SetFriendlyFireEnabled(bool enabled)
+        {
+            friendlyFireEnabled = enabled;
+        }
+
         public bool TryResolveHit(HealthComponent attacker, HealthComponent target, int damage)
         {
             if (target == null || damage <= 0 || target.IsDead)

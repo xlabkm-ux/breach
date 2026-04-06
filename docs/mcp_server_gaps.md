@@ -13,6 +13,16 @@ This project runs against `XLab.UnityMcp.Server` + Unity Editor bridge (`Library
 - Server-side graph helpers currently generate JSON files in `Assets/Graphs/*.json`.
 - Project contract expects Unity Visual Scripting assets under `Assets/VisualScripting/...`.
 
+3. Test result contract mismatch:
+- `tests.results` is declared in server tool list.
+- Unity Editor bridge does not implement `tests.results`.
+- Runtime result from bridge: `Unsupported command: tests.results`.
+
+4. EditMode tests execution dependency gap:
+- `tests.run_editmode` is implemented in bridge.
+- Runtime result indicates missing Unity package: `com.unity.test-framework`.
+- Without this package, step-level automated verification for tests is blocked.
+
 ## Required MCP improvements
 1. Implement `graph.*` handlers in `McpBridgeProcessor` (Unity side) with real Visual Scripting asset operations.
 2. Add path-aware graph arguments:
@@ -21,7 +31,10 @@ This project runs against `XLab.UnityMcp.Server` + Unity Editor bridge (`Library
 3. Return stable IDs/paths for created graph assets to support follow-up connect/edit operations.
 4. Add validation that ensures graph assets are Unity-compatible (not raw JSON placeholders).
 5. Extend preflight with `tools.list` runtime probe from live bridge layer, not only server declaration.
+6. Implement bridge support for `tests.results` with stable summary payload (`passed`, `failed`, `skipped`, `duration`).
+7. Ensure `com.unity.test-framework` is part of baseline project dependencies for testable steps.
 
 ## Impact on steps
 - Step 9 can complete C# command logic and scene wiring.
 - Full Visual Scripting orchestration part remains blocked until `graph.*` bridge support is added.
+- Step 12 test automation remains partially blocked until test-framework dependency and `tests.results` support are in place.
