@@ -78,6 +78,12 @@ namespace Breach.Mission
             initialized = true;
         }
 
+        public void ReinitializeForLoadedState()
+        {
+            initialized = false;
+            InitializeMissionRuntime();
+        }
+
         private static void EnsureLayout()
         {
             var builders = FindObjectsByType<ApartmentLayoutBuilder>(FindObjectsSortMode.None);

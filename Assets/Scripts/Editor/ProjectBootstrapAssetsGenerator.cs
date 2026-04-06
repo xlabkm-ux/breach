@@ -102,12 +102,21 @@ namespace Breach.Editor
 
             var entries = new List<LocalizationTableAsset.Entry>
             {
-                new LocalizationTableAsset.Entry { key = "ui.result.success.title", value = "Mission Success" },
-                new LocalizationTableAsset.Entry { key = "ui.result.success.body", value = "Hostage secured and extracted." },
-                new LocalizationTableAsset.Entry { key = "ui.result.fail.title", value = "Mission Failed" },
-                new LocalizationTableAsset.Entry { key = "ui.result.fail.body", value = "Hostage or squad lost." },
-                new LocalizationTableAsset.Entry { key = "ui.result.hint.restart", value = "Press Play again to restart the mission." },
-                new LocalizationTableAsset.Entry { key = "ui.warning.friendly_fire_risk", value = "Friendly Fire Risk" }
+                new LocalizationTableAsset.Entry { key = "ui.result.success.title", enValue = "Mission Success", ruValue = "Миссия выполнена" },
+                new LocalizationTableAsset.Entry { key = "ui.result.success.body", enValue = "Hostage secured and extracted.", ruValue = "Заложник освобожден и эвакуирован." },
+                new LocalizationTableAsset.Entry { key = "ui.result.fail.title", enValue = "Mission Failed", ruValue = "Миссия провалена" },
+                new LocalizationTableAsset.Entry { key = "ui.result.fail.body", enValue = "Hostage or squad lost.", ruValue = "Потерян заложник или весь отряд." },
+                new LocalizationTableAsset.Entry { key = "ui.result.hint.restart", enValue = "Press Play again to restart the mission.", ruValue = "Нажмите Play заново, чтобы перезапустить миссию." },
+                new LocalizationTableAsset.Entry { key = "ui.warning.friendly_fire_risk", enValue = "Friendly Fire Risk", ruValue = "Риск огня по своим" },
+                new LocalizationTableAsset.Entry { key = "ui.alert.idle", enValue = "Idle", ruValue = "Спокоен" },
+                new LocalizationTableAsset.Entry { key = "ui.alert.suspicious", enValue = "Suspicious", ruValue = "Подозрение" },
+                new LocalizationTableAsset.Entry { key = "ui.alert.alert", enValue = "Alert", ruValue = "Тревога" },
+                new LocalizationTableAsset.Entry { key = "hud.scene", enValue = "scene: {0}", ruValue = "сцена: {0}" },
+                new LocalizationTableAsset.Entry { key = "hud.mission_state", enValue = "mission_state: {0}", ruValue = "состояние_миссии: {0}" },
+                new LocalizationTableAsset.Entry { key = "hud.objectives", enValue = "obj_infiltration: {0} | obj_hostage_freed: {1} | obj_hostage_extracted: {2}", ruValue = "цели_инфильтрация: {0} | цели_заложник_освобожден: {1} | цели_заложник_эвакуирован: {2}" },
+                new LocalizationTableAsset.Entry { key = "hud.fail_flags", enValue = "fail_squad_alive: {0} | fail_hostage_alive: {1}", ruValue = "провал_отряд_жив: {0} | провал_заложник_жив: {1}" },
+                new LocalizationTableAsset.Entry { key = "hud.active_operative", enValue = "active_operative: {0}", ruValue = "активный_оперативник: {0}" },
+                new LocalizationTableAsset.Entry { key = "hud.controls", enValue = "controls: WASD move | Tab switch | E free hostage | LMB shoot | RMB aim preview | F1 hide hud", ruValue = "управление: WASD движение | Tab переключение | E освободить заложника | ЛКМ выстрел | ПКМ линия прицела | F1 скрыть hud" }
             };
             table.SetEntries(entries);
             EditorUtility.SetDirty(table);

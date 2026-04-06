@@ -1,4 +1,5 @@
 using UnityEngine;
+using Breach.Core;
 
 namespace Breach.AI
 {
@@ -33,11 +34,20 @@ namespace Breach.AI
 
         private void OnNoiseRaised(NoiseEvent noise)
         {
+            if (!VisualQualityProfileRuntime.EnableNoiseOverlay)
+            {
+                return;
+            }
+
             var ringObject = new GameObject("NoisePulseRing");
             ringObject.transform.position = new Vector3(noise.Position.x, noise.Position.y, noise.Position.z - 0.05f);
 
             var ring = ringObject.AddComponent<NoisePulseRing>();
-            ring.Configure(noise.Radius, pulseDuration, ringWidth, pulseColor);
+            ring.Configure(
+                noise.Radius,
+                pulseDuration * VisualQualityProfileRuntime.EffectIntensity,
+                ringWidth,
+                pulseColor);
         }
     }
 }

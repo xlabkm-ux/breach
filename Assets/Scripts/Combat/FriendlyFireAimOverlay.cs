@@ -66,6 +66,12 @@ namespace Breach.Combat
                 return;
             }
 
+            if (!VisualQualityProfileRuntime.EnableAimOverlay)
+            {
+                lineRenderer.enabled = false;
+                return;
+            }
+
             if (Time.unscaledTime >= nextRefreshTime)
             {
                 shooters = FindObjectsByType<SimpleShooter>(FindObjectsSortMode.None);

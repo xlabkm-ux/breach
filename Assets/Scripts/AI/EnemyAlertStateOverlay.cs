@@ -1,4 +1,5 @@
 using UnityEngine;
+using Breach.Localization;
 
 namespace Breach.AI
 {
@@ -64,7 +65,7 @@ namespace Breach.AI
                 var guiPoint = new Vector2(screen.x, Screen.height - screen.y) + screenOffset;
                 style.normal.textColor = GetStateColor(enemy.CurrentState);
                 var rect = new Rect(guiPoint.x - 48f, guiPoint.y, 96f, 20f);
-                GUI.Label(rect, enemy.CurrentState.ToString(), style);
+                GUI.Label(rect, ResolveStateLabel(enemy.CurrentState), style);
             }
         }
 
@@ -91,6 +92,18 @@ namespace Breach.AI
                 EnemyAlertState.Suspicious => new Color(1f, 0.75f, 0.2f),
                 _ => new Color(0.6f, 1f, 0.6f)
             };
+        }
+
+        private static string ResolveStateLabel(EnemyAlertState state)
+        {
+            var key = state switch
+            {
+                EnemyAlertState.Alert => "ui.alert.alert",
+                EnemyAlertState.Suspicious => "ui.alert.suspicious",
+                _ => "ui.alert.idle"
+            };
+
+            return LocalizationService.Resolve(key);
         }
     }
 }

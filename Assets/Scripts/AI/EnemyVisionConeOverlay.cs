@@ -1,4 +1,5 @@
 using UnityEngine;
+using Breach.Core;
 
 namespace Breach.AI
 {
@@ -63,7 +64,14 @@ namespace Breach.AI
                 return;
             }
 
-            material.color = visionCone.HasTarget ? alertColor : idleColor;
+            if (!VisualQualityProfileRuntime.EnableVisionConeOverlay)
+            {
+                return;
+            }
+
+            var tint = visionCone.HasTarget ? alertColor : idleColor;
+            tint.a *= VisualQualityProfileRuntime.EffectIntensity;
+            material.color = tint;
             material.SetPass(0);
             Graphics.DrawMeshNow(mesh, Matrix4x4.identity);
         }

@@ -1,5 +1,6 @@
 using Breach.Mission;
 using Breach.Squad;
+using Breach.Localization;
 using UnityEngine;
 
 namespace Breach.UI
@@ -58,28 +59,42 @@ namespace Breach.UI
 
             var x = 16f;
             var y = 16f;
-            GUI.Label(new Rect(x, y, 760f, 24f), $"scene: {UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}", labelStyle);
+            GUI.Label(new Rect(x, y, 900f, 24f),
+                LocalizationService.ResolveFormat(
+                    "hud.scene",
+                    UnityEngine.SceneManagement.SceneManager.GetActiveScene().name),
+                labelStyle);
             y += 22f;
 
             var state = missionStateService != null ? missionStateService.CurrentState.ToString() : "missing_mission_state_service";
-            GUI.Label(new Rect(x, y, 760f, 24f), $"mission_state: {state}", labelStyle);
+            GUI.Label(new Rect(x, y, 900f, 24f), LocalizationService.ResolveFormat("hud.mission_state", state), labelStyle);
             y += 22f;
 
             if (objectiveService != null)
             {
-                GUI.Label(new Rect(x, y, 760f, 24f), $"obj_infiltration: {objectiveService.InfiltrationComplete} | obj_hostage_freed: {objectiveService.HostageFreed} | obj_hostage_extracted: {objectiveService.HostageExtracted}", labelStyle);
+                GUI.Label(
+                    new Rect(x, y, 900f, 24f),
+                    LocalizationService.ResolveFormat(
+                        "hud.objectives",
+                        objectiveService.InfiltrationComplete,
+                        objectiveService.HostageFreed,
+                        objectiveService.HostageExtracted),
+                    labelStyle);
                 y += 22f;
-                GUI.Label(new Rect(x, y, 760f, 24f), $"fail_squad_alive: {objectiveService.SquadAlive} | fail_hostage_alive: {objectiveService.HostageAlive}", labelStyle);
+                GUI.Label(
+                    new Rect(x, y, 900f, 24f),
+                    LocalizationService.ResolveFormat("hud.fail_flags", objectiveService.SquadAlive, objectiveService.HostageAlive),
+                    labelStyle);
                 y += 22f;
             }
 
             var activeOperativeId = switchService != null && switchService.ActiveOperative != null
                 ? switchService.ActiveOperative.OperativeId
                 : "none";
-            GUI.Label(new Rect(x, y, 760f, 24f), $"active_operative: {activeOperativeId}", labelStyle);
+            GUI.Label(new Rect(x, y, 900f, 24f), LocalizationService.ResolveFormat("hud.active_operative", activeOperativeId), labelStyle);
             y += 28f;
 
-            GUI.Label(new Rect(x, y, 900f, 24f), "controls: WASD move | Tab switch | E free hostage | LMB shoot | RMB aim preview | F1 hide hud", labelStyle);
+            GUI.Label(new Rect(x, y, 1100f, 24f), LocalizationService.Resolve("hud.controls"), labelStyle);
         }
 
         private void EnsureStyle()

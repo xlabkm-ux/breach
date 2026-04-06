@@ -1,4 +1,5 @@
 using UnityEngine;
+using Breach.Core;
 
 namespace Breach.Combat
 {
@@ -61,7 +62,7 @@ namespace Breach.Combat
             }
 
             baseColor = spriteRenderer.color;
-            flashUntil = Time.time + flashDuration;
+            flashUntil = Time.time + flashDuration * VisualQualityProfileRuntime.EffectIntensity;
         }
     }
 }

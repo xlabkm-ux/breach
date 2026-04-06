@@ -25,6 +25,7 @@ namespace Breach.Save
         [SerializeField] private ObjectiveService objectiveService;
 
         private string SavePath => Path.Combine(Application.persistentDataPath, "mission_save_v1.json");
+        public event Action<MissionSaveSnapshot> Loaded;
 
         private void Awake()
         {
@@ -90,8 +91,15 @@ namespace Breach.Save
                 hostageAlive = objectiveService.HostageAlive
             };
 
-            var json = JsonUtility.ToJson(snapshot, true);
-            File.WriteAllText(SavePath, json);
+            try
+            {
+                var json = JsonUtility.ToJson(snapshot, true);
+                File.WriteAllText(SavePath, json);
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning($"SaveService: failed to save snapshot. {exception.Message}");
+            }
         }
 
         public bool TryLoad()
@@ -101,10 +109,26 @@ namespace Breach.Save
                 return false;
             }
 
-            var json = File.ReadAllText(SavePath);
-            var snapshot = JsonUtility.FromJson<MissionSaveSnapshot>(json);
-            if (snapshot == null || snapshot.schemaVersion != schemaVersion)
+            MissionSaveSnapshot snapshot;
+            try
             {
+                var json = File.ReadAllText(SavePath);
+                snapshot = JsonUtility.FromJson<MissionSaveSnapshot>(json);
+                if (snapshot == null)
+                {
+                    Debug.LogWarning("SaveService: save file is empty or invalid JSON.");
+                    return false;
+                }
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning($"SaveService: failed to load snapshot. {exception.Message}");
+                return false;
+            }
+
+            if (snapshot.schemaVersion != schemaVersion)
+            {
+                Debug.LogWarning($"SaveService: schema mismatch {snapshot.schemaVersion} != {schemaVersion}.");
                 return false;
             }
 
@@ -115,6 +139,8 @@ namespace Breach.Save
                 snapshot.hostageExtracted,
                 snapshot.squadAlive,
                 snapshot.hostageAlive);
+
+            Loaded?.Invoke(snapshot);
             return true;
         }
     }

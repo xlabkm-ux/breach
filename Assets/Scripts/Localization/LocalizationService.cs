@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Globalization;
 
 namespace Breach.Localization
 {
@@ -6,6 +7,7 @@ namespace Breach.Localization
     {
         [SerializeField] private string resourcePath = "Localization/DefaultLocalizationTable";
         [SerializeField] private string fallbackLanguageCode = "en";
+        [SerializeField] private string runtimeLanguageCode = "en";
 
         private static LocalizationService instance;
         private LocalizationTableAsset tableAsset;
@@ -33,6 +35,24 @@ namespace Breach.Localization
             return instance != null ? instance.ResolveInternal(key) : key;
         }
 
+        public static string ResolveFormat(string key, params object[] args)
+        {
+            var raw = Resolve(key);
+            if (args == null || args.Length == 0)
+            {
+                return raw;
+            }
+
+            try
+            {
+                return string.Format(CultureInfo.InvariantCulture, raw, args);
+            }
+            catch
+            {
+                return raw;
+            }
+        }
+
         private void Awake()
         {
             if (instance != null && instance != this)
@@ -43,6 +63,7 @@ namespace Breach.Localization
 
             instance = this;
             DontDestroyOnLoad(gameObject);
+            runtimeLanguageCode = ResolveRuntimeLanguageCode();
             tableAsset = Resources.Load<LocalizationTableAsset>(resourcePath);
         }
 
@@ -58,7 +79,22 @@ namespace Breach.Localization
                 return key;
             }
 
-            return tableAsset.Resolve(key);
+            var resolved = tableAsset.Resolve(key, runtimeLanguageCode);
+            if (resolved == key && !string.Equals(runtimeLanguageCode, fallbackLanguageCode, System.StringComparison.OrdinalIgnoreCase))
+            {
+                resolved = tableAsset.Resolve(key, fallbackLanguageCode);
+            }
+
+            return resolved;
+        }
+
+        private static string ResolveRuntimeLanguageCode()
+        {
+            return Application.systemLanguage switch
+            {
+                SystemLanguage.Russian => "ru",
+                _ => "en"
+            };
         }
     }
 }
