@@ -24,6 +24,7 @@ namespace Breach.Core
                 KeyCode.M => Key.M,
                 KeyCode.T => Key.T,
                 KeyCode.E => Key.E,
+                KeyCode.F1 => Key.F1,
                 _ => Key.None
             };
 
@@ -49,6 +50,25 @@ namespace Breach.Core
             };
 #else
             return Input.GetMouseButtonDown(button);
+#endif
+        }
+
+        public static bool GetMouseButton(int button)
+        {
+#if ENABLE_INPUT_SYSTEM
+            if (Mouse.current == null)
+            {
+                return false;
+            }
+
+            return button switch
+            {
+                0 => Mouse.current.leftButton.isPressed,
+                1 => Mouse.current.rightButton.isPressed,
+                _ => false
+            };
+#else
+            return Input.GetMouseButton(button);
 #endif
         }
 

@@ -11,6 +11,7 @@ namespace Breach.Combat
         [SerializeField] private float lineWidth = 0.05f;
         [SerializeField] private int warningFontSize = 18;
         [SerializeField] private string warningLabelKey = "ui.warning.friendly_fire_risk";
+        [SerializeField] private bool showOnlyWhileAimHeld = true;
 
         private Camera cachedCamera;
         private LineRenderer lineRenderer;
@@ -74,6 +75,14 @@ namespace Breach.Combat
             if (activeShooter == null || activeShooter.SelfHealth == null)
             {
                 lineRenderer.enabled = false;
+                return;
+            }
+
+            var isAiming = InputCompat.GetMouseButton(1) || InputCompat.GetMouseButton(0);
+            if (showOnlyWhileAimHeld && !isAiming)
+            {
+                lineRenderer.enabled = false;
+                hasRiskWarning = false;
                 return;
             }
 

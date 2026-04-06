@@ -6,6 +6,8 @@ namespace Breach.UI
 {
     public sealed class MissionRuntimeHud : MonoBehaviour
     {
+        [SerializeField] private bool showDebugHud = true;
+
         private GUIStyle labelStyle;
         private MissionStateService missionStateService;
         private ObjectiveService objectiveService;
@@ -26,6 +28,11 @@ namespace Breach.UI
 
         private void Update()
         {
+            if (Breach.Core.InputCompat.GetKeyDown(KeyCode.F1))
+            {
+                showDebugHud = !showDebugHud;
+            }
+
             if (missionStateService == null)
             {
                 missionStateService = FindFirstObjectByType<MissionStateService>();
@@ -42,6 +49,11 @@ namespace Breach.UI
 
         private void OnGUI()
         {
+            if (!showDebugHud)
+            {
+                return;
+            }
+
             EnsureStyle();
 
             var x = 16f;
@@ -67,7 +79,7 @@ namespace Breach.UI
             GUI.Label(new Rect(x, y, 760f, 24f), $"active_operative: {activeOperativeId}", labelStyle);
             y += 28f;
 
-            GUI.Label(new Rect(x, y, 900f, 24f), "controls: WASD/Arrows move active | Tab switch | E free hostage | LMB shoot | H hold | F follow | M move order | T attack order", labelStyle);
+            GUI.Label(new Rect(x, y, 900f, 24f), "controls: WASD move | Tab switch | E free hostage | LMB shoot | RMB aim preview | F1 hide hud", labelStyle);
         }
 
         private void EnsureStyle()
