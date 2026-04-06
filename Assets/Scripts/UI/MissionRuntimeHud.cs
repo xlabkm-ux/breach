@@ -6,7 +6,7 @@ namespace Breach.UI
 {
     public sealed class MissionRuntimeHud : MonoBehaviour
     {
-        [SerializeField] private bool showDebugHud = true;
+        [SerializeField] private bool showDebugHud = false;
 
         private GUIStyle labelStyle;
         private MissionStateService missionStateService;
