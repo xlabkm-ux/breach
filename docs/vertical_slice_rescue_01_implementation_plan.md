@@ -148,6 +148,21 @@ Visual Scripting:
 22. Run full verification matrix (console, references, play scenarios, save/localization checks).
 23. Final cleanup commit for slice baseline + update docs/manifest as needed.
 
+### J. V1 resource-expansion track (post-step-23)
+After the baseline 23 steps, continue with a controlled V1 expansion that uses imported visual resources:
+1. Build reusable tilemap layers from imported tile packs (floor, walls, blockers, decor).
+2. Create apartment art pass v1: silhouette readability + cover readability.
+3. Replace placeholder operatives/enemies with imported sprite variants and stable prefab contracts.
+4. Add weapon visual binding layer (sprite swap + muzzle flash hook points).
+5. Add hit/death feedback pass (minimal VFX + animation hooks, no overproduction).
+6. Add mission readability overlays (vision cone, objective marker, extraction marker, danger marker).
+7. Build compact UI skin v1 using imported visual assets while preserving localization-safe keys.
+8. Add stealth readability pass (light/noise indicators + alert level indicators).
+9. Add assault readability pass (line-of-fire and suppression feedback).
+10. Add PC_Default and Android_Default/Low art-profile overrides (sprite quality, effects budget).
+11. Run regression pass for save/localization/performance after art integration.
+12. Freeze v1 art-integration baseline with release candidate checklist.
+
 ## 4) Verification Plan (per step)
 - Unity console: no errors introduced by step
 - integrity checks: target scene/prefab refs valid

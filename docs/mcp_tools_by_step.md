@@ -85,3 +85,23 @@ Before **every** implementation step we run MCP preflight and proceed only if al
 ## Notes
 - Tool names are canonical API targets for our in-house MCP design.
 - If any required tool is missing for a step, we stop and implement/fix tooling first.
+
+## V1 Expansion (Steps 24-48) Tool Profiles
+24-27 World/Tilemap/Art pass:
+- `scene.open`, `gameobject.create`, `component.add`, `scene.save`, `console.read`, `screenshot.scene`
+
+28-31 Character/combat visual integration:
+- `prefab.open`, `component.add`, `prefab.save`, `scene.open`, `prefab.instantiate`, `scene.save`, `console.read`
+
+32-35 Tactical readability overlays:
+- `script.create_or_edit`, `component.add`, `scene.save`, `console.read`, `screenshot.scene`
+
+36-40 Mission/UI/save/profile integration:
+- `prefab.create_or_edit`, `ui.create_or_edit`, `localization.key_add`, `script.create_or_edit`, `scene.save`, `console.read`
+
+41-48 Pre-release verification:
+- `scene.validate_refs`, `prefab.validate`, `tests.run_all`, `console.read`, `screenshot.scene`, `asset.list_modified`, `change.summary`, `project.docs_update`
+
+### Known MCP blockers for 24-48
+- `graph.open_or_create`, `graph.connect`, `graph.edit`, `graph.validate` currently fail on bridge (`Unsupported command`).
+- `tests.results` currently fails on bridge (`Unsupported command`).
