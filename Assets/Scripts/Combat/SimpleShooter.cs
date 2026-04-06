@@ -9,6 +9,7 @@ namespace Breach.Combat
     {
         [SerializeField] private int damagePerShot = 34;
         [SerializeField] private float maxDistance = 20f;
+        [SerializeField] private float selfIgnoreDistance = 0.25f;
 
         private Camera cachedCamera;
         private HealthComponent selfHealth;
@@ -68,13 +69,40 @@ namespace Breach.Combat
                 return;
             }
 
-            var hit = Physics2D.Raycast(from, dir.normalized, maxDistance);
-            if (hit.collider == null)
+            var direction = dir.normalized;
+            var castOrigin = from + direction * selfIgnoreDistance;
+            var castDistance = Mathf.Max(0.1f, maxDistance - selfIgnoreDistance);
+            var hits = Physics2D.RaycastAll(castOrigin, direction, castDistance);
+            if (hits == null || hits.Length == 0)
             {
                 return;
             }
 
-            var target = hit.collider.GetComponent<HealthComponent>();
+            HealthComponent target = null;
+            for (var i = 0; i < hits.Length; i++)
+            {
+                var hit = hits[i];
+                if (hit.collider == null)
+                {
+                    continue;
+                }
+
+                var health = hit.collider.GetComponent<HealthComponent>();
+                if (health == null)
+                {
+                    // Non-health collider (wall/obstacle) blocks shot.
+                    return;
+                }
+
+                if (health == selfHealth)
+                {
+                    continue;
+                }
+
+                target = health;
+                break;
+            }
+
             if (target == null)
             {
                 return;

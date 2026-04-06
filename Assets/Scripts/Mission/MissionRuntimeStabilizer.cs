@@ -11,6 +11,7 @@ namespace Breach.Mission
     {
         [SerializeField] private float cameraLerp = 12f;
         [SerializeField] private float defaultCameraSize = 8f;
+        [SerializeField] private int minEnemyCount = 2;
 
         private static Sprite fallbackSprite;
         private ActiveOperativeSwitchService switchService;
@@ -100,6 +101,7 @@ namespace Breach.Mission
                 EnsureVisual(operative.gameObject, new Color(0.2f, 0.95f, 0.3f, 1f), 0.45f);
                 EnsureCollider(operative.gameObject, 0.35f);
                 EnsureTeam(operative.GetComponent<HealthComponent>(), TeamId.Squad);
+                EnsureShooter(operative.gameObject);
 
                 if (i == 0 && operative.transform.position.sqrMagnitude < 0.01f)
                 {
@@ -115,7 +117,12 @@ namespace Breach.Mission
         private void EnsureEnemies()
         {
             var enemies = CollectEnemyObjects();
-            for (var i = 0; i < enemies.Length; i++)
+            while (enemies.Count < minEnemyCount)
+            {
+                enemies.Add(CreateRuntimeEnemy(enemies.Count));
+            }
+
+            for (var i = 0; i < enemies.Count; i++)
             {
                 var enemyObject = enemies[i];
                 if (enemyObject == null)
@@ -157,7 +164,7 @@ namespace Breach.Mission
             }
         }
 
-        private static GameObject[] CollectEnemyObjects()
+        private static List<GameObject> CollectEnemyObjects()
         {
             var result = new List<GameObject>();
 
@@ -198,7 +205,14 @@ namespace Breach.Mission
                 }
             }
 
-            return result.ToArray();
+            return result;
+        }
+
+        private static GameObject CreateRuntimeEnemy(int index)
+        {
+            var enemyObject = new GameObject($"Enemy_Runtime_{index + 1}");
+            enemyObject.transform.position = new Vector3(4.2f + index * 1.4f, 1.2f - (index % 2) * 1.4f, 0f);
+            return enemyObject;
         }
 
         private static void EnsureHostage()
@@ -290,6 +304,19 @@ namespace Breach.Mission
             if (healthComponent.Team != teamId)
             {
                 healthComponent.SetTeam(teamId);
+            }
+        }
+
+        private static void EnsureShooter(GameObject target)
+        {
+            if (target.GetComponent<SimpleShooter>() == null)
+            {
+                target.AddComponent<SimpleShooter>();
+            }
+
+            if (target.GetComponent<NoiseEmitter>() == null)
+            {
+                target.AddComponent<NoiseEmitter>();
             }
         }
     }
