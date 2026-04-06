@@ -47,6 +47,15 @@ namespace Breach.Mission
             hostageAlive = false;
         }
 
+        public void ResetForNewMission()
+        {
+            infiltrationComplete = false;
+            hostageFreed = false;
+            hostageExtracted = false;
+            squadAlive = true;
+            hostageAlive = true;
+        }
+
         public void ApplySnapshot(
             bool infiltrationCompleteValue,
             bool hostageFreedValue,

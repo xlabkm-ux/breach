@@ -20,6 +20,7 @@ namespace Breach.Save
     public sealed class SaveService : MonoBehaviour
     {
         [SerializeField] private int schemaVersion = 1;
+        [SerializeField] private bool loadOnStart;
         [SerializeField] private MissionStateService missionStateService;
         [SerializeField] private ObjectiveService objectiveService;
 
@@ -55,7 +56,10 @@ namespace Breach.Save
 
         private void Start()
         {
-            TryLoad();
+            if (loadOnStart)
+            {
+                TryLoad();
+            }
         }
 
         private void OnApplicationQuit()
