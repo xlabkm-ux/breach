@@ -103,16 +103,16 @@ required = true
 server_profile = "unity-mcp-fork-v1"
 use_editor_side_tools = true
 required_tools = [
-  "validate_scene_references",
-  "validate_prefab_integrity",
-  "list_modified_unity_assets",
-  "validate_graph_bindings",
-  "validate_scriptable_object_schema",
-  "validate_savegame_compatibility",
-  "validate_string_key_coverage",
-  "validate_fallback_language",
-  "generate_change_summary",
-  "run_pre_release_checklist"
+  "scene.validate_refs",
+  "prefab.validate",
+  "asset.list_modified",
+  "graph.validate",
+  "scriptableobject.validate_schema",
+  "save.validate_compatibility",
+  "localization.validate_key_coverage",
+  "localization.validate_fallback_language",
+  "change.summary",
+  "release.preflight"
 ]
 
 [git]

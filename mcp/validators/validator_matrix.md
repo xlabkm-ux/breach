@@ -1,31 +1,31 @@
 # Validator Matrix
 
 ## Scene / prefab safety
-- validate_scene_references
-- validate_prefab_integrity
-- detect_missing_components
-- detect_reference_regressions
+- `scene.validate_refs`
+- `prefab.validate`
+- `scene.detect_missing_components`
+- `scene.detect_reference_regressions`
 
 ## Graph safety
-- inspect_visual_scripting_asset
-- validate_graph_bindings
-- validate_reaction_pattern_density
-- export_graph_review_summary
+- `graph.inspect_asset`
+- `graph.validate`
+- `graph.validate_reaction_density`
+- `graph.export_review_summary`
 
 ## Data and save safety
-- validate_scriptable_object_schema
-- validate_savegame_compatibility
-- validate_save_schema_versioning
-- validate_autosave_transitions
-- validate_metaprogression_partition
+- `scriptableobject.validate_schema`
+- `save.validate_compatibility`
+- `save.validate_schema_versioning`
+- `save.validate_autosave_transitions`
+- `save.validate_metaprogression_partition`
 
 ## Localization and content
-- validate_localization_assets
-- validate_string_key_coverage
-- validate_fallback_language
+- `localization.validate_assets`
+- `localization.validate_key_coverage`
+- `localization.validate_fallback_language`
 
 ## Release and review
-- run_pre_release_checklist
-- validate_quality_profile_assignment
-- generate_change_summary
-- classify_change_risk
+- `release.preflight`
+- `quality.validate_profile_assignment`
+- `change.summary`
+- `change.classify_risk`
