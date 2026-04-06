@@ -66,12 +66,14 @@ namespace Breach.Squad
             var screen = InputCompat.MousePosition;
             var world = cachedCamera.ScreenToWorldPoint(new Vector3(screen.x, screen.y, Mathf.Abs(cachedCamera.transform.position.z)));
             secondary.IssueMove(world);
+            SquadCommandVsEvents.RaiseMove(gameObject, world);
         }
 
         public void IssueHoldToSecondary()
         {
             var secondary = switchService.GetSecondaryOperative();
             secondary?.IssueHold();
+            SquadCommandVsEvents.RaiseHold(gameObject);
         }
 
         public void IssueFollowToSecondary()
@@ -84,6 +86,7 @@ namespace Breach.Squad
             }
 
             secondary.IssueFollow(active.transform);
+            SquadCommandVsEvents.RaiseFollow(gameObject, active.transform);
         }
 
         public void IssueAttackTargetToSecondaryAtCursor()
@@ -112,6 +115,7 @@ namespace Breach.Squad
             }
 
             secondary.IssueAttackTarget(hit.transform);
+            SquadCommandVsEvents.RaiseAttack(gameObject, hit.transform);
         }
     }
 }
