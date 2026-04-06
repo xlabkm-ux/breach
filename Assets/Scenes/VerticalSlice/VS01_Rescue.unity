@@ -174,8 +174,48 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5760768143391300109, guid: b3d08dbdb1a69864ab20fdbb702979f1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 95601327}
+    - targetCorrespondingSourceObject: {fileID: 5760768143391300109, guid: b3d08dbdb1a69864ab20fdbb702979f1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 95601328}
   m_SourcePrefab: {fileID: 100100000, guid: b3d08dbdb1a69864ab20fdbb702979f1, type: 3}
+--- !u!1 &95601326 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5760768143391300109, guid: b3d08dbdb1a69864ab20fdbb702979f1, type: 3}
+  m_PrefabInstance: {fileID: 95601325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &95601327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95601326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1b2a6ed44de5aa409e97652d5fded26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.HealthComponent
+  team: 0
+  maxHealth: 100
+  currentHealth: 100
+--- !u!114 &95601328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95601326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 135bbdcfd9a5c044eb3dca8e59b48251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.SimpleShooter
+  damagePerShot: 34
+  maxDistance: 20
 --- !u!1 &150376303
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,6 +542,7 @@ GameObject:
   - component: {fileID: 998962265}
   - component: {fileID: 998962267}
   - component: {fileID: 998962268}
+  - component: {fileID: 998962269}
   m_Layer: 0
   m_Name: MissionDirector
   m_TagString: Untagged
@@ -648,6 +689,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Breach.Squad.SquadCommandService
   switchService: {fileID: 0}
+--- !u!114 &998962269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998962264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5244feefd534e4c4592f788dedc13a4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.CombatResolver
+  friendlyFireEnabled: 1
 --- !u!1 &1149395783
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,8 +788,48 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1166769779452694997, guid: adc56902b0aae7d4ca89498a8911773d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1355979110}
+    - targetCorrespondingSourceObject: {fileID: 1166769779452694997, guid: adc56902b0aae7d4ca89498a8911773d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1355979111}
   m_SourcePrefab: {fileID: 100100000, guid: adc56902b0aae7d4ca89498a8911773d, type: 3}
+--- !u!1 &1355979109 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1166769779452694997, guid: adc56902b0aae7d4ca89498a8911773d, type: 3}
+  m_PrefabInstance: {fileID: 1355979108}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1355979110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355979109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1b2a6ed44de5aa409e97652d5fded26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.HealthComponent
+  team: 0
+  maxHealth: 100
+  currentHealth: 100
+--- !u!114 &1355979111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355979109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 135bbdcfd9a5c044eb3dca8e59b48251, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.SimpleShooter
+  damagePerShot: 34
+  maxDistance: 20
 --- !u!1 &2024998601
 GameObject:
   m_ObjectHideFlags: 0
