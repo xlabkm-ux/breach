@@ -1,0 +1,5 @@
+key,value
+ui.result.success.title,Mission Success
+ui.result.fail.title,Mission Failed
+ui.result.success.body,Hostage extracted alive
+ui.result.fail.body,Operation failed
