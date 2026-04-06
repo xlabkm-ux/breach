@@ -28,6 +28,11 @@ This project runs against `XLab.UnityMcp.Server` + Unity Editor bridge (`Library
 - Heartbeat file may stop updating while command queue still receives requests.
 - This blocks reliable per-step verification even when tools exist in contract.
 
+6. UI/localization bridge mismatch:
+- `ui.create_or_edit` and `localization.key_add` exist in server tool list and server handlers.
+- Direct Unity bridge command channel returns `Unsupported command` for both.
+- Result: UI/localization steps cannot be fully verified via bridge-only flow.
+
 ## Required MCP improvements
 1. Implement `graph.*` handlers in `McpBridgeProcessor` (Unity side) with real Visual Scripting asset operations.
 2. Add path-aware graph arguments:
@@ -42,9 +47,13 @@ This project runs against `XLab.UnityMcp.Server` + Unity Editor bridge (`Library
 - stale heartbeat detection,
 - queue timeout diagnostics,
 - optional auto-restart instruction path for editor-side bridge processor.
+9. Decide one canonical execution mode for tools:
+- either run all tool calls through MCP server (stdio dispatcher),
+- or implement missing handlers in editor bridge for parity (`ui.create_or_edit`, `localization.key_add`, etc.).
 
 ## Impact on steps
 - Step 9 can complete C# command logic and scene wiring.
 - Full Visual Scripting orchestration part remains blocked until `graph.*` bridge support is added.
 - Step 12 test automation remains partially blocked until test-framework dependency and `tests.results` support are in place.
 - Any step requiring live Unity mutation/validation is at risk while bridge responsiveness is unstable.
+- UI/localization automation remains partially blocked until command-parity decision is implemented.
