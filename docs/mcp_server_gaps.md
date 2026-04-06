@@ -33,6 +33,11 @@ This project runs against `XLab.UnityMcp.Server` + Unity Editor bridge (`Library
 - Direct Unity bridge command channel returns `Unsupported command` for both.
 - Result: UI/localization steps cannot be fully verified via bridge-only flow.
 
+7. ScriptableObject bridge mismatch:
+- `scriptableobject.create_or_edit` exists in server contract.
+- Bridge command channel returns `Unsupported command: scriptableobject.create_or_edit`.
+- Save-schema asset creation cannot be automated through bridge-only flow.
+
 ## Required MCP improvements
 1. Implement `graph.*` handlers in `McpBridgeProcessor` (Unity side) with real Visual Scripting asset operations.
 2. Add path-aware graph arguments:
@@ -50,6 +55,7 @@ This project runs against `XLab.UnityMcp.Server` + Unity Editor bridge (`Library
 9. Decide one canonical execution mode for tools:
 - either run all tool calls through MCP server (stdio dispatcher),
 - or implement missing handlers in editor bridge for parity (`ui.create_or_edit`, `localization.key_add`, etc.).
+10. Include `scriptableobject.create_or_edit` in the same parity scope.
 
 ## Impact on steps
 - Step 9 can complete C# command logic and scene wiring.
