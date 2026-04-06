@@ -10,6 +10,7 @@ namespace Breach.Mission
     public sealed class ApartmentLayoutBuilder : MonoBehaviour
     {
         [SerializeField] private bool rebuildInEditor = true;
+        [SerializeField] private bool rebuildOnPlay = true;
 
         private static Tile _floorTile;
         private static Tile _wallTile;
@@ -24,6 +25,14 @@ namespace Breach.Mission
         private void OnEnable()
         {
             if (!Application.isPlaying && rebuildInEditor)
+            {
+                Rebuild();
+            }
+        }
+
+        private void Start()
+        {
+            if (Application.isPlaying && rebuildOnPlay)
             {
                 Rebuild();
             }
