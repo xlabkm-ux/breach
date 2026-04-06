@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Breach.AI;
 using Breach.Combat;
 using Breach.Hostage;
@@ -113,26 +114,91 @@ namespace Breach.Mission
 
         private void EnsureEnemies()
         {
-            var enemies = FindObjectsByType<EnemyAlertController>(FindObjectsSortMode.None);
+            var enemies = CollectEnemyObjects();
             for (var i = 0; i < enemies.Length; i++)
             {
-                var enemy = enemies[i];
-                if (enemy == null)
+                var enemyObject = enemies[i];
+                if (enemyObject == null)
                 {
                     continue;
                 }
 
-                EnsureVisual(enemy.gameObject, new Color(1f, 0.25f, 0.25f, 1f), 0.45f);
-                EnsureCollider(enemy.gameObject, 0.35f);
-                EnsureTeam(enemy.GetComponent<HealthComponent>(), TeamId.Enemy);
+                var health = enemyObject.GetComponent<HealthComponent>();
+                if (health == null)
+                {
+                    health = enemyObject.AddComponent<HealthComponent>();
+                }
 
-                if (enemy.transform.position.sqrMagnitude < 0.01f)
+                if (enemyObject.GetComponent<EnemyPatrolAgent>() == null)
+                {
+                    enemyObject.AddComponent<EnemyPatrolAgent>();
+                }
+
+                if (enemyObject.GetComponent<EnemyVisionCone>() == null)
+                {
+                    enemyObject.AddComponent<EnemyVisionCone>();
+                }
+
+                if (enemyObject.GetComponent<EnemyAlertController>() == null)
+                {
+                    enemyObject.AddComponent<EnemyAlertController>();
+                }
+
+                EnsureVisual(enemyObject, new Color(1f, 0.25f, 0.25f, 1f), 0.45f);
+                EnsureCollider(enemyObject, 0.35f);
+                EnsureTeam(health, TeamId.Enemy);
+
+                if (enemyObject.transform.position.sqrMagnitude < 0.01f)
                 {
                     var x = 3.5f + i * 1.7f;
                     var y = (i % 2 == 0) ? 1.5f : -0.5f;
-                    enemy.transform.position = new Vector3(x, y, 0f);
+                    enemyObject.transform.position = new Vector3(x, y, 0f);
                 }
             }
+        }
+
+        private static GameObject[] CollectEnemyObjects()
+        {
+            var result = new List<GameObject>();
+
+            var alertControllers = FindObjectsByType<EnemyAlertController>(FindObjectsSortMode.None);
+            foreach (var alertController in alertControllers)
+            {
+                if (alertController != null && !result.Contains(alertController.gameObject))
+                {
+                    result.Add(alertController.gameObject);
+                }
+            }
+
+            var patrolAgents = FindObjectsByType<EnemyPatrolAgent>(FindObjectsSortMode.None);
+            foreach (var patrolAgent in patrolAgents)
+            {
+                if (patrolAgent != null && !result.Contains(patrolAgent.gameObject))
+                {
+                    result.Add(patrolAgent.gameObject);
+                }
+            }
+
+            var namedEnemies = GameObject.FindObjectsByType<Transform>(FindObjectsSortMode.None);
+            foreach (var tr in namedEnemies)
+            {
+                if (tr == null || tr.gameObject == null)
+                {
+                    continue;
+                }
+
+                if (!tr.gameObject.name.Contains("Enemy"))
+                {
+                    continue;
+                }
+
+                if (!result.Contains(tr.gameObject))
+                {
+                    result.Add(tr.gameObject);
+                }
+            }
+
+            return result.ToArray();
         }
 
         private static void EnsureHostage()
