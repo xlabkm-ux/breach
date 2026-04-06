@@ -16,6 +16,9 @@ namespace Breach.Combat
         private CombatResolver resolver;
         private NoiseEmitter noiseEmitter;
 
+        public float MaxDistance => maxDistance;
+        public HealthComponent SelfHealth => selfHealth;
+
         private void Awake()
         {
             cachedCamera = Camera.main;
