@@ -1,4 +1,5 @@
 using Breach.Core;
+using Breach.Localization;
 using Breach.Squad;
 using UnityEngine;
 
@@ -125,7 +126,7 @@ namespace Breach.Combat
             };
             style.normal.textColor = riskyLineColor;
             var rect = new Rect((Screen.width - 320f) * 0.5f, 26f, 320f, 28f);
-            GUI.Label(rect, warningLabelKey, style);
+            GUI.Label(rect, LocalizationService.Resolve(warningLabelKey), style);
         }
 
         private SimpleShooter GetSelectedShooter()
