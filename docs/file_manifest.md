@@ -37,6 +37,7 @@
 ## Project docs
 - `docs/project_brief_v1.md`
 - `docs/file_manifest.md`
+- `docs/canonical_tools.md`
 - `docs/breach_game_workflows_backlog.md`
 - `docs/visual_scripting_command_hooks.md`
 - `docs/archive/2026-04-06/`

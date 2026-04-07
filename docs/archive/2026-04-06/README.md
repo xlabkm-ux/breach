@@ -1,6 +1,7 @@
 # Archived Docs
 
 The files in this folder are legacy planning notes that have been consolidated into the active backlog documents in `docs/`.
+Historical aliases may still appear here, but active docs must follow `docs/canonical_tools.md`.
 
 Archived files:
 

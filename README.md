@@ -6,6 +6,7 @@ Project workspace for the Unity 6 game **BREACH**.
 - `AGENTS.md` - main operating contract for work in this repository
 - `.codex/config.toml` - local Codex configuration
 - `docs/file_manifest.md` - canonical document index
+- `docs/canonical_tools.md` - canonical MCP resources and tools list
 - `docs/project_brief_v1.md` - current game brief
 - `docs/breach_game_workflows_backlog.md` - active gameplay roadmap
 - `docs/xlab_mcp_server_backlog.md` - active xLabMcp backlog
