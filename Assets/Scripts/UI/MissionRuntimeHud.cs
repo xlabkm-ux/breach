@@ -8,6 +8,8 @@ namespace Breach.UI
     public sealed class MissionRuntimeHud : MonoBehaviour
     {
         [SerializeField] private bool showDebugHud = false;
+        private const float MinHudLineWidth = 320f;
+        private const float MaxHudLineWidth = 1100f;
 
         private GUIStyle labelStyle;
         private MissionStateService missionStateService;
@@ -59,42 +61,59 @@ namespace Breach.UI
 
             var x = 16f;
             var y = 16f;
-            GUI.Label(new Rect(x, y, 900f, 24f),
+            var lineWidth = GetHudLineWidth(Screen.width);
+            var controlWidth = GetControlLineWidth(Screen.width);
+
+            y = DrawLine(x, y, lineWidth,
                 LocalizationService.ResolveFormat(
                     "hud.scene",
-                    UnityEngine.SceneManagement.SceneManager.GetActiveScene().name),
-                labelStyle);
-            y += 22f;
+                    UnityEngine.SceneManagement.SceneManager.GetActiveScene().name));
 
             var state = missionStateService != null ? missionStateService.CurrentState.ToString() : "missing_mission_state_service";
-            GUI.Label(new Rect(x, y, 900f, 24f), LocalizationService.ResolveFormat("hud.mission_state", state), labelStyle);
-            y += 22f;
+            y = DrawLine(x, y, lineWidth, LocalizationService.ResolveFormat("hud.mission_state", state));
 
             if (objectiveService != null)
             {
-                GUI.Label(
-                    new Rect(x, y, 900f, 24f),
+                y = DrawLine(
+                    x,
+                    y,
+                    lineWidth,
                     LocalizationService.ResolveFormat(
                         "hud.objectives",
                         objectiveService.InfiltrationComplete,
                         objectiveService.HostageFreed,
-                        objectiveService.HostageExtracted),
-                    labelStyle);
-                y += 22f;
-                GUI.Label(
-                    new Rect(x, y, 900f, 24f),
-                    LocalizationService.ResolveFormat("hud.fail_flags", objectiveService.SquadAlive, objectiveService.HostageAlive),
-                    labelStyle);
-                y += 22f;
+                        objectiveService.HostageExtracted));
+                y = DrawLine(
+                    x,
+                    y,
+                    lineWidth,
+                    LocalizationService.ResolveFormat("hud.fail_flags", objectiveService.SquadAlive, objectiveService.HostageAlive));
             }
 
             var activeOperativeId = switchService != null && switchService.ActiveOperative != null
                 ? switchService.ActiveOperative.OperativeId
                 : "none";
-            GUI.Label(new Rect(x, y, 900f, 24f), LocalizationService.ResolveFormat("hud.active_operative", activeOperativeId), labelStyle);
-            y += 28f;
+            y = DrawLine(x, y, lineWidth, LocalizationService.ResolveFormat("hud.active_operative", activeOperativeId));
 
-            GUI.Label(new Rect(x, y, 1100f, 24f), LocalizationService.Resolve("hud.controls"), labelStyle);
+            DrawLine(x, y, controlWidth, LocalizationService.Resolve("hud.controls"));
+        }
+
+        public static float GetHudLineWidth(float screenWidth)
+        {
+            return Mathf.Clamp(screenWidth - 32f, MinHudLineWidth, MaxHudLineWidth);
+        }
+
+        public static float GetControlLineWidth(float screenWidth)
+        {
+            return Mathf.Clamp(screenWidth - 32f, MinHudLineWidth, MaxHudLineWidth);
+        }
+
+        private float DrawLine(float x, float y, float width, string text)
+        {
+            var content = new GUIContent(text);
+            var height = Mathf.Max(24f, labelStyle.CalcHeight(content, width));
+            GUI.Label(new Rect(x, y, width, height), content, labelStyle);
+            return y + height + 4f;
         }
 
         private void EnsureStyle()
@@ -107,7 +126,8 @@ namespace Breach.UI
             labelStyle = new GUIStyle(GUI.skin.label)
             {
                 fontSize = 14,
-                fontStyle = FontStyle.Bold
+                fontStyle = FontStyle.Bold,
+                wordWrap = true
             };
             labelStyle.normal.textColor = new Color(0.9f, 0.95f, 1f);
         }

@@ -131,10 +131,10 @@ Items:
 ### BWF-010 - Squad command workflow
 
 - Steps: `9`, `10`
-- Status: `PARTIAL`
+- Status: `DONE IN CODE`
 - Outcome:
   - C# move/hold/follow/attack-target implemented
-  - graph-side orchestration still pending parity
+  - Visual Scripting relay graphs and ScriptMachine bridges seeded for parity
 
 ### BWF-011 - Combat baseline
 
@@ -167,10 +167,10 @@ Items:
 ### BWF-015 - Alert escalation
 
 - Steps: `16`
-- Status: `PARTIAL`
+- Status: `DONE IN CODE`
 - Outcome:
   - runtime alert FSM works in C#
-  - graph parity still pending
+  - Visual Scripting relay graphs and alert-state event bridge seeded
 
 ## Workflow 4 - Mission Actors & Objective Flow
 
@@ -323,6 +323,7 @@ Items:
 - Outcome:
   - schema versioning baseline
   - autosave on mission state transitions
+  - backup recovery path for broken primary save
 
 ### BWF-032 - Load/restore baseline
 
@@ -330,6 +331,7 @@ Items:
 - Status: `DONE`
 - Outcome:
   - load path for critical mission state
+  - restore from backup when primary save is corrupted
 
 ### BWF-033 - Visual save restoration
 
@@ -345,6 +347,7 @@ Items:
 - Outcome:
   - key-based UI/runtime text
   - RU/EN-ready resolution path
+  - table-level fallback to English and key echo on missing entries
 
 ## Workflow 8 - Release Verification
 
@@ -353,6 +356,21 @@ Purpose:
 - close the slice as a candidate build instead of just a code prototype
 
 Items:
+
+### Automated verification suite
+
+- `Assets/Tests/EditMode/BreachVerificationTests.cs`
+- Covers:
+  - combat damage and friendly-fire rules
+  - enemy perception cone detection
+  - hostage free/escort/extraction flow
+  - scene/prefab missing references
+  - save autosave and backup recovery
+  - localization fallback and required HUD/result keys
+  - canonical squad command event names
+  - mission success/fail resolution chains
+  - `PC_Default`, `Android_Default`, `Android_Low` quality profile coverage
+  - runtime overlay budget mapping for Windows/Android readability
 
 ### BWF-035 - Reference integrity sweep
 
@@ -365,11 +383,19 @@ Items:
 
 - Steps: `42`
 - Status: `READY FOR VERIFICATION`
+- Covered by:
+  - combat resolver tests
+  - enemy vision cone tests
+  - enemy alert escalation tests
 
 ### BWF-037 - Hostage success/fail scenario sweep
 
 - Steps: `43`
 - Status: `READY FOR VERIFICATION`
+- Covered by:
+  - hostage free/escort tests
+  - extraction zone tests
+  - hostage kill fail tests
 
 ### BWF-038 - Save/load resilience sweep
 
@@ -385,11 +411,22 @@ Items:
 
 - Steps: `46`
 - Status: `READY FOR VERIFICATION`
+- Covered by:
+  - quality profile checks
+  - runtime overlay budget mapping
+  - mobile-safe HUD/result width clamping
+  - Android IL2CPP/ARM64 release sanity
+  - canonical gameplay hotkey support via InputCompat
 
 ### BWF-041 - Windows readability/input sanity pass
 
 - Steps: `47`
 - Status: `READY FOR VERIFICATION`
+- Covered by:
+  - quality profile checks
+  - overlay readability checks
+  - HUD/result panel width clamping
+  - canonical gameplay hotkey support via InputCompat
 
 ### BWF-042 - v1 candidate baseline
 
@@ -413,7 +450,6 @@ Already working as a playable mission baseline:
 
 Still not fully closed:
 
-- Visual Scripting graph parity for command/alert workflows
 - full Unity-side verification for release workflow
 - final candidate commit after verification sweep
 

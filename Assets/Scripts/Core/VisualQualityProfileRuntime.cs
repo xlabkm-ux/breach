@@ -24,6 +24,11 @@ namespace Breach.Core
 
         private void Awake()
         {
+            RefreshFromCurrentQuality();
+        }
+
+        public static void RefreshFromCurrentQuality()
+        {
             ApplyByCurrentProfile();
         }
 

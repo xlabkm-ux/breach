@@ -16,7 +16,27 @@ namespace Breach.Core
                 return false;
             }
 
-            var key = keyCode switch
+            var key = MapKeyCode(keyCode);
+
+            return key != Key.None && Keyboard.current[key].wasPressedThisFrame;
+#else
+            return Input.GetKeyDown(keyCode);
+#endif
+        }
+
+        public static bool IsSupportedKeyCode(KeyCode keyCode)
+        {
+#if ENABLE_INPUT_SYSTEM
+            return MapKeyCode(keyCode) != Key.None;
+#else
+            return true;
+#endif
+        }
+
+#if ENABLE_INPUT_SYSTEM
+        private static Key MapKeyCode(KeyCode keyCode)
+        {
+            return keyCode switch
             {
                 KeyCode.Tab => Key.Tab,
                 KeyCode.H => Key.H,
@@ -27,12 +47,8 @@ namespace Breach.Core
                 KeyCode.F1 => Key.F1,
                 _ => Key.None
             };
-
-            return key != Key.None && Keyboard.current[key].wasPressedThisFrame;
-#else
-            return Input.GetKeyDown(keyCode);
-#endif
         }
+#endif
 
         public static bool GetMouseButtonDown(int button)
         {

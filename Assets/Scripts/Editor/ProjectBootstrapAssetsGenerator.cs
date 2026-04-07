@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Breach.Data.AI;
 using Breach.Data.Combat;
 using Breach.Data.Localization;
@@ -56,11 +57,16 @@ namespace Breach.Editor
 
             EnsureExtractionZonePrefab();
             EnsureMissionDirectorPrefab();
+            var squadFlow = EnsureAsset<ScriptGraphAsset>("Assets/VisualScripting/Squad/SquadCommandFlow.asset");
+            var enemyFlow = EnsureAsset<ScriptGraphAsset>("Assets/VisualScripting/AI/EnemyAlertFlow.asset");
             EnsureGraphPlaceholder("Assets/VisualScripting/Mission/MissionFlow.asset");
-            EnsureGraphPlaceholder("Assets/VisualScripting/Squad/SquadCommandFlow.asset");
-            EnsureGraphPlaceholder("Assets/VisualScripting/AI/EnemyAlertFlow.asset");
             EnsureGraphPlaceholder("Assets/VisualScripting/Hostage/HostageFlow.asset");
             EnsureGraphPlaceholder("Assets/VisualScripting/UI/ResultScreenFlow.asset");
+
+            EnsureSquadCommandFlow(squadFlow);
+            EnsureEnemyAlertFlow(enemyFlow);
+            EnsurePrefabScriptMachine("Assets/Prefabs/Gameplay/Mission/MissionDirector.prefab", squadFlow);
+            EnsurePrefabScriptMachine("Assets/Prefabs/Gameplay/Enemies/Enemy_Grunt.prefab", enemyFlow);
 
             AssetDatabase.SaveAssets();
         }
@@ -167,6 +173,184 @@ namespace Breach.Editor
 
             var graph = ScriptableObject.CreateInstance<ScriptGraphAsset>();
             AssetDatabase.CreateAsset(graph, path);
+        }
+
+        private static void EnsureSquadCommandFlow(ScriptGraphAsset flow)
+        {
+            if (flow == null)
+            {
+                return;
+            }
+
+            var relays = new[]
+            {
+                ("breach.squad.command.move", "breach.squad.command.move.graph"),
+                ("breach.squad.command.hold", "breach.squad.command.hold.graph"),
+                ("breach.squad.command.follow", "breach.squad.command.follow.graph"),
+                ("breach.squad.command.attack", "breach.squad.command.attack.graph")
+            };
+
+            if (HasAllEventRelays(flow.graph, relays))
+            {
+                return;
+            }
+
+            flow.graph = BuildRelayGraph(relays);
+            EditorUtility.SetDirty(flow);
+        }
+
+        private static void EnsureEnemyAlertFlow(ScriptGraphAsset flow)
+        {
+            if (flow == null)
+            {
+                return;
+            }
+
+            var relays = new[]
+            {
+                (EnemyAlertVsEvents.Idle, "breach.enemy.alert.idle.graph"),
+                (EnemyAlertVsEvents.Suspicious, "breach.enemy.alert.suspicious.graph"),
+                (EnemyAlertVsEvents.Alert, "breach.enemy.alert.alert.graph")
+            };
+
+            if (HasAllEventRelays(flow.graph, relays))
+            {
+                return;
+            }
+
+            flow.graph = BuildRelayGraph(relays);
+            EditorUtility.SetDirty(flow);
+        }
+
+        private static FlowGraph BuildRelayGraph(IEnumerable<(string listenEvent, string relayEvent)> relays)
+        {
+            var graph = new FlowGraph();
+            var offset = 0f;
+
+            foreach (var relay in relays)
+            {
+                AddEventRelay(graph, relay.listenEvent, relay.relayEvent, new Vector2(-420f, offset), new Vector2(-90f, offset));
+                offset -= 140f;
+            }
+
+            return graph;
+        }
+
+        private static void AddEventRelay(FlowGraph graph, string listenEvent, string relayEvent, Vector2 listenPosition, Vector2 relayPosition)
+        {
+            var listener = new CustomEvent
+            {
+                argumentCount = 0,
+                position = listenPosition
+            };
+
+            var trigger = new TriggerCustomEvent
+            {
+                argumentCount = 0,
+                position = relayPosition
+            };
+
+            graph.units.Add(listener);
+            graph.units.Add(trigger);
+
+            listener.name.SetDefaultValue(listenEvent);
+            trigger.name.SetDefaultValue(relayEvent);
+            listener.trigger.ValidlyConnectTo(trigger.enter);
+        }
+
+        private static bool HasAllEventRelays(FlowGraph graph, IEnumerable<(string listenEvent, string relayEvent)> relays)
+        {
+            return relays.All(relay => HasEventRelay(graph, relay.listenEvent, relay.relayEvent));
+        }
+
+        private static bool HasEventRelay(FlowGraph graph, string listenEvent, string relayEvent)
+        {
+            if (graph == null)
+            {
+                return false;
+            }
+
+            foreach (var unit in graph.units)
+            {
+                if (unit is not CustomEvent customEvent)
+                {
+                    continue;
+                }
+
+                if (!customEvent.defaultValues.TryGetValue(customEvent.name.key, out var listenValue))
+                {
+                    continue;
+                }
+
+                if (!string.Equals(listenValue?.ToString(), listenEvent, System.StringComparison.Ordinal))
+                {
+                    continue;
+                }
+
+                var listenerOutput = customEvent.trigger;
+                foreach (var connected in listenerOutput.validConnectedPorts)
+                {
+                    if (connected is not ControlInput controlInput)
+                    {
+                        continue;
+                    }
+
+                    if (controlInput.unit is not TriggerCustomEvent trigger)
+                    {
+                        continue;
+                    }
+
+                    if (!trigger.defaultValues.TryGetValue(trigger.name.key, out var triggerValue))
+                    {
+                        continue;
+                    }
+
+                    var triggerName = triggerValue?.ToString();
+                    if (string.Equals(triggerName, relayEvent, System.StringComparison.Ordinal))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        private static void EnsurePrefabScriptMachine(string prefabPath, ScriptGraphAsset graphAsset)
+        {
+            var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+            if (prefab == null)
+            {
+                return;
+            }
+
+            var root = PrefabUtility.LoadPrefabContents(prefabPath);
+            try
+            {
+                var variables = root.GetComponent<Variables>();
+                if (variables == null)
+                {
+                    variables = root.AddComponent<Variables>();
+                }
+
+                var machine = root.GetComponent<ScriptMachine>();
+                if (machine == null)
+                {
+                    machine = root.AddComponent<ScriptMachine>();
+                }
+
+                if (machine.nest.macro != graphAsset)
+                {
+                    machine.nest.SwitchToMacro(graphAsset);
+                }
+
+                EditorUtility.SetDirty(root);
+                PrefabUtility.SaveAsPrefabAsset(root, prefabPath);
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(root);
+            }
         }
     }
 }

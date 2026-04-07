@@ -289,7 +289,7 @@
       "url": "https://packages.unity.com"
     },
     "com.xlabkm.unity-mcp": {
-      "version": "file:../../xLabMcp/dotnet-prototype/unity/com.xlabkm.unity-mcp",
+      "version": "file:E:/ИГРЫ/xLabMcp/dotnet-prototype/unity/com.xlabkm.unity-mcp",
       "depth": 0,
       "source": "local",
       "dependencies": {}

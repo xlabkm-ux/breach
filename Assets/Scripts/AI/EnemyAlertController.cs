@@ -16,12 +16,14 @@ namespace Breach.AI
 
         private EnemyAlertState currentState = EnemyAlertState.Idle;
         private float suspiciousUntil;
+        private EnemyAlertState lastBroadcastState = (EnemyAlertState)(-1);
 
         public EnemyAlertState CurrentState => currentState;
 
         private void OnEnable()
         {
             NoiseEventBus.NoiseRaised += OnNoiseRaised;
+            BroadcastStateIfNeeded();
         }
 
         private void OnDisable()
@@ -42,20 +44,18 @@ namespace Breach.AI
             if (visionCone != null && visionCone.HasTarget)
             {
                 currentState = EnemyAlertState.Alert;
-                return;
             }
-
-            if (currentState == EnemyAlertState.Alert && (visionCone == null || !visionCone.HasTarget))
+            else if (currentState == EnemyAlertState.Alert && (visionCone == null || !visionCone.HasTarget))
             {
                 currentState = EnemyAlertState.Suspicious;
                 suspiciousUntil = Time.time + suspiciousDuration;
-                return;
             }
-
-            if (currentState == EnemyAlertState.Suspicious && Time.time >= suspiciousUntil)
+            else if (currentState == EnemyAlertState.Suspicious && Time.time >= suspiciousUntil)
             {
                 currentState = EnemyAlertState.Idle;
             }
+
+            BroadcastStateIfNeeded();
         }
 
         private void OnNoiseRaised(NoiseEvent noise)
@@ -72,6 +72,18 @@ namespace Breach.AI
             }
 
             suspiciousUntil = Time.time + suspiciousDuration;
+            BroadcastStateIfNeeded();
+        }
+
+        private void BroadcastStateIfNeeded()
+        {
+            if (lastBroadcastState == currentState)
+            {
+                return;
+            }
+
+            lastBroadcastState = currentState;
+            EnemyAlertVsEvents.Raise(currentState, gameObject);
         }
     }
 }

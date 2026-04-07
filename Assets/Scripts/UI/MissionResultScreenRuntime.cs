@@ -9,6 +9,8 @@ namespace Breach.UI
         [SerializeField] private Color panelColor = new Color(0f, 0f, 0f, 0.65f);
         [SerializeField] private int titleFontSize = 28;
         [SerializeField] private int bodyFontSize = 18;
+        private const float MinPanelWidth = 320f;
+        private const float MaxPanelWidth = 620f;
 
         private MissionStateService missionStateService;
         private ResultScreenController resultScreenController;
@@ -56,16 +58,7 @@ namespace Breach.UI
             }
 
             EnsureStyles();
-            var width = Mathf.Min(620f, Screen.width - 40f);
-            var height = 220f;
-            var x = (Screen.width - width) * 0.5f;
-            var y = (Screen.height - height) * 0.5f;
-
-            var previousColor = GUI.color;
-            GUI.color = panelColor;
-            GUI.Box(new Rect(x, y, width, height), GUIContent.none);
-            GUI.color = previousColor;
-
+            var width = GetPanelWidth(Screen.width);
             var titleKey = resultScreenController != null
                 ? resultScreenController.GetTitleKey(success)
                 : (success ? "ui.result.success.title" : "ui.result.fail.title");
@@ -78,9 +71,30 @@ namespace Breach.UI
             var body = LocalizationService.Resolve(bodyKey);
             var hint = LocalizationService.Resolve("ui.result.hint.restart");
 
-            GUI.Label(new Rect(x + 20f, y + 24f, width - 40f, 48f), title, titleStyle);
-            GUI.Label(new Rect(x + 20f, y + 86f, width - 40f, 64f), body, bodyStyle);
-            GUI.Label(new Rect(x + 20f, y + 162f, width - 40f, 32f), hint, bodyStyle);
+            var contentWidth = width - 40f;
+            var titleHeight = Mathf.Max(48f, titleStyle.CalcHeight(new GUIContent(title), contentWidth));
+            var bodyHeight = Mathf.Max(48f, bodyStyle.CalcHeight(new GUIContent(body), contentWidth));
+            var hintHeight = Mathf.Max(32f, bodyStyle.CalcHeight(new GUIContent(hint), contentWidth));
+            var height = 24f + titleHeight + 16f + bodyHeight + 12f + hintHeight + 20f;
+            var x = (Screen.width - width) * 0.5f;
+            var y = (Screen.height - height) * 0.5f;
+
+            var previousColor = GUI.color;
+            GUI.color = panelColor;
+            GUI.Box(new Rect(x, y, width, height), GUIContent.none);
+            GUI.color = previousColor;
+
+            var cursorY = y + 24f;
+            GUI.Label(new Rect(x + 20f, cursorY, contentWidth, titleHeight), title, titleStyle);
+            cursorY += titleHeight + 16f;
+            GUI.Label(new Rect(x + 20f, cursorY, contentWidth, bodyHeight), body, bodyStyle);
+            cursorY += bodyHeight + 12f;
+            GUI.Label(new Rect(x + 20f, cursorY, contentWidth, hintHeight), hint, bodyStyle);
+        }
+
+        public static float GetPanelWidth(float screenWidth)
+        {
+            return Mathf.Clamp(screenWidth - 40f, MinPanelWidth, MaxPanelWidth);
         }
 
         private void EnsureStyles()

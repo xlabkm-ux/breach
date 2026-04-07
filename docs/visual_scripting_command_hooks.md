@@ -21,4 +21,5 @@ Payload type:
 ## Status
 - Step 9/10 C# command logic: done.
 - Visual Scripting integration hooks: done.
-- Actual graph assets (`MissionFlow`, `SquadCommandFlow`, etc.): still pending Unity-side graph authoring.
+- Canonical graph assets are now seeded by editor bootstrap for squad command and enemy alert parity.
+- `MissionDirector` and `Enemy_Grunt` receive `ScriptMachine` bridges through the bootstrap generator.

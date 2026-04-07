@@ -19,12 +19,18 @@ namespace Breach.Save
 
     public sealed class SaveService : MonoBehaviour
     {
+        private const string SaveFileName = "mission_save_v1.json";
+        private const string BackupFileName = "mission_save_v1.backup.json";
+        private const string TempFileName = "mission_save_v1.tmp";
+
         [SerializeField] private int schemaVersion = 1;
         [SerializeField] private bool loadOnStart;
         [SerializeField] private MissionStateService missionStateService;
         [SerializeField] private ObjectiveService objectiveService;
 
-        private string SavePath => Path.Combine(Application.persistentDataPath, "mission_save_v1.json");
+        private string SavePath => Path.Combine(Application.persistentDataPath, SaveFileName);
+        private string BackupPath => Path.Combine(Application.persistentDataPath, BackupFileName);
+        private string TempPath => Path.Combine(Application.persistentDataPath, TempFileName);
         public event Action<MissionSaveSnapshot> Loaded;
 
         private void Awake()
@@ -93,8 +99,7 @@ namespace Breach.Save
 
             try
             {
-                var json = JsonUtility.ToJson(snapshot, true);
-                File.WriteAllText(SavePath, json);
+                WriteSnapshot(snapshot);
             }
             catch (Exception exception)
             {
@@ -104,34 +109,29 @@ namespace Breach.Save
 
         public bool TryLoad()
         {
-            if (!File.Exists(SavePath) || missionStateService == null || objectiveService == null)
+            if (missionStateService == null || objectiveService == null)
             {
                 return false;
             }
 
-            MissionSaveSnapshot snapshot;
-            try
+            if (TryLoadSnapshot(SavePath, out var snapshot) && IsCompatible(snapshot))
             {
-                var json = File.ReadAllText(SavePath);
-                snapshot = JsonUtility.FromJson<MissionSaveSnapshot>(json);
-                if (snapshot == null)
-                {
-                    Debug.LogWarning("SaveService: save file is empty or invalid JSON.");
-                    return false;
-                }
-            }
-            catch (Exception exception)
-            {
-                Debug.LogWarning($"SaveService: failed to load snapshot. {exception.Message}");
-                return false;
+                ApplySnapshot(snapshot);
+                return true;
             }
 
-            if (snapshot.schemaVersion != schemaVersion)
+            if (TryLoadSnapshot(BackupPath, out snapshot) && IsCompatible(snapshot))
             {
-                Debug.LogWarning($"SaveService: schema mismatch {snapshot.schemaVersion} != {schemaVersion}.");
-                return false;
+                TryRestorePrimaryFromBackup();
+                ApplySnapshot(snapshot);
+                return true;
             }
 
+            return false;
+        }
+
+        private void ApplySnapshot(MissionSaveSnapshot snapshot)
+        {
             missionStateService.ForceStateForLoad(snapshot.missionState);
             objectiveService.ApplySnapshot(
                 snapshot.infiltrationComplete,
@@ -141,7 +141,94 @@ namespace Breach.Save
                 snapshot.hostageAlive);
 
             Loaded?.Invoke(snapshot);
+        }
+
+        private bool IsCompatible(MissionSaveSnapshot snapshot)
+        {
+            if (snapshot == null)
+            {
+                Debug.LogWarning("SaveService: save file is empty or invalid JSON.");
+                return false;
+            }
+
+            if (snapshot.schemaVersion != schemaVersion)
+            {
+                Debug.LogWarning($"SaveService: schema mismatch {snapshot.schemaVersion} != {schemaVersion}.");
+                return false;
+            }
+
             return true;
+        }
+
+        private void WriteSnapshot(MissionSaveSnapshot snapshot)
+        {
+            var json = JsonUtility.ToJson(snapshot, true);
+            File.WriteAllText(TempPath, json);
+
+            try
+            {
+                if (File.Exists(SavePath))
+                {
+                    try
+                    {
+                        File.Replace(TempPath, SavePath, BackupPath, true);
+                    }
+                    catch
+                    {
+                        File.Copy(TempPath, SavePath, true);
+                        File.Copy(TempPath, BackupPath, true);
+                    }
+                }
+                else
+                {
+                    File.Copy(TempPath, SavePath, true);
+                    File.Copy(TempPath, BackupPath, true);
+                }
+            }
+            finally
+            {
+                if (File.Exists(TempPath))
+                {
+                    File.Delete(TempPath);
+                }
+            }
+        }
+
+        private bool TryLoadSnapshot(string path, out MissionSaveSnapshot snapshot)
+        {
+            snapshot = null;
+
+            if (!File.Exists(path))
+            {
+                return false;
+            }
+
+            try
+            {
+                var json = File.ReadAllText(path);
+                snapshot = JsonUtility.FromJson<MissionSaveSnapshot>(json);
+                return snapshot != null;
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning($"SaveService: failed to load snapshot from {Path.GetFileName(path)}. {exception.Message}");
+                return false;
+            }
+        }
+
+        private void TryRestorePrimaryFromBackup()
+        {
+            try
+            {
+                if (File.Exists(BackupPath))
+                {
+                    File.Copy(BackupPath, SavePath, true);
+                }
+            }
+            catch (Exception exception)
+            {
+                Debug.LogWarning($"SaveService: failed to restore primary save from backup. {exception.Message}");
+            }
         }
     }
 }

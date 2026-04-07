@@ -1,5 +1,4 @@
 using Breach.Combat;
-using Breach.Core;
 using Breach.Mission;
 using Breach.Squad;
 using UnityEngine;
@@ -47,18 +46,41 @@ namespace Breach.Hostage
 
             if (!isFreed)
             {
-                var distance = Vector2.Distance(transform.position, activeOperative.transform.position);
-                if (distance <= interactionDistance && InputCompat.GetKeyDown(KeyCode.E))
-                {
-                    isFreed = true;
-                    objectiveService?.MarkHostageFreed();
-                }
+                TryFree(activeOperative.transform);
+                return;
+            }
+
+            TickEscort(activeOperative.transform, Time.deltaTime);
+        }
+
+        public bool TryFree(Transform activeOperative)
+        {
+            if (isFreed || activeOperative == null)
+            {
+                return false;
+            }
+
+            var distance = Vector2.Distance(transform.position, activeOperative.position);
+            if (distance > interactionDistance)
+            {
+                return false;
+            }
+
+            isFreed = true;
+            objectiveService?.MarkHostageFreed();
+            return true;
+        }
+
+        public void TickEscort(Transform activeOperative, float deltaTime)
+        {
+            if (!isFreed || activeOperative == null)
+            {
                 return;
             }
 
             var current = transform.position;
-            var target = activeOperative.transform.position;
-            var next = Vector3.MoveTowards(current, target, followSpeed * Time.deltaTime);
+            var target = activeOperative.position;
+            var next = Vector3.MoveTowards(current, target, followSpeed * Mathf.Max(0f, deltaTime));
             transform.position = new Vector3(next.x, next.y, current.z);
         }
     }

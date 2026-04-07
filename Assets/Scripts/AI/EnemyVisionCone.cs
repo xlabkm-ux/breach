@@ -22,7 +22,7 @@ namespace Breach.AI
         {
             detectedTarget = null;
             var colliders = Physics2D.OverlapCircleAll(transform.position, radius, targetMask);
-            var forward = Vector2.right;
+            var forward = (Vector2)transform.right;
 
             foreach (var col in colliders)
             {

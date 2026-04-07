@@ -6,7 +6,6 @@ This is a commercial Unity 6 project using:
 - 2D production pipeline with HD-2D presentation
 - Visual Scripting + C# hybrid architecture
 - local Codex workflow
-- xLabMcp for editor-side operations
 - Git as the source-control layer
 
 v1 targets:
@@ -44,14 +43,13 @@ Default assumptions:
 ## Core Principles
 1. Prefer minimal, reviewable, testable changes.
 2. Do not broad-refactor without a plan.
-3. Use xLabMcp tools for Unity editor actions whenever possible.
-4. Use C# for reusable, performance-critical, validation-heavy, or hard-to-review logic.
-5. Use Visual Scripting for orchestration, state flow, event composition, and fast iteration.
-6. End every meaningful mutation with verification.
-7. Distinguish functional change from serialization churn.
-8. Keep the project localization-ready and save-safe by default.
-9. Preserve mission readability: player intent, squad state, objective state, and combat feedback must stay legible.
-10. Treat physics, friendly fire, ballistic logic, and mission-state logic as high risk.
+3. Use C# for reusable, performance-critical, validation-heavy, or hard-to-review logic.
+4. Use Visual Scripting for orchestration, state flow, event composition, and fast iteration.
+5. End every meaningful mutation with verification.
+6. Distinguish functional change from serialization churn.
+7. Keep the project localization-ready and save-safe by default.
+8. Preserve mission readability: player intent, squad state, objective state, and combat feedback must stay legible.
+9. Treat physics, friendly fire, ballistic logic, and mission-state logic as high risk.
 
 ## Change Scope
 The agent may modify, create, or remove when justified:
