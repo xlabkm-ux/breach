@@ -32,11 +32,15 @@
 - `architecture/localization_contract.md`
 
 ## MCP starter pack
-- `mcp/prompts/*.md`
-- `mcp/resources/*.md`
-- `mcp/policies/*.md`
-- `mcp/validators/validator_matrix.md`
+- moved to sibling `xLabMcp` repo
 
 ## Project docs
 - `docs/project_brief_v1.md`
 - `docs/file_manifest.md`
+- `docs/breach_game_workflows_backlog.md`
+- `docs/visual_scripting_command_hooks.md`
+- `docs/archive/2026-04-06/`
+
+## External xLabMcp docs
+
+- server-side backlog, contract, and MCP contract pack now live in the sibling `xLabMcp` repo

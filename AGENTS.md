@@ -1,19 +1,19 @@
 # AGENTS.md
 
-## Project identity
-This repository contains a commercial Unity 6 game project using:
+## Project Identity
+This is a commercial Unity 6 project using:
 - URP
-- 2D production pipeline with HD-2D visual presentation
+- 2D production pipeline with HD-2D presentation
 - Visual Scripting + C# hybrid architecture
-- local Codex workflow via Codex app and Codex CLI
-- Unity MCP server for editor-side operations
-- Git as the required source-control layer
+- local Codex workflow
+- xLabMcp for editor-side operations
+- Git as the source-control layer
 
-Primary release targets for v1:
+v1 targets:
 - Windows 10-11
 - Android Mobile
 
-Platform quality profiles for v1:
+v1 quality profiles:
 - `PC_Default`
 - `Android_Default`
 - `Android_Low`
@@ -21,49 +21,39 @@ Platform quality profiles for v1:
 Game profile:
 - mixed genre/system composition
 - UI-heavy
-- Physics-heavy
-- Narrative
-- Roguelite
+- physics-heavy
+- narrative
+- roguelite
 - tactical top-down combat with stealth and squad coordination
 
-Core fantasy from current game brief:
+Core fantasy:
 - player commands a 2-4 operator special-forces squad
 - missions reward planning, synchronized execution, cover use, stealth, and controlled force
 - each mission supports stealth, assault, or hybrid resolution
 
-Treat these tags as complementary. Some describe genre, some visual presentation, and some technical/system profile.
-
----
-
-## Operating mode
-This project is developed primarily by a single developer.
+## Operating Mode
+This project is primarily solo-developed.
 
 Default assumptions:
 - work locally
 - use Git continuously
-- keep all changes reviewable
-- use remote Git hosting mainly for backup, history, release tags, and disaster recovery
-- do not assume collaborative PR workflow is mandatory for daily development
+- keep changes reviewable and traceable
+- use remote hosting mainly for backup, history, release tags, and disaster recovery
+- do not assume collaborative PR flow is mandatory for daily development
 
-Even in solo mode, every meaningful change set must remain reviewable and traceable.
-
----
-
-## Core agent principles
+## Core Principles
 1. Prefer minimal, reviewable, testable changes.
-2. Do not perform broad refactors without a plan.
-3. Use Unity MCP tools for Unity-editor actions whenever possible instead of treating Unity assets as plain text blobs.
-4. Use C# for reusable, performance-critical, validation-heavy, or difficult-to-review logic.
-5. Use Visual Scripting for orchestration, state flow, event composition, and rapidly iterated gameplay logic.
+2. Do not broad-refactor without a plan.
+3. Use xLabMcp tools for Unity editor actions whenever possible.
+4. Use C# for reusable, performance-critical, validation-heavy, or hard-to-review logic.
+5. Use Visual Scripting for orchestration, state flow, event composition, and fast iteration.
 6. End every meaningful mutation with verification.
-7. Distinguish functional changes from serialization churn.
+7. Distinguish functional change from serialization churn.
 8. Keep the project localization-ready and save-safe by default.
-9. Preserve mission readability: player intent, squad state, objective state, and combat feedback must remain legible.
-10. Treat physics, friendly fire, ballistic logic, and mission-state logic as high-risk zones.
+9. Preserve mission readability: player intent, squad state, objective state, and combat feedback must stay legible.
+10. Treat physics, friendly fire, ballistic logic, and mission-state logic as high risk.
 
----
-
-## What the agent may change
+## Change Scope
 The agent may modify, create, or remove when justified:
 - C# scripts
 - custom units
@@ -78,46 +68,40 @@ The agent may modify, create, or remove when justified:
 - `ProjectSettings/`
 - `Packages/manifest.json` and related package settings
 
-The agent must keep changes scoped, justified, and easy to review.
+Keep changes scoped, justified, and easy to review.
 
----
-
-## Plan-before-change rule
-Before any significant change, the agent must:
-- state the implementation goal briefly
+## Plan Before Change
+Before any significant change:
+- state the implementation goal
 - identify affected systems
-- identify whether scenes, prefabs, ScriptableObjects, graphs, `ProjectSettings/`, or packages will be touched
+- identify whether scenes, prefabs, ScriptableObjects, graphs, `ProjectSettings/`, or packages are touched
 - identify likely regression zones
-- call out serialization risk when Unity assets will change
+- call out serialization risk when Unity assets change
 
-A significant change includes any modification that affects gameplay flow, data layout, build behavior, scene structure, prefab structure, graph flow, project settings, or packages.
+A significant change affects gameplay flow, data layout, build behavior, scene structure, prefab structure, graph flow, project settings, or packages.
 
----
-
-## Unity workflow policy
+## Unity Workflow
 When working with Unity content:
-- prefer MCP-driven editor operations over manual asset-file editing
+- prefer MCP-driven editor operations over manual asset editing
 - prefer targeted changes over broad scene/prefab churn
 - avoid touching unrelated objects in scenes and prefabs
 - avoid accidental reserialization noise
-- capture which Unity assets were intentionally changed
+- record which Unity assets were intentionally changed
 
-After meaningful Unity-side changes, the agent must:
+After meaningful Unity-side changes:
 - refresh Unity if needed
 - inspect Unity console
 - run relevant validators
 - run relevant tests
 - summarize changed assets and residual risks
 
----
-
-## Repository layout policy
+## Repository Layout
 Use the actual repository structure if it already exists.
 Do not force a new folder structure when a stable one is already in place.
 
-When the repository layout is unclear, infer it conservatively from the existing project.
+If layout is unclear, infer it conservatively from the existing project.
 
-Typical areas to reason about:
+Typical areas:
 - runtime gameplay code
 - editor tooling
 - Visual Scripting graphs
@@ -130,44 +114,40 @@ Typical areas to reason about:
 - tests
 - build/configuration files
 
-If creating new files, prefer consistency with existing naming, placement, and ownership patterns.
+If creating new files, keep naming, placement, and ownership consistent.
 
----
-
-## Gameplay architecture rules
-This project does not use a universal genre framework in v1.
-Gameplay design and implementation must revolve around a minimal pipeline built on:
+## Gameplay Architecture
+v1 uses a minimal pipeline built on:
 - `state-flow`
 - `objective-loop`
 - `pacing`
 - `reward templates`
 
-When implementing or modifying a feature, map it explicitly to:
+When implementing or modifying a feature, map it to:
 1. state transitions
 2. objective progression
 3. pacing role
 4. reward role
 
-Required pacing templates in v1:
+Required pacing templates:
 - `Safe_Start`
 - `Escalation`
 - `Intensity_Spike`
 - `Short_Recovery`
 - `Climax_Final_Push`
 
-Required reward templates in v1:
+Required reward templates:
 - `Immediate_Feedback_Reward`
 - `Milestone_Reward`
 - `Segment_Run_Completion_Reward`
 - `Unlock_Meta_Progress_Reward`
 
-Optional roguelite-oriented extension:
+Optional roguelite extension:
 - `Choice_Reward`
 
-Do not add complex pacing or reward frameworks unless they are clearly required.
+Do not add complex pacing or reward frameworks unless clearly required.
 
-### Mission-layer implications for current game
-Default mission design assumptions:
+Mission assumptions:
 - squad size: 2-4 operators
 - command modes: direct control + issued orders
 - command primitives: follow, hold position, cover fire, move, interact, grenade-to-point
@@ -175,11 +155,7 @@ Default mission design assumptions:
 - execution styles: stealth, assault, hybrid
 - tactical readability: cover, line of fire, noise, visibility cones, explosive radius, and objective state must be understandable on a top-down 2D battlefield
 
----
-
-## Visual Scripting and C# split
-Use this default split:
-
+## Visual Scripting and C# Split
 Prefer Visual Scripting for:
 - orchestration
 - event sequencing
@@ -199,12 +175,10 @@ Prefer C# for:
 - integrations and platform-sensitive systems
 - ballistics, penetration, damage model, perception math, and mission scoring
 
-If a graph starts to accumulate repeated logic, opaque flow, or hard-to-review branching, move that logic into C# custom units or core systems.
+If a graph accumulates repeated logic, opaque flow, or hard-to-review branching, move that logic into C# custom units or core systems.
 
----
-
-## Graph-semantic layer policy
-The agent must treat gameplay graphs semantically, not just as passive assets.
+## Graph-Semantic Policy
+Treat gameplay graphs semantically, not as passive assets.
 
 Graphs are expected to encode:
 - control flow
@@ -213,7 +187,7 @@ Graphs are expected to encode:
 - audio feedback hooks
 - state-driven transitions
 
-Core semantic reaction patterns supported in v1:
+Core semantic reaction patterns:
 - `hit`
 - `heavy_hit`
 - `crit`
@@ -238,86 +212,75 @@ Reaction-density rule:
 - at most one enhancer may be added
 - do not stack extra reaction effects without explicit justification
 
-When working on graphs, the agent should prefer structured composition over ad hoc graph growth.
+Prefer structured composition over ad hoc graph growth.
 
----
-
-## Scene and prefab policy
-### Scenes
+## Scenes, Prefabs, and Data
+Scenes:
 - modify only the target objects and flows
 - avoid unrelated asset churn
 - verify missing references after edits
 - call out high-risk scene edits explicitly
 
-### Prefabs
+Prefabs:
 - prefer minimal changes
 - preserve nested prefab integrity
 - explain overrides when they matter
 - verify reference integrity after edits
 
-### ScriptableObjects
+ScriptableObjects:
 - preserve stable data schemas
 - mark breaking changes explicitly
 - check save/load compatibility when schema changes
 
----
-
-## Save architecture policy
+## Save Policy
 Saves are mandatory in v1.
 
-Minimum required save behavior:
+Required behavior:
 - local save
 - autosave on key state transitions
 - separate meta-progression persistence
 - schema versioning
 - safe fallback for incompatible or corrupted save data
 
-v1 priority:
+Priority:
 - reliability
 - predictability
 - recoverability
 
 Do not prioritize multi-slot complexity or cloud sync over correctness and stability.
 
-Whenever gameplay data contracts change, evaluate:
+When gameplay data contracts change, evaluate:
 - save compatibility
 - schema version impact
 - autosave trigger validity
 - meta-progression separation
 - fallback behavior
 
----
-
-## Localization policy
+## Localization Policy
 The project must remain localization-ready from v1 onward.
 
 Rules:
-- all UI text must use string keys
-- all narrative text must use string keys
-- a fallback language must exist
-- new screens must be localization-safe
-- narrative templates must be localization-safe
+- all UI text uses string keys
+- all narrative text uses string keys
+- a fallback language exists
+- new screens are localization-safe
+- narrative templates are localization-safe
 - account for line length, wrapping, variables, and font fallback
 
 Do not hardcode user-facing text into gameplay logic, scene logic, or graph logic unless there is a deliberate technical exception.
 
----
-
-## Achievements policy
-Achievements are not a blocking requirement for core release v1.
+## Achievements Policy
+Achievements are not blocking for v1.
 
 However:
-- event/progression systems must expose integration points for future achievements
-- future achievement integration must not require redesigning core gameplay logic
+- progression systems must expose integration points for future achievements
+- achievement integration must not require redesigning core gameplay logic
 - achievement hooks must not destabilize gameplay if platform achievements are absent
 
----
+## Narrative Policy
+Keep narrative support compact and reusable.
 
-## Narrative template policy
-Narrative support in v1 should remain compact and reusable.
-Do not build an oversized narrative system for first release.
-
-Required narrative template library:
+Required template library:
 - `Intro_Context`
 - `Objective_Brief`
 - `Progress_Update`
@@ -330,20 +293,16 @@ Required narrative template library:
 
 Use narrative templates as short reusable beats that support core loop readability across scenes, run segments, and events.
 
----
-
-## UI and content policy
+## UI and Content Policy
 Because this project is UI-heavy and narrative-aware:
 - prioritize readability and hierarchy
 - guard against text overflow and localization breakage
 - verify input/navigation integrity when UI changes
 - ensure gameplay state and UI state stay synchronized
-- ensure critical player feedback remains legible under platform quality profiles
+- keep critical player feedback legible under platform quality profiles
 - highlight cones of vision, cover value, grenade danger area, and objective status without clutter
 
----
-
-## Physics-heavy policy
+## Physics Policy
 Because this project is physics-heavy:
 - avoid silent changes to timing-sensitive systems
 - treat physics-related configuration changes as high risk
@@ -351,9 +310,7 @@ Because this project is physics-heavy:
 - do not change physics timing or related settings without explicit need
 - separately validate ballistic traces, penetration rules, friendly fire, and cover interaction
 
----
-
-## ProjectSettings and Packages policy
+## ProjectSettings and Packages
 Changes to `ProjectSettings/` and packages are allowed, but controlled.
 
 Every such change must include:
@@ -363,16 +320,14 @@ Every such change must include:
 - build-impact note
 - post-change validation summary
 
-### Safe-by-default changes
-The agent may perform these when justified without extra confirmation:
+Safe-by-default changes:
 - build profiles
 - quality matrix
 - platform overrides
 - Android-oriented performance reductions
 - basic app metadata
 
-### Confirm-required changes
-These require explicit confirmation before mutation:
+Confirm-required changes:
 - graphics API
 - color space
 - scripting backend
@@ -385,9 +340,7 @@ These require explicit confirmation before mutation:
 - package/app id
 - any setting that changes UX, compatibility, store behavior, or compliance behavior
 
----
-
-## Quality profile policy
+## Quality Profiles
 v1 quality profiles:
 - `PC_Default`
 - `Android_Default`
@@ -401,9 +354,7 @@ Use them to separate:
 
 When making graphics, quality, or platform changes, specify which profile is affected.
 
----
-
-## Git workflow rules
+## Git Workflow
 Branch naming:
 - `feat/<area>-<slug>`
 - `fix/<area>-<slug>`
@@ -415,20 +366,11 @@ Branch naming:
 Commit format:
 - `type(scope): summary`
 
-Examples:
-- `feat(combat): add dash cooldown controller`
-- `fix(vsp): restore state transition guard`
-- `refactor(save): extract profile serializer`
-- `chore(build): update android profile rules`
+Keep change sets reviewable.
+Prefer local review against the base branch before merging to `main`.
+Create tagged snapshots before release.
 
-Even without mandatory PR flow:
-- keep change sets reviewable
-- prefer local review against base branch before merging to `main`
-- create tagged snapshots before release
-
----
-
-## Review guidelines
+## Review Guidelines
 When reviewing or summarizing changes, prioritize:
 1. gameplay correctness
 2. broken references
@@ -449,9 +391,7 @@ Treat these as high-severity defects:
 - project setting changes that alter compatibility without disclosure
 - Android or PC profile regressions affecting basic usability
 
----
-
-## Done criteria
+## Done Criteria
 A task is not done until all applicable checks are addressed.
 
 Minimum done criteria:
@@ -465,58 +405,54 @@ Minimum done criteria:
 - project settings/package impact is checked when applicable
 - residual risks are stated clearly
 
----
-
-## Verification matrix
-### Code changes
+## Verification Matrix
+Code changes:
 - compile status
 - relevant tests
 - integration risk summary
 
-### Scene changes
+Scene changes:
 - missing references
 - target object integrity
 - unintended scene churn
 - gameplay flow sanity
 
-### Prefab changes
+Prefab changes:
 - nested prefab integrity
 - overrides sanity
 - reference integrity
 
-### Graph changes
+Graph changes:
 - binding validity
 - execution flow sanity
 - semantic reaction density
 - repeated-logic smell
 
-### ScriptableObject/data changes
+ScriptableObject/data changes:
 - schema stability
 - save compatibility
 - meta-progression partition impact
 
-### UI/content changes
+UI/content changes:
 - navigation/input sanity
 - string key usage
 - fallback language compatibility
 - overflow/wrapping risk
 
-### ProjectSettings/package changes
+ProjectSettings/package changes:
 - reason for change
 - impacted profiles/platforms
 - dependency/build impact
 - safe-by-default vs confirm-required classification
 
-### Release-sensitive changes
+Release-sensitive changes:
 - Windows 10-11 impact
 - Android impact
 - active quality profile impact
 - save readiness
 - localization readiness
 
----
-
-## Response contract for the agent
+## Response Contract
 For non-trivial work, respond in this order:
 1. goal
 2. plan
@@ -533,9 +469,7 @@ For asset-heavy Unity work, explicitly list:
 
 Keep explanations concise, but do not omit risk-relevant details.
 
----
-
-## Release priorities for v1
+## Release Priorities
 The first commercial release prioritizes:
 - stable core loop
 - reliable saves
