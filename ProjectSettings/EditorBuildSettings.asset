@@ -6,10 +6,10 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/VerticalSlice/Bootstrap.unity
-    guid: d30b5ca10c8c24f42a823d4ce4d20c26
-  - enabled: 1
     path: Assets/Scenes/VerticalSlice/VS01_Rescue.unity
     guid: 38eb78be7b2d84df2bf985a2c9548d31
+  - enabled: 1
+    path: Assets/Scenes/VerticalSlice/Bootstrap.unity
+    guid: d30b5ca10c8c24f42a823d4ce4d20c26
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
