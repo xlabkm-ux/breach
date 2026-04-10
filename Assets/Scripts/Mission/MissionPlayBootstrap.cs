@@ -14,7 +14,7 @@ namespace Breach.Mission
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void EnsureRuntimeBootstrap()
         {
-            if (FindFirstObjectByType<MissionPlayBootstrap>() != null)
+            if (FindAnyObjectByType<MissionPlayBootstrap>() != null)
             {
                 return;
             }
@@ -27,12 +27,12 @@ namespace Breach.Mission
         {
             if (missionStateService == null)
             {
-                missionStateService = FindFirstObjectByType<MissionStateService>();
+                missionStateService = FindAnyObjectByType<MissionStateService>();
             }
 
             if (objectiveService == null)
             {
-                objectiveService = FindFirstObjectByType<ObjectiveService>();
+                objectiveService = FindAnyObjectByType<ObjectiveService>();
             }
         }
 

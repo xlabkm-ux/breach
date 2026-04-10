@@ -12,7 +12,7 @@ namespace Breach.AI
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void EnsureRuntimeInstance()
         {
-            if (FindFirstObjectByType<NoisePulseVisualizer>() != null)
+            if (FindAnyObjectByType<NoisePulseVisualizer>() != null)
             {
                 return;
             }

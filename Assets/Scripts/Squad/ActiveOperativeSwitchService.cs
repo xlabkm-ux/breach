@@ -16,7 +16,7 @@ namespace Breach.Squad
         {
             if (operatives.Count == 0)
             {
-                operatives.AddRange(FindObjectsByType<OperativeMember>(FindObjectsSortMode.None));
+                operatives.AddRange(FindObjectsByType<OperativeMember>(UnityEngine.FindObjectsInactive.Exclude));
             }
 
             if (operatives.Count == 0)

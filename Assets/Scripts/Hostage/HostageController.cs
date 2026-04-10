@@ -22,11 +22,11 @@ namespace Breach.Hostage
             health = GetComponent<HealthComponent>();
             if (switchService == null)
             {
-                switchService = FindFirstObjectByType<ActiveOperativeSwitchService>();
+                switchService = FindAnyObjectByType<ActiveOperativeSwitchService>();
             }
             if (objectiveService == null)
             {
-                objectiveService = FindFirstObjectByType<ObjectiveService>();
+                objectiveService = FindAnyObjectByType<ObjectiveService>();
             }
         }
 

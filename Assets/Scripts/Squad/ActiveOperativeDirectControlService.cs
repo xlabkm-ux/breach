@@ -11,7 +11,7 @@ namespace Breach.Squad
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void EnsureRuntimeController()
         {
-            if (FindFirstObjectByType<ActiveOperativeDirectControlService>() != null)
+            if (FindAnyObjectByType<ActiveOperativeDirectControlService>() != null)
             {
                 return;
             }
@@ -24,7 +24,7 @@ namespace Breach.Squad
         {
             if (switchService == null)
             {
-                switchService = FindFirstObjectByType<ActiveOperativeSwitchService>();
+                switchService = FindAnyObjectByType<ActiveOperativeSwitchService>();
             }
         }
 

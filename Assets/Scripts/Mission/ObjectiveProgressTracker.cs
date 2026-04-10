@@ -17,7 +17,7 @@ namespace Breach.Mission
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void EnsureRuntimeInstance()
         {
-            if (FindFirstObjectByType<ObjectiveProgressTracker>() != null)
+            if (FindAnyObjectByType<ObjectiveProgressTracker>() != null)
             {
                 return;
             }
@@ -30,14 +30,14 @@ namespace Breach.Mission
         {
             if (missionStateService == null)
             {
-                missionStateService = FindFirstObjectByType<MissionStateService>();
+                missionStateService = FindAnyObjectByType<MissionStateService>();
             }
             if (objectiveService == null)
             {
-                objectiveService = FindFirstObjectByType<ObjectiveService>();
+                objectiveService = FindAnyObjectByType<ObjectiveService>();
             }
 
-            operatives = FindObjectsByType<OperativeMember>(FindObjectsSortMode.None);
+            operatives = FindObjectsByType<OperativeMember>(UnityEngine.FindObjectsInactive.Exclude);
             initialPositions = new Vector3[operatives.Length];
             operativeHealth = new HealthComponent[operatives.Length];
 

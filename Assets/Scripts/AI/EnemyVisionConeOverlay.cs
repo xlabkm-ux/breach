@@ -18,7 +18,7 @@ namespace Breach.AI
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void AttachOverlaysAtRuntime()
         {
-            var cones = FindObjectsByType<EnemyVisionCone>(FindObjectsSortMode.None);
+            var cones = FindObjectsByType<EnemyVisionCone>(UnityEngine.FindObjectsInactive.Exclude);
             foreach (var cone in cones)
             {
                 if (cone.GetComponent<EnemyVisionConeOverlay>() == null)
