@@ -9,7 +9,9 @@ using Breach.Mission;
 using Breach.Save;
 using Breach.Squad;
 using Breach.UI;
+#if UNITY_VISUAL_SCRIPTING
 using Unity.VisualScripting;
+#endif
 using UnityEditor;
 using UnityEngine;
 
@@ -57,6 +59,7 @@ namespace Breach.Editor
 
             EnsureExtractionZonePrefab();
             EnsureMissionDirectorPrefab();
+#if UNITY_VISUAL_SCRIPTING
             var squadFlow = EnsureAsset<ScriptGraphAsset>("Assets/VisualScripting/Squad/SquadCommandFlow.asset");
             var enemyFlow = EnsureAsset<ScriptGraphAsset>("Assets/VisualScripting/AI/EnemyAlertFlow.asset");
             EnsureGraphPlaceholder("Assets/VisualScripting/Mission/MissionFlow.asset");
@@ -67,6 +70,7 @@ namespace Breach.Editor
             EnsureEnemyAlertFlow(enemyFlow);
             EnsurePrefabScriptMachine("Assets/Prefabs/Gameplay/Mission/MissionDirector.prefab", squadFlow);
             EnsurePrefabScriptMachine("Assets/Prefabs/Gameplay/Enemies/Enemy_Grunt.prefab", enemyFlow);
+#endif
 
             AssetDatabase.SaveAssets();
         }
@@ -164,6 +168,7 @@ namespace Breach.Editor
             Object.DestroyImmediate(go);
         }
 
+#if UNITY_VISUAL_SCRIPTING
         private static void EnsureGraphPlaceholder(string path)
         {
             if (AssetDatabase.LoadAssetAtPath<ScriptGraphAsset>(path) != null)
@@ -352,5 +357,6 @@ namespace Breach.Editor
                 PrefabUtility.UnloadPrefabContents(root);
             }
         }
+#endif
     }
 }

@@ -1,102 +1,54 @@
+using System;
 using UnityEngine;
-
-#if ENABLE_INPUT_SYSTEM
-using UnityEngine.InputSystem;
-#endif
 
 namespace Breach.Core
 {
     public static class InputCompat
     {
+        private const string KeyboardTypeName = "UnityEngine.InputSystem.Keyboard, Unity.InputSystem";
+        private const string MouseTypeName = "UnityEngine.InputSystem.Mouse, Unity.InputSystem";
+
         public static bool GetKeyDown(KeyCode keyCode)
         {
-#if ENABLE_INPUT_SYSTEM
-            if (Keyboard.current == null)
+            if (TryGetInputSystemKeyDown(keyCode, out var inputSystemPressed))
             {
-                return false;
+                return inputSystemPressed;
             }
-
-            var key = MapKeyCode(keyCode);
-
-            return key != Key.None && Keyboard.current[key].wasPressedThisFrame;
-#else
             return Input.GetKeyDown(keyCode);
-#endif
         }
 
         public static bool IsSupportedKeyCode(KeyCode keyCode)
         {
-#if ENABLE_INPUT_SYSTEM
-            return MapKeyCode(keyCode) != Key.None;
-#else
             return true;
-#endif
         }
-
-#if ENABLE_INPUT_SYSTEM
-        private static Key MapKeyCode(KeyCode keyCode)
-        {
-            return keyCode switch
-            {
-                KeyCode.Tab => Key.Tab,
-                KeyCode.H => Key.H,
-                KeyCode.F => Key.F,
-                KeyCode.M => Key.M,
-                KeyCode.T => Key.T,
-                KeyCode.E => Key.E,
-                KeyCode.F1 => Key.F1,
-                _ => Key.None
-            };
-        }
-#endif
 
         public static bool GetMouseButtonDown(int button)
         {
-#if ENABLE_INPUT_SYSTEM
-            if (Mouse.current == null)
+            if (TryGetInputSystemMouseButtonDown(button, out var inputSystemPressed))
             {
-                return false;
+                return inputSystemPressed;
             }
-
-            return button switch
-            {
-                0 => Mouse.current.leftButton.wasPressedThisFrame,
-                1 => Mouse.current.rightButton.wasPressedThisFrame,
-                _ => false
-            };
-#else
             return Input.GetMouseButtonDown(button);
-#endif
         }
 
         public static bool GetMouseButton(int button)
         {
-#if ENABLE_INPUT_SYSTEM
-            if (Mouse.current == null)
+            if (TryGetInputSystemMouseButton(button, out var inputSystemPressed))
             {
-                return false;
+                return inputSystemPressed;
             }
-
-            return button switch
-            {
-                0 => Mouse.current.leftButton.isPressed,
-                1 => Mouse.current.rightButton.isPressed,
-                _ => false
-            };
-#else
             return Input.GetMouseButton(button);
-#endif
         }
 
         public static Vector2 MousePosition
         {
             get
             {
-#if ENABLE_INPUT_SYSTEM
-                return Mouse.current != null ? Mouse.current.position.ReadValue() : Vector2.zero;
-#else
+                if (TryGetInputSystemMousePosition(out var mousePosition))
+                {
+                    return mousePosition;
+                }
                 return Input.mousePosition;
-#endif
             }
         }
 
@@ -104,35 +56,148 @@ namespace Breach.Core
         {
             get
             {
-#if ENABLE_INPUT_SYSTEM
-                if (Keyboard.current == null)
-                {
-                    return Vector2.zero;
-                }
-
-                var x = 0f;
-                var y = 0f;
-                if (Keyboard.current.aKey.isPressed || Keyboard.current.leftArrowKey.isPressed)
-                {
-                    x -= 1f;
-                }
-                if (Keyboard.current.dKey.isPressed || Keyboard.current.rightArrowKey.isPressed)
-                {
-                    x += 1f;
-                }
-                if (Keyboard.current.sKey.isPressed || Keyboard.current.downArrowKey.isPressed)
-                {
-                    y -= 1f;
-                }
-                if (Keyboard.current.wKey.isPressed || Keyboard.current.upArrowKey.isPressed)
-                {
-                    y += 1f;
-                }
-                return new Vector2(x, y);
-#else
                 return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-#endif
             }
+        }
+
+        private static bool TryGetInputSystemKeyDown(KeyCode keyCode, out bool pressed)
+        {
+            pressed = false;
+            var keyboardType = Type.GetType(KeyboardTypeName);
+            if (keyboardType == null)
+            {
+                return false;
+            }
+
+            var currentKeyboard = keyboardType.GetProperty("current")?.GetValue(null);
+            if (currentKeyboard == null)
+            {
+                return true;
+            }
+
+            var keyName = MapKeyControlName(keyCode);
+            if (string.IsNullOrEmpty(keyName))
+            {
+                return true;
+            }
+
+            var keyControl = keyboardType.GetProperty(keyName)?.GetValue(currentKeyboard);
+            if (keyControl == null)
+            {
+                return true;
+            }
+
+            var isPressed = keyControl.GetType().GetProperty("wasPressedThisFrame")?.GetValue(keyControl);
+            pressed = isPressed is bool b && b;
+            return true;
+        }
+
+        private static bool TryGetInputSystemMouseButtonDown(int button, out bool pressed)
+        {
+            pressed = false;
+            if (!TryGetMouseControl(button, out var control))
+            {
+                return false;
+            }
+
+            var value = control.GetType().GetProperty("wasPressedThisFrame")?.GetValue(control);
+            pressed = value is bool b && b;
+            return true;
+        }
+
+        private static bool TryGetInputSystemMouseButton(int button, out bool pressed)
+        {
+            pressed = false;
+            if (!TryGetMouseControl(button, out var control))
+            {
+                return false;
+            }
+
+            var value = control.GetType().GetProperty("isPressed")?.GetValue(control);
+            pressed = value is bool b && b;
+            return true;
+        }
+
+        private static bool TryGetInputSystemMousePosition(out Vector2 mousePosition)
+        {
+            mousePosition = Vector2.zero;
+            var mouseType = Type.GetType(MouseTypeName);
+            if (mouseType == null)
+            {
+                return false;
+            }
+
+            var currentMouse = mouseType.GetProperty("current")?.GetValue(null);
+            if (currentMouse == null)
+            {
+                return true;
+            }
+
+            var positionControl = mouseType.GetProperty("position")?.GetValue(currentMouse);
+            if (positionControl == null)
+            {
+                return true;
+            }
+
+            var readValueMethod = positionControl.GetType().GetMethod("ReadValue", Type.EmptyTypes);
+            if (readValueMethod == null)
+            {
+                return true;
+            }
+
+            var value = readValueMethod.Invoke(positionControl, null);
+            if (value is Vector2 position)
+            {
+                mousePosition = position;
+            }
+
+            return true;
+        }
+
+        private static bool TryGetMouseControl(int button, out object control)
+        {
+            control = null;
+            var mouseType = Type.GetType(MouseTypeName);
+            if (mouseType == null)
+            {
+                return false;
+            }
+
+            var currentMouse = mouseType.GetProperty("current")?.GetValue(null);
+            if (currentMouse == null)
+            {
+                return true;
+            }
+
+            var controlName = button switch
+            {
+                0 => "leftButton",
+                1 => "rightButton",
+                _ => null
+            };
+
+            if (string.IsNullOrEmpty(controlName))
+            {
+                return true;
+            }
+
+            control = mouseType.GetProperty(controlName)?.GetValue(currentMouse);
+            return true;
+        }
+
+        private static string MapKeyControlName(KeyCode keyCode)
+        {
+            return keyCode switch
+            {
+                KeyCode.Tab => "tabKey",
+                KeyCode.H => "hKey",
+                KeyCode.F => "fKey",
+                KeyCode.M => "mKey",
+                KeyCode.T => "tKey",
+                KeyCode.E => "eKey",
+                KeyCode.F1 => "f1Key",
+                _ => null
+            };
         }
     }
 }

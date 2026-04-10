@@ -1,3 +1,4 @@
+#if UNITY_EDITOR && UNITY_INCLUDE_TESTS && BREACH_ENABLE_EDITMODE_TESTS
 using System;
 using System.IO;
 using Breach.Tools;
@@ -78,3 +79,4 @@ namespace Breach.Tests.EditMode
         }
     }
 }
+#endif

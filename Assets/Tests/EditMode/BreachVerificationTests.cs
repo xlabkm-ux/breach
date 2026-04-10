@@ -1,3 +1,4 @@
+#if UNITY_EDITOR && UNITY_INCLUDE_TESTS && BREACH_ENABLE_EDITMODE_TESTS
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +17,9 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+#if UNITY_VISUAL_SCRIPTING
 using Unity.VisualScripting;
+#endif
 
 namespace Breach.Tests.EditMode
 {
@@ -478,6 +481,7 @@ namespace Breach.Tests.EditMode
                 }.Where(InputCompat.IsSupportedKeyCode).ToArray());
         }
 
+#if UNITY_VISUAL_SCRIPTING
         [Test]
         public void VisualScriptingGraphs_ShouldContainCanonicalCommandAndAlertBindings()
         {
@@ -508,6 +512,7 @@ namespace Breach.Tests.EditMode
             Assert.AreEqual(squadFlow, missionMachine.nest.macro, "MissionDirector should use SquadCommandFlow for command parity.");
             Assert.AreEqual(enemyFlow, enemyMachine.nest.macro, "Enemy_Grunt should use EnemyAlertFlow for alert parity.");
         }
+#endif
 
         private static void AssertAssetHasNoMissingReferences(string assetPath, Action<string> inspector)
         {
@@ -695,6 +700,7 @@ namespace Breach.Tests.EditMode
             QualitySettings.SetQualityLevel(index, true);
         }
 
+#if UNITY_VISUAL_SCRIPTING
         private static void AssertGraphContainsRelay(FlowGraph graph, string listenEvent, string relayEvent)
         {
             Assert.NotNull(graph, "Expected a valid Visual Scripting graph.");
@@ -744,5 +750,7 @@ namespace Breach.Tests.EditMode
 
             Assert.IsTrue(hasRelay, $"Graph is missing relay '{listenEvent}' -> '{relayEvent}'.");
         }
+#endif
     }
 }
+#endif

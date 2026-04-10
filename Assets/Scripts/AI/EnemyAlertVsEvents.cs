@@ -1,5 +1,7 @@
-using Unity.VisualScripting;
 using UnityEngine;
+#if UNITY_VISUAL_SCRIPTING
+using Unity.VisualScripting;
+#endif
 
 namespace Breach.AI
 {
@@ -18,7 +20,9 @@ namespace Breach.AI
                 _ => Idle
             };
 
+#if UNITY_VISUAL_SCRIPTING
             EventBus.Trigger(EventHooks.Custom, sender, new CustomEventArgs(eventName));
+#endif
         }
     }
 }

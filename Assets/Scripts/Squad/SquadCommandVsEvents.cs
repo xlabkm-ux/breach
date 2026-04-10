@@ -1,5 +1,7 @@
-using Unity.VisualScripting;
 using UnityEngine;
+#if UNITY_VISUAL_SCRIPTING
+using Unity.VisualScripting;
+#endif
 
 namespace Breach.Squad
 {
@@ -12,22 +14,30 @@ namespace Breach.Squad
 
         public static void RaiseMove(GameObject sender, Vector3 worldPoint)
         {
+#if UNITY_VISUAL_SCRIPTING
             EventBus.Trigger(EventHooks.Custom, sender, new SquadCommandPayload(MoveIssued, worldPoint, null));
+#endif
         }
 
         public static void RaiseHold(GameObject sender)
         {
+#if UNITY_VISUAL_SCRIPTING
             EventBus.Trigger(EventHooks.Custom, sender, new SquadCommandPayload(HoldIssued, Vector3.zero, null));
+#endif
         }
 
         public static void RaiseFollow(GameObject sender, Transform target)
         {
+#if UNITY_VISUAL_SCRIPTING
             EventBus.Trigger(EventHooks.Custom, sender, new SquadCommandPayload(FollowIssued, target != null ? target.position : Vector3.zero, target));
+#endif
         }
 
         public static void RaiseAttack(GameObject sender, Transform target)
         {
+#if UNITY_VISUAL_SCRIPTING
             EventBus.Trigger(EventHooks.Custom, sender, new SquadCommandPayload(AttackIssued, target != null ? target.position : Vector3.zero, target));
+#endif
         }
     }
 
