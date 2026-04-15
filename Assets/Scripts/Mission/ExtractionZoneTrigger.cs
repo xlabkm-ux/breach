@@ -14,7 +14,7 @@ namespace Breach.Mission
         {
             if (objectiveService == null)
             {
-                objectiveService = FindFirstObjectByType<ObjectiveService>();
+                objectiveService = FindAnyObjectByType<ObjectiveService>();
             }
         }
 
@@ -25,7 +25,7 @@ namespace Breach.Mission
                 return;
             }
 
-            var hostage = FindFirstObjectByType<HostageController>();
+            var hostage = FindAnyObjectByType<HostageController>();
             if (hostage == null || !hostage.IsFreed)
             {
                 return;

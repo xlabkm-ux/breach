@@ -11,7 +11,7 @@ namespace Breach.Save
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void EnsureRuntimeInstance()
         {
-            if (FindFirstObjectByType<SaveVisualRestoreBridge>() != null)
+            if (FindAnyObjectByType<SaveVisualRestoreBridge>() != null)
             {
                 return;
             }
@@ -25,7 +25,7 @@ namespace Breach.Save
         {
             if (saveService == null)
             {
-                saveService = FindFirstObjectByType<SaveService>();
+                saveService = FindAnyObjectByType<SaveService>();
                 if (saveService != null)
                 {
                     saveService.Loaded += OnSaveLoaded;
@@ -34,7 +34,7 @@ namespace Breach.Save
 
             if (runtimeStabilizer == null)
             {
-                runtimeStabilizer = FindFirstObjectByType<MissionRuntimeStabilizer>();
+                runtimeStabilizer = FindAnyObjectByType<MissionRuntimeStabilizer>();
             }
         }
 
@@ -50,7 +50,7 @@ namespace Breach.Save
         {
             if (runtimeStabilizer == null)
             {
-                runtimeStabilizer = FindFirstObjectByType<MissionRuntimeStabilizer>();
+                runtimeStabilizer = FindAnyObjectByType<MissionRuntimeStabilizer>();
             }
 
             runtimeStabilizer?.ReinitializeForLoadedState();

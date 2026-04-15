@@ -25,7 +25,7 @@ namespace Breach.Combat
             cachedCamera = Camera.main;
             selfHealth = GetComponent<HealthComponent>();
             operativeMember = GetComponent<OperativeMember>();
-            resolver = FindFirstObjectByType<CombatResolver>();
+            resolver = FindAnyObjectByType<CombatResolver>();
             noiseEmitter = GetComponent<NoiseEmitter>();
         }
 
@@ -52,7 +52,7 @@ namespace Breach.Combat
 
             if (resolver == null)
             {
-                resolver = FindFirstObjectByType<CombatResolver>();
+                resolver = FindAnyObjectByType<CombatResolver>();
                 if (resolver == null)
                 {
                     return;

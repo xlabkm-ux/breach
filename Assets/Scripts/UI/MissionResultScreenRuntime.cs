@@ -20,7 +20,7 @@ namespace Breach.UI
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void EnsureRuntimeInstance()
         {
-            if (FindFirstObjectByType<MissionResultScreenRuntime>() != null)
+            if (FindAnyObjectByType<MissionResultScreenRuntime>() != null)
             {
                 return;
             }
@@ -34,12 +34,12 @@ namespace Breach.UI
         {
             if (missionStateService == null)
             {
-                missionStateService = FindFirstObjectByType<MissionStateService>();
+                missionStateService = FindAnyObjectByType<MissionStateService>();
             }
 
             if (resultScreenController == null)
             {
-                resultScreenController = FindFirstObjectByType<ResultScreenController>();
+                resultScreenController = FindAnyObjectByType<ResultScreenController>();
             }
         }
 

@@ -19,7 +19,7 @@ namespace Breach.UI
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void EnsureRuntimeHud()
         {
-            if (FindFirstObjectByType<MissionRuntimeHud>() != null)
+            if (FindAnyObjectByType<MissionRuntimeHud>() != null)
             {
                 return;
             }
@@ -38,15 +38,15 @@ namespace Breach.UI
 
             if (missionStateService == null)
             {
-                missionStateService = FindFirstObjectByType<MissionStateService>();
+                missionStateService = FindAnyObjectByType<MissionStateService>();
             }
             if (objectiveService == null)
             {
-                objectiveService = FindFirstObjectByType<ObjectiveService>();
+                objectiveService = FindAnyObjectByType<ObjectiveService>();
             }
             if (switchService == null)
             {
-                switchService = FindFirstObjectByType<ActiveOperativeSwitchService>();
+                switchService = FindAnyObjectByType<ActiveOperativeSwitchService>();
             }
         }
 

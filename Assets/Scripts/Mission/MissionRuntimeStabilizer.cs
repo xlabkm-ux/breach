@@ -21,7 +21,7 @@ namespace Breach.Mission
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void EnsureRuntimeInstance()
         {
-            if (FindFirstObjectByType<MissionRuntimeStabilizer>() != null)
+            if (FindAnyObjectByType<MissionRuntimeStabilizer>() != null)
             {
                 return;
             }
@@ -51,7 +51,7 @@ namespace Breach.Mission
             }
             if (switchService == null)
             {
-                switchService = FindFirstObjectByType<ActiveOperativeSwitchService>();
+                switchService = FindAnyObjectByType<ActiveOperativeSwitchService>();
             }
             if (mainCamera == null || switchService == null || switchService.ActiveOperative == null)
             {
@@ -67,7 +67,7 @@ namespace Breach.Mission
         private void InitializeMissionRuntime()
         {
             mainCamera = Camera.main;
-            switchService = FindFirstObjectByType<ActiveOperativeSwitchService>();
+            switchService = FindAnyObjectByType<ActiveOperativeSwitchService>();
 
             EnsureLayout();
             EnsureOperatives();
@@ -86,7 +86,7 @@ namespace Breach.Mission
 
         private static void EnsureLayout()
         {
-            var builders = FindObjectsByType<ApartmentLayoutBuilder>(FindObjectsSortMode.None);
+            var builders = FindObjectsByType<ApartmentLayoutBuilder>(UnityEngine.FindObjectsInactive.Exclude);
             foreach (var builder in builders)
             {
                 builder.Rebuild();
@@ -95,7 +95,7 @@ namespace Breach.Mission
 
         private void EnsureOperatives()
         {
-            var operatives = FindObjectsByType<OperativeMember>(FindObjectsSortMode.None);
+            var operatives = FindObjectsByType<OperativeMember>(UnityEngine.FindObjectsInactive.Exclude);
             for (var i = 0; i < operatives.Length; i++)
             {
                 var operative = operatives[i];
@@ -176,7 +176,7 @@ namespace Breach.Mission
         {
             var result = new List<GameObject>();
 
-            var alertControllers = FindObjectsByType<EnemyAlertController>(FindObjectsSortMode.None);
+            var alertControllers = FindObjectsByType<EnemyAlertController>(UnityEngine.FindObjectsInactive.Exclude);
             foreach (var alertController in alertControllers)
             {
                 if (alertController != null && !result.Contains(alertController.gameObject))
@@ -185,7 +185,7 @@ namespace Breach.Mission
                 }
             }
 
-            var patrolAgents = FindObjectsByType<EnemyPatrolAgent>(FindObjectsSortMode.None);
+            var patrolAgents = FindObjectsByType<EnemyPatrolAgent>(UnityEngine.FindObjectsInactive.Exclude);
             foreach (var patrolAgent in patrolAgents)
             {
                 if (patrolAgent != null && !result.Contains(patrolAgent.gameObject))
@@ -194,7 +194,7 @@ namespace Breach.Mission
                 }
             }
 
-            var namedEnemies = GameObject.FindObjectsByType<Transform>(FindObjectsSortMode.None);
+            var namedEnemies = GameObject.FindObjectsByType<Transform>(UnityEngine.FindObjectsInactive.Exclude);
             foreach (var tr in namedEnemies)
             {
                 if (tr == null || tr.gameObject == null)
@@ -225,7 +225,7 @@ namespace Breach.Mission
 
         private static void EnsureHostage()
         {
-            var hostage = FindFirstObjectByType<HostageController>();
+            var hostage = FindAnyObjectByType<HostageController>();
             if (hostage == null)
             {
                 return;

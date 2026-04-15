@@ -56,6 +56,11 @@ namespace Breach.Core
         {
             get
             {
+                if (TryGetInputSystemMoveVector(out var moveVector))
+                {
+                    return moveVector;
+                }
+
                 return new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             }
         }
@@ -154,6 +159,44 @@ namespace Breach.Core
             return true;
         }
 
+        private static bool TryGetInputSystemMoveVector(out Vector2 moveVector)
+        {
+            moveVector = Vector2.zero;
+            var keyboardType = Type.GetType(KeyboardTypeName);
+            if (keyboardType == null)
+            {
+                return false;
+            }
+
+            var currentKeyboard = keyboardType.GetProperty("current")?.GetValue(null);
+            if (currentKeyboard == null)
+            {
+                return true;
+            }
+
+            var x = 0f;
+            var y = 0f;
+            if (IsPressed(keyboardType, currentKeyboard, "aKey") || IsPressed(keyboardType, currentKeyboard, "leftArrowKey"))
+            {
+                x -= 1f;
+            }
+            if (IsPressed(keyboardType, currentKeyboard, "dKey") || IsPressed(keyboardType, currentKeyboard, "rightArrowKey"))
+            {
+                x += 1f;
+            }
+            if (IsPressed(keyboardType, currentKeyboard, "sKey") || IsPressed(keyboardType, currentKeyboard, "downArrowKey"))
+            {
+                y -= 1f;
+            }
+            if (IsPressed(keyboardType, currentKeyboard, "wKey") || IsPressed(keyboardType, currentKeyboard, "upArrowKey"))
+            {
+                y += 1f;
+            }
+
+            moveVector = new Vector2(x, y);
+            return true;
+        }
+
         private static bool TryGetMouseControl(int button, out object control)
         {
             control = null;
@@ -198,6 +241,18 @@ namespace Breach.Core
                 KeyCode.F1 => "f1Key",
                 _ => null
             };
+        }
+
+        private static bool IsPressed(Type keyboardType, object currentKeyboard, string controlName)
+        {
+            var control = keyboardType.GetProperty(controlName)?.GetValue(currentKeyboard);
+            if (control == null)
+            {
+                return false;
+            }
+
+            var value = control.GetType().GetProperty("isPressed")?.GetValue(control);
+            return value is bool b && b;
         }
     }
 }

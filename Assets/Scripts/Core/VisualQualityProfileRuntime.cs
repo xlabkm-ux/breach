@@ -12,7 +12,7 @@ namespace Breach.Core
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void EnsureRuntimeInstance()
         {
-            if (FindFirstObjectByType<VisualQualityProfileRuntime>() != null)
+            if (FindAnyObjectByType<VisualQualityProfileRuntime>() != null)
             {
                 return;
             }

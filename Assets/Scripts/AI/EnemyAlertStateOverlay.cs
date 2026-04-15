@@ -16,7 +16,7 @@ namespace Breach.AI
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void EnsureRuntimeInstance()
         {
-            if (FindFirstObjectByType<EnemyAlertStateOverlay>() != null)
+            if (FindAnyObjectByType<EnemyAlertStateOverlay>() != null)
             {
                 return;
             }
@@ -35,7 +35,7 @@ namespace Breach.AI
 
             if (Time.unscaledTime >= nextRefreshTime)
             {
-                cachedEnemies = FindObjectsByType<EnemyAlertController>(FindObjectsSortMode.None);
+                cachedEnemies = FindObjectsByType<EnemyAlertController>(UnityEngine.FindObjectsInactive.Exclude);
                 nextRefreshTime = Time.unscaledTime + 0.4f;
             }
         }

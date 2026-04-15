@@ -24,7 +24,7 @@ namespace Breach.Combat
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void EnsureRuntimeInstance()
         {
-            if (FindFirstObjectByType<FriendlyFireAimOverlay>() != null)
+            if (FindAnyObjectByType<FriendlyFireAimOverlay>() != null)
             {
                 return;
             }
@@ -74,7 +74,7 @@ namespace Breach.Combat
 
             if (Time.unscaledTime >= nextRefreshTime)
             {
-                shooters = FindObjectsByType<SimpleShooter>(FindObjectsSortMode.None);
+                shooters = FindObjectsByType<SimpleShooter>(UnityEngine.FindObjectsInactive.Exclude);
                 nextRefreshTime = Time.unscaledTime + 0.5f;
             }
 
