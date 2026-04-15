@@ -2,7 +2,7 @@
 
 ## Участники команды
 - **xlabkm-ux** (xlabkm@gmail.com) — Owner
-- **loginovfedor** (loginovfedor@gmail.com) — Maintain
+- **loginovfedor-spec** (loginovfedor@gmail.com) — Maintain
 
 ## AI-агенты
 - **Codex** (OpenAI) — cloud / CLI / @codex в комментариях PR
