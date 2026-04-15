@@ -1,3 +1,42 @@
+# AGENTS.md — Правила для всех AI-агентов
+
+## Участники команды
+- **xlabkm-ux** (xlabkm@gmail.com) — Owner
+- **loginovfedor** (loginovfedor@gmail.com) — Maintain
+
+## AI-агенты
+- **Codex** (OpenAI) — cloud / CLI / @codex в комментариях PR
+- **Antigravity** (Google) — Agent Manager / Mission Control
+- Каждый пользователь может запускать 2–3 агента одновременно
+
+## Обязательные правила для ВСЕХ агентов (Codex + Antigravity)
+
+### 1. Ветки
+- Работать **только** в feature-ветках
+- Префиксы:
+  - `xlabkm/task-...` или `xlabkm/`
+  - `fedor/task-...` или `fedor/`
+  - `codex/`
+  - `antigravity/`
+- Перед началом:  
+  `git pull origin main && git rebase main`
+
+### 2. Задачи
+- Брать задачи **только** из GitHub Project «Product Backlog» или Issues с label `ready`
+- В PR обязательно указывать ссылку на задачу (#123)
+
+### 3. Коммиты и PR
+- Использовать **Conventional Commits**
+- После изменений агент **обязан** открыть **Draft Pull Request**
+- Название PR: `[Codex] / [Antigravity] Название задачи (#123)`
+
+### 4. Работа на разных компьютерах
+- Использовать `sparse-checkout` для нужных папок
+- Агенты работают **только** внутри активных папок
+
+### 5. Финальное ревью
+- Человек (xlabkm-ux или loginovfedor) всегда делает финальное одобрение и merge
+
 # AGENTS.md
 
 ## Project Identity
