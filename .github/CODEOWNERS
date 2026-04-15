@@ -1,0 +1,11 @@
+# CODEOWNERS — кто ревьюит какие папки
+
+# Все файлы по умолчанию
+* @xlabkm-ux @loginovfedor
+
+# Unity-специфичные папки (измени под свою структуру, если нужно)
+ /Assets/                  @xlabkm-ux
+ /Packages/                @loginovfedor
+ /ProjectSettings/         @xlabkm-ux
+ /Scripts/                 @loginovfedor
+ /docs/                    @xlabkm-ux @loginovfedor
