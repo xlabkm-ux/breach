@@ -104,6 +104,139 @@ namespace Breach.Tests.EditMode
         }
 
         [Test]
+        public void SaveService_ShouldLoadCompatibleBackupAfterPrimarySchemaMismatch()
+        {
+            var root = new GameObject("SaveServiceSchemaFallbackVerification");
+            var savePath = Path.Combine(Application.persistentDataPath, "mission_save_v1.json");
+            var backupPath = Path.Combine(Application.persistentDataPath, "mission_save_v1.backup.json");
+            var tempPath = Path.Combine(Application.persistentDataPath, "mission_save_v1.tmp");
+            var hadPrimary = File.Exists(savePath);
+            var hadBackup = File.Exists(backupPath);
+            var originalPrimary = hadPrimary ? File.ReadAllText(savePath) : null;
+            var originalBackup = hadBackup ? File.ReadAllText(backupPath) : null;
+
+            try
+            {
+                var missionState = root.AddComponent<MissionStateService>();
+                var objectives = root.AddComponent<ObjectiveService>();
+                var saveService = root.AddComponent<SaveService>();
+
+                SetPrivateField(saveService, "schemaVersion", 1);
+                SetPrivateField(saveService, "missionStateService", missionState);
+                SetPrivateField(saveService, "objectiveService", objectives);
+                InvokePrivate(saveService, "OnEnable");
+
+                missionState.ForceStateForLoad(MissionState.Failed);
+                objectives.ResetForNewMission();
+
+                var incompatiblePrimary = new MissionSaveSnapshot
+                {
+                    schemaVersion = 2,
+                    missionState = MissionState.Failed,
+                    infiltrationComplete = false,
+                    hostageFreed = false,
+                    hostageExtracted = false,
+                    squadAlive = false,
+                    hostageAlive = false
+                };
+
+                var compatibleBackup = new MissionSaveSnapshot
+                {
+                    schemaVersion = 1,
+                    missionState = MissionState.Extraction,
+                    infiltrationComplete = true,
+                    hostageFreed = true,
+                    hostageExtracted = true,
+                    squadAlive = true,
+                    hostageAlive = true
+                };
+
+                File.WriteAllText(savePath, JsonUtility.ToJson(incompatiblePrimary, true));
+                File.WriteAllText(backupPath, JsonUtility.ToJson(compatibleBackup, true));
+
+                Assert.IsTrue(saveService.TryLoad(), "SaveService should fall back to the compatible backup when the primary schema is unsupported.");
+                Assert.AreEqual(MissionState.Extraction, missionState.CurrentState);
+                Assert.IsTrue(objectives.InfiltrationComplete);
+                Assert.IsTrue(objectives.HostageFreed);
+                Assert.IsTrue(objectives.HostageExtracted);
+                Assert.IsTrue(objectives.SquadAlive);
+                Assert.IsTrue(objectives.HostageAlive);
+                Assert.That(File.ReadAllText(savePath), Does.Contain("\"schemaVersion\": 1"), "Primary save was not restored from the compatible backup.");
+            }
+            finally
+            {
+                InvokePrivate(root.GetComponent<SaveService>(), "OnDisable");
+                Object.DestroyImmediate(root);
+                RestoreFile(savePath, hadPrimary, originalPrimary);
+                RestoreFile(backupPath, hadBackup, originalBackup);
+                if (File.Exists(tempPath))
+                {
+                    File.Delete(tempPath);
+                }
+            }
+        }
+
+        [Test]
+        public void SaveService_ShouldPreserveLiveStateWhenPrimaryAndBackupAreInvalid()
+        {
+            var root = new GameObject("SaveServiceInvalidFallbackVerification");
+            var savePath = Path.Combine(Application.persistentDataPath, "mission_save_v1.json");
+            var backupPath = Path.Combine(Application.persistentDataPath, "mission_save_v1.backup.json");
+            var tempPath = Path.Combine(Application.persistentDataPath, "mission_save_v1.tmp");
+            var hadPrimary = File.Exists(savePath);
+            var hadBackup = File.Exists(backupPath);
+            var originalPrimary = hadPrimary ? File.ReadAllText(savePath) : null;
+            var originalBackup = hadBackup ? File.ReadAllText(backupPath) : null;
+
+            try
+            {
+                var missionState = root.AddComponent<MissionStateService>();
+                var objectives = root.AddComponent<ObjectiveService>();
+                var saveService = root.AddComponent<SaveService>();
+
+                SetPrivateField(saveService, "schemaVersion", 1);
+                SetPrivateField(saveService, "missionStateService", missionState);
+                SetPrivateField(saveService, "objectiveService", objectives);
+                InvokePrivate(saveService, "OnEnable");
+
+                missionState.ForceStateForLoad(MissionState.HostageSecured);
+                objectives.MarkInfiltrationComplete();
+                objectives.MarkHostageFreed();
+
+                File.WriteAllText(savePath, "{ broken json");
+                File.WriteAllText(backupPath, JsonUtility.ToJson(new MissionSaveSnapshot
+                {
+                    schemaVersion = 2,
+                    missionState = MissionState.Success,
+                    infiltrationComplete = true,
+                    hostageFreed = true,
+                    hostageExtracted = true,
+                    squadAlive = false,
+                    hostageAlive = true
+                }, true));
+
+                Assert.IsFalse(saveService.TryLoad(), "SaveService should fail cleanly when both the primary and backup saves are unusable.");
+                Assert.AreEqual(MissionState.HostageSecured, missionState.CurrentState);
+                Assert.IsTrue(objectives.InfiltrationComplete);
+                Assert.IsTrue(objectives.HostageFreed);
+                Assert.IsFalse(objectives.HostageExtracted);
+                Assert.IsTrue(objectives.SquadAlive);
+                Assert.IsTrue(objectives.HostageAlive);
+            }
+            finally
+            {
+                InvokePrivate(root.GetComponent<SaveService>(), "OnDisable");
+                Object.DestroyImmediate(root);
+                RestoreFile(savePath, hadPrimary, originalPrimary);
+                RestoreFile(backupPath, hadBackup, originalBackup);
+                if (File.Exists(tempPath))
+                {
+                    File.Delete(tempPath);
+                }
+            }
+        }
+
+        [Test]
         public void LocalizationTable_ShouldFallbackToEnglishAndKey()
         {
             var table = ScriptableObject.CreateInstance<LocalizationTableAsset>();
@@ -213,6 +346,24 @@ namespace Breach.Tests.EditMode
                 Object.DestroyImmediate(successRoot);
                 Object.DestroyImmediate(failureRoot);
             }
+        }
+
+        [Test]
+        public void MissionRuntimeHud_ShouldMapMissionStatesToLocalizationKeys()
+        {
+            var method = typeof(MissionRuntimeHud).GetMethod("GetMissionStateKey", BindingFlags.NonPublic | BindingFlags.Static);
+            Assert.NotNull(method, "MissionRuntimeHud.GetMissionStateKey is missing.");
+
+            Assert.AreEqual("mission_state.not_started", method.Invoke(null, new object[] { MissionState.NotStarted }));
+            Assert.AreEqual("mission_state.infiltration", method.Invoke(null, new object[] { MissionState.Infiltration }));
+            Assert.AreEqual("mission_state.engagement", method.Invoke(null, new object[] { MissionState.Engagement }));
+            Assert.AreEqual("mission_state.hostage_secured", method.Invoke(null, new object[] { MissionState.HostageSecured }));
+            Assert.AreEqual("mission_state.extraction", method.Invoke(null, new object[] { MissionState.Extraction }));
+            Assert.AreEqual("mission_state.success", method.Invoke(null, new object[] { MissionState.Success }));
+            Assert.AreEqual("mission_state.failed", method.Invoke(null, new object[] { MissionState.Failed }));
+
+            var unknownKey = method.Invoke(null, new object[] { (MissionState)123 });
+            Assert.AreEqual("mission_state.unknown", unknownKey);
         }
 
         [Test]
@@ -355,6 +506,35 @@ namespace Breach.Tests.EditMode
 
                 Assert.AreEqual(MissionState.Failed, stateService.CurrentState);
                 Assert.IsTrue(objectiveService.IsMissionFailed);
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
+        [Test]
+        public void HostageFailureFlow_ShouldPreferFailureOverLateSuccessCandidate()
+        {
+            var root = new GameObject("HostageLateFailureVerification");
+
+            try
+            {
+                var stateService = root.AddComponent<MissionStateService>();
+                var objectiveService = root.AddComponent<ObjectiveService>();
+                var resolver = root.AddComponent<MissionResultResolver>();
+
+                InvokePrivate(resolver, "Awake");
+
+                objectiveService.MarkInfiltrationComplete();
+                objectiveService.MarkHostageFreed();
+                objectiveService.MarkHostageExtracted();
+                objectiveService.MarkHostageKilled();
+
+                InvokePrivate(resolver, "Update");
+
+                Assert.AreEqual(MissionState.Failed, stateService.CurrentState);
+                Assert.IsFalse(stateService.CurrentState == MissionState.Success, "Mission should not resolve to success when the hostage is dead.");
             }
             finally
             {
@@ -785,3 +965,4 @@ namespace Breach.Tests.EditMode
     }
 }
 #endif
+
