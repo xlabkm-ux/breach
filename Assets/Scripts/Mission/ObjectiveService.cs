@@ -1,9 +1,11 @@
+using System;
 using UnityEngine;
 
 namespace Breach.Mission
 {
     public sealed class ObjectiveService : MonoBehaviour
     {
+        public event Action MilestoneReached;
         [Header("Primary Objective Flags")]
         [SerializeField] private bool infiltrationComplete;
         [SerializeField] private bool hostageFreed;
@@ -30,16 +32,19 @@ namespace Breach.Mission
         public void MarkInfiltrationComplete()
         {
             infiltrationComplete = true;
+            MilestoneReached?.Invoke();
         }
 
         public void MarkHostageFreed()
         {
             hostageFreed = true;
+            MilestoneReached?.Invoke();
         }
 
         public void MarkHostageExtracted()
         {
             hostageExtracted = true;
+            MilestoneReached?.Invoke();
         }
 
         public void MarkSquadWiped()
