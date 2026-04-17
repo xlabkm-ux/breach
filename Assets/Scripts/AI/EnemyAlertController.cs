@@ -17,30 +17,39 @@ namespace Breach.AI
         private EnemyAlertState currentState = EnemyAlertState.Idle;
         private float suspiciousUntil;
         private EnemyAlertState lastBroadcastState = (EnemyAlertState)(-1);
+        private bool isListeningToNoise;
+        private int lastProcessedNoiseSequence;
 
         public EnemyAlertState CurrentState => currentState;
 
         private void OnEnable()
         {
-            NoiseEventBus.NoiseRaised += OnNoiseRaised;
+            SubscribeToNoiseEvents();
             BroadcastStateIfNeeded();
         }
 
         private void OnDisable()
         {
-            NoiseEventBus.NoiseRaised -= OnNoiseRaised;
+            UnsubscribeFromNoiseEvents();
         }
 
         private void Awake()
         {
-            if (visionCone == null)
-            {
-                visionCone = GetComponent<EnemyVisionCone>();
-            }
+            EnsureVisionCone();
+            lastProcessedNoiseSequence = NoiseEventBus.LatestSequence;
+            SubscribeToNoiseEvents();
+        }
+
+        private void OnDestroy()
+        {
+            UnsubscribeFromNoiseEvents();
         }
 
         private void Update()
         {
+            EnsureVisionCone();
+            TryConsumeLatestNoise();
+
             if (visionCone != null && visionCone.HasTarget)
             {
                 currentState = EnemyAlertState.Alert;
@@ -60,6 +69,17 @@ namespace Breach.AI
 
         private void OnNoiseRaised(NoiseEvent noise)
         {
+            if (noise.Sequence <= lastProcessedNoiseSequence)
+            {
+                return;
+            }
+
+            lastProcessedNoiseSequence = noise.Sequence;
+            ProcessNoise(noise);
+        }
+
+        private void ProcessNoise(NoiseEvent noise)
+        {
             var distance = Vector2.Distance(transform.position, noise.Position);
             if (distance > noise.Radius)
             {
@@ -75,6 +95,32 @@ namespace Breach.AI
             BroadcastStateIfNeeded();
         }
 
+        private void TryConsumeLatestNoise()
+        {
+            if (!NoiseEventBus.TryGetLatestNoise(out var noise))
+            {
+                return;
+            }
+
+            if (noise.Sequence <= lastProcessedNoiseSequence)
+            {
+                return;
+            }
+
+            lastProcessedNoiseSequence = noise.Sequence;
+            ProcessNoise(noise);
+        }
+
+        private void EnsureVisionCone()
+        {
+            if (visionCone != null)
+            {
+                return;
+            }
+
+            visionCone = GetComponent<EnemyVisionCone>();
+        }
+
         private void BroadcastStateIfNeeded()
         {
             if (lastBroadcastState == currentState)
@@ -84,6 +130,28 @@ namespace Breach.AI
 
             lastBroadcastState = currentState;
             EnemyAlertVsEvents.Raise(currentState, gameObject);
+        }
+
+        private void SubscribeToNoiseEvents()
+        {
+            if (isListeningToNoise || !isActiveAndEnabled)
+            {
+                return;
+            }
+
+            NoiseEventBus.NoiseRaised += OnNoiseRaised;
+            isListeningToNoise = true;
+        }
+
+        private void UnsubscribeFromNoiseEvents()
+        {
+            if (!isListeningToNoise)
+            {
+                return;
+            }
+
+            NoiseEventBus.NoiseRaised -= OnNoiseRaised;
+            isListeningToNoise = false;
         }
     }
 }

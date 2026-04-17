@@ -4,7 +4,7 @@ namespace Breach.Combat
 {
     public sealed class CombatResolver : MonoBehaviour
     {
-        [SerializeField] private bool friendlyFireEnabled = true;
+        [SerializeField] private bool friendlyFireEnabled = false;
 
         public void SetFriendlyFireEnabled(bool enabled)
         {

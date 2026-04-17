@@ -581,7 +581,9 @@ PlayerSettings:
   webGLCloseOnQuit: 0
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: BREACH_ENABLE_EDITMODE_TESTS
+    Standalone: BREACH_ENABLE_EDITMODE_TESTS
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
