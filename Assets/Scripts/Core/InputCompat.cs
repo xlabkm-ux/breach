@@ -19,7 +19,17 @@ namespace Breach.Core
 
         public static bool IsSupportedKeyCode(KeyCode keyCode)
         {
-            return true;
+            return keyCode switch
+            {
+                KeyCode.Tab => true,
+                KeyCode.H => true,
+                KeyCode.F => true,
+                KeyCode.M => true,
+                KeyCode.T => true,
+                KeyCode.E => true,
+                KeyCode.F1 => true,
+                _ => false
+            };
         }
 
         public static bool GetMouseButtonDown(int button)

@@ -692,6 +692,13 @@ namespace Breach.Tests.EditMode
                 }.Where(InputCompat.IsSupportedKeyCode).ToArray());
         }
 
+        [Test]
+        public void InputCompat_ShouldRejectNonGameplayHotkeys()
+        {
+            Assert.IsFalse(InputCompat.IsSupportedKeyCode(KeyCode.Space));
+            Assert.IsFalse(InputCompat.IsSupportedKeyCode(KeyCode.LeftShift));
+        }
+
 #if UNITY_VISUAL_SCRIPTING
         [Test]
         public void VisualScriptingGraphs_ShouldContainCanonicalCommandAndAlertBindings()
