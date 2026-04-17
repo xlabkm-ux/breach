@@ -19,19 +19,13 @@ namespace Breach.Hostage
 
         private void Awake()
         {
-            health = GetComponent<HealthComponent>();
-            if (switchService == null)
-            {
-                switchService = FindAnyObjectByType<ActiveOperativeSwitchService>();
-            }
-            if (objectiveService == null)
-            {
-                objectiveService = FindAnyObjectByType<ObjectiveService>();
-            }
+            ResolveDependencies();
         }
 
         private void Update()
         {
+            ResolveDependencies();
+
             if (health != null && health.IsDead)
             {
                 objectiveService?.MarkHostageKilled();
@@ -55,13 +49,16 @@ namespace Breach.Hostage
 
         public bool TryFree(Transform activeOperative)
         {
+            ResolveDependencies();
+
             if (isFreed || activeOperative == null)
             {
                 return false;
             }
 
             var distance = Vector2.Distance(transform.position, activeOperative.position);
-            if (distance > interactionDistance)
+            var canFree = distance <= interactionDistance;
+            if (!canFree)
             {
                 return false;
             }
@@ -82,6 +79,24 @@ namespace Breach.Hostage
             var target = activeOperative.position;
             var next = Vector3.MoveTowards(current, target, followSpeed * Mathf.Max(0f, deltaTime));
             transform.position = new Vector3(next.x, next.y, current.z);
+        }
+
+        private void ResolveDependencies()
+        {
+            if (health == null)
+            {
+                health = GetComponent<HealthComponent>();
+            }
+
+            if (switchService == null)
+            {
+                switchService = FindAnyObjectByType<ActiveOperativeSwitchService>();
+            }
+
+            if (objectiveService == null)
+            {
+                objectiveService = FindAnyObjectByType<ObjectiveService>();
+            }
         }
     }
 }

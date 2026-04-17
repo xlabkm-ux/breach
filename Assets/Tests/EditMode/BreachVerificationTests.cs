@@ -396,6 +396,35 @@ namespace Breach.Tests.EditMode
         }
 
         [Test]
+        public void ExtractionZoneTrigger_ShouldIgnoreUnfreedHostage()
+        {
+            var root = new GameObject("ExtractionUnfreedVerification");
+            var hostage = new GameObject("ExtractionUnfreedHostage");
+
+            try
+            {
+                root.transform.position = Vector3.zero;
+                hostage.transform.position = new Vector3(0.8f, 0f, 0f);
+
+                var objectiveService = root.AddComponent<ObjectiveService>();
+                var zone = root.AddComponent<ExtractionZoneTrigger>();
+                hostage.AddComponent<HealthComponent>();
+                hostage.AddComponent<HostageController>();
+
+                Physics2D.SyncTransforms();
+                InvokePrivate(zone, "Awake");
+                InvokePrivate(zone, "Update");
+
+                Assert.IsFalse(objectiveService.HostageExtracted, "A hostage must be freed before extraction can complete.");
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+                Object.DestroyImmediate(hostage);
+            }
+        }
+
+        [Test]
         public void QualitySettings_ShouldExposeCanonicalPlatformProfiles()
         {
             var names = QualitySettings.names;
