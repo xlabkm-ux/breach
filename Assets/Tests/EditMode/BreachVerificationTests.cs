@@ -87,6 +87,13 @@ namespace Breach.Tests.EditMode
                 Assert.IsTrue(objectives.HostageFreed);
                 Assert.IsTrue(objectives.HostageExtracted);
                 Assert.That(File.ReadAllText(savePath), Does.Contain("\"schemaVersion\""), "Primary save was not restored from backup.");
+ 
+                // Verify Milestone Trigger
+                objectives.ResetForNewMission();
+                File.Delete(savePath);
+                File.Delete(backupPath);
+                objectives.MarkHostageFreed();
+                Assert.That(File.Exists(savePath), Is.True, "Objective milestone should trigger an autosave.");
             }
             finally
             {
@@ -98,6 +105,66 @@ namespace Breach.Tests.EditMode
                 {
                     File.Delete(tempPath);
                 }
+            }
+        }
+
+        [Test]
+        public void SaveService_ShouldRejectIncompatibleSchemaVersion()
+        {
+            var root = new GameObject("SaveVersionVerification");
+            var savePath = Path.Combine(Application.persistentDataPath, "mission_save_v1.json");
+            var hadPrimary = File.Exists(savePath);
+            var originalPrimary = hadPrimary ? File.ReadAllText(savePath) : null;
+
+            try
+            {
+                var missionState = root.AddComponent<MissionStateService>();
+                var objectives = root.AddComponent<ObjectiveService>();
+                var saveService = root.AddComponent<SaveService>();
+                SetPrivateField(saveService, "schemaVersion", 2);
+                SetPrivateField(saveService, "missionStateService", missionState);
+                SetPrivateField(saveService, "objectiveService", objectives);
+
+                // Write version 1 save
+                File.WriteAllText(savePath, "{\"schemaVersion\": 1, \"missionState\": 1}");
+
+                Assert.IsFalse(saveService.TryLoad(), "SaveService should reject a save file with a different schema version.");
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+                RestoreFile(savePath, hadPrimary, originalPrimary);
+            }
+        }
+
+        [Test]
+        public void SaveService_ShouldHandleMissingDataSafely()
+        {
+            var root = new GameObject("SaveMissingDataVerification");
+            var savePath = Path.Combine(Application.persistentDataPath, "mission_save_v1.json");
+            var hadPrimary = File.Exists(savePath);
+            var originalPrimary = hadPrimary ? File.ReadAllText(savePath) : null;
+
+            try
+            {
+                var missionState = root.AddComponent<MissionStateService>();
+                var objectives = root.AddComponent<ObjectiveService>();
+                var saveService = root.AddComponent<SaveService>();
+                SetPrivateField(saveService, "schemaVersion", 1);
+                SetPrivateField(saveService, "missionStateService", missionState);
+                SetPrivateField(saveService, "objectiveService", objectives);
+
+                // Valid JSON but missing most fields
+                File.WriteAllText(savePath, "{\"schemaVersion\": 1}");
+
+                Assert.IsTrue(saveService.TryLoad(), "SaveService should still load a valid JSON even if fields are missing.");
+                Assert.AreEqual(MissionState.None, missionState.CurrentState);
+                Assert.IsFalse(objectives.InfiltrationComplete);
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+                RestoreFile(savePath, hadPrimary, originalPrimary);
             }
         }
 

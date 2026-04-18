@@ -376,6 +376,7 @@ Items:
 
 - Steps: `22`, `41`
 - Status: `READY FOR VERIFICATION`
+- Assigned: `loginovfedor`
 - Needs:
   - scene/prefab validation in Unity
 
@@ -383,6 +384,7 @@ Items:
 
 - Steps: `42`
 - Status: `READY FOR VERIFICATION`
+- Assigned: `xlabkm-ux / Codex`
 - Covered by:
   - combat resolver tests
   - enemy vision cone tests
@@ -392,6 +394,7 @@ Items:
 
 - Steps: `43`
 - Status: `READY FOR VERIFICATION`
+- Assigned: `xlabkm-ux / Codex`
 - Covered by:
   - hostage free/escort tests
   - extraction zone tests
@@ -401,16 +404,19 @@ Items:
 
 - Steps: `44`
 - Status: `READY FOR VERIFICATION`
+- Assigned: `xlabkm-ux / Antigravity`
 
 ### BWF-039 - Localization coverage sweep
 
 - Steps: `45`
 - Status: `READY FOR VERIFICATION`
+- Assigned: `Codex`
 
 ### BWF-040 - Android perf/readability quick pass
 
 - Steps: `46`
 - Status: `READY FOR VERIFICATION`
+- Assigned: `loginovfedor`
 - Covered by:
   - quality profile checks
   - runtime overlay budget mapping
@@ -422,6 +428,7 @@ Items:
 
 - Steps: `47`
 - Status: `READY FOR VERIFICATION`
+- Assigned: `loginovfedor`
 - Covered by:
   - quality profile checks
   - overlay readability checks
@@ -432,6 +439,7 @@ Items:
 
 - Steps: `48`
 - Status: `BLOCKED`
+- Assigned: `Antigravity / Team`
 - Blocked by:
   - `BWF-035` through `BWF-041`
 

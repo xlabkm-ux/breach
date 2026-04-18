@@ -51,6 +51,10 @@ namespace Breach.Save
             {
                 missionStateService.StateChanged += OnMissionStateChanged;
             }
+            if (objectiveService != null)
+            {
+                objectiveService.MilestoneReached += OnMilestoneReached;
+            }
         }
 
         private void OnDisable()
@@ -58,6 +62,10 @@ namespace Breach.Save
             if (missionStateService != null)
             {
                 missionStateService.StateChanged -= OnMissionStateChanged;
+            }
+            if (objectiveService != null)
+            {
+                objectiveService.MilestoneReached -= OnMilestoneReached;
             }
         }
 
@@ -75,6 +83,11 @@ namespace Breach.Save
         }
 
         private void OnMissionStateChanged(MissionState from, MissionState to)
+        {
+            SaveNow();
+        }
+
+        private void OnMilestoneReached()
         {
             SaveNow();
         }
