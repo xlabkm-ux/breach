@@ -34,7 +34,8 @@
 ## Project docs
 - `docs/project_brief_v1.md`
 - `docs/file_manifest.md`
-- `docs/breach_game_workflows_backlog.md`
+- `docs/tactical_breach_game_workflows_backlog.md`
+- `docs/tactical_breach_test_plan_checklist.md`
 - `docs/visual_scripting_command_hooks.md`
 - `docs/unity_xlabmcp_package_guide.md`
 - `docs/archive/2026-04-06/`

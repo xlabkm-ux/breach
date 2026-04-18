@@ -7,9 +7,9 @@ namespace TacticalBreach.AI
 {
     public static class EnemyAlertVsEvents
     {
-        public const string Idle = "breach.enemy.alert.idle";
-        public const string Suspicious = "breach.enemy.alert.suspicious";
-        public const string Alert = "breach.enemy.alert.alert";
+        public const string Idle = "tactical_breach.enemy.alert.idle";
+        public const string Suspicious = "tactical_breach.enemy.alert.suspicious";
+        public const string Alert = "tactical_breach.enemy.alert.alert";
 
         public static void Raise(EnemyAlertState state, GameObject sender)
         {

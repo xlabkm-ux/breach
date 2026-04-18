@@ -4,43 +4,43 @@ using UnityEngine.SceneManagement;
 
 namespace TacticalBreach.Editor
 {
-    public static class BreachTestLaunchMenu
+    public static class TacticalBreachTestLaunchMenu
     {
         private const string BootstrapScenePath = "Assets/Scenes/VerticalSlice/Bootstrap.unity";
         private const string TestScenePath = "Assets/Scenes/VerticalSlice/VS01_Rescue.unity";
         private const string LastTestScenePath = "Assets/Scenes/VerticalSlice/VS01_Rescue.unity";
 
-        [MenuItem("Breach/Testing/Open Bootstrap")]
+        [MenuItem("TacticalBreach/Testing/Open Bootstrap")]
         private static void OpenBootstrap()
         {
             OpenScene(BootstrapScenePath);
         }
 
-        [MenuItem("Breach/Testing/Open Bootstrap", true)]
+        [MenuItem("TacticalBreach/Testing/Open Bootstrap", true)]
         private static bool CanOpenBootstrap()
         {
             return CanOpenScene(BootstrapScenePath);
         }
 
-        [MenuItem("Breach/Testing/Open VS01 Rescue")]
+        [MenuItem("TacticalBreach/Testing/Open VS01 Rescue")]
         private static void OpenVs01Rescue()
         {
             OpenScene(TestScenePath);
         }
 
-        [MenuItem("Breach/Testing/Open VS01 Rescue", true)]
+        [MenuItem("TacticalBreach/Testing/Open VS01 Rescue", true)]
         private static bool CanOpenVs01Rescue()
         {
             return CanOpenScene(TestScenePath);
         }
 
-        [MenuItem("Breach/Testing/Open Last Test Scene")]
+        [MenuItem("TacticalBreach/Testing/Open Last Test Scene")]
         private static void OpenLastTestScene()
         {
             OpenScene(LastTestScenePath);
         }
 
-        [MenuItem("Breach/Testing/Open Last Test Scene", true)]
+        [MenuItem("TacticalBreach/Testing/Open Last Test Scene", true)]
         private static bool CanOpenLastTestScene()
         {
             return CanOpenScene(LastTestScenePath);

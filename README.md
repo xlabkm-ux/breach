@@ -9,7 +9,8 @@ Project workspace for the Unity 6 game **TACTICAL BREACH**.
 - `.codex/config.toml` - local Codex configuration
 - `docs/file_manifest.md` - canonical document index
 - `docs/project_brief_v1.md` - current game brief
-- `docs/breach_game_workflows_backlog.md` - active gameplay roadmap
+- `docs/tactical_breach_game_workflows_backlog.md` - active gameplay roadmap
+- `docs/tactical_breach_test_plan_checklist.md` - active test plan
 - `docs/unity_xlabmcp_package_guide.md` - optional Unity package install/update/remove guide
 
 ## Supporting libraries
