@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Breach.Data.AI;
@@ -12,6 +13,7 @@ using Breach.UI;
 #if UNITY_VISUAL_SCRIPTING
 using Unity.VisualScripting;
 #endif
+using UnityEditor.Build;
 using UnityEditor;
 using UnityEngine;
 
@@ -22,6 +24,9 @@ namespace Breach.Editor
         [InitializeOnLoadMethod]
         private static void EnsureProjectAssets()
         {
+            EnsureEditModeTestDefine(NamedBuildTarget.Standalone);
+            EnsureEditModeTestDefine(NamedBuildTarget.Android);
+
             EnsureFolder("Assets/Data");
             EnsureFolder("Assets/Data/Mission");
             EnsureFolder("Assets/Data/Combat");
@@ -103,6 +108,24 @@ namespace Breach.Editor
             return created;
         }
 
+        private static void EnsureEditModeTestDefine(NamedBuildTarget buildTarget)
+        {
+            const string define = "BREACH_ENABLE_EDITMODE_TESTS";
+            var current = PlayerSettings.GetScriptingDefineSymbols(buildTarget);
+            var symbols = current.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(symbol => symbol.Trim())
+                .Where(symbol => !string.IsNullOrWhiteSpace(symbol))
+                .ToList();
+
+            if (symbols.Contains(define, StringComparer.Ordinal))
+            {
+                return;
+            }
+
+            symbols.Add(define);
+            PlayerSettings.SetScriptingDefineSymbols(buildTarget, string.Join(";", symbols));
+        }
+
         private static void EnsureLocalizationDefaults(LocalizationTableAsset table)
         {
             if (table == null)
@@ -145,7 +168,7 @@ namespace Breach.Editor
             var circle = go.AddComponent<CircleCollider2D>();
             circle.isTrigger = true;
             PrefabUtility.SaveAsPrefabAsset(go, path);
-            Object.DestroyImmediate(go);
+            UnityEngine.Object.DestroyImmediate(go);
         }
 
         private static void EnsureMissionDirectorPrefab()
@@ -165,7 +188,7 @@ namespace Breach.Editor
             go.AddComponent<SaveService>();
             go.AddComponent<ResultScreenController>();
             PrefabUtility.SaveAsPrefabAsset(go, path);
-            Object.DestroyImmediate(go);
+            UnityEngine.Object.DestroyImmediate(go);
         }
 
 #if UNITY_VISUAL_SCRIPTING

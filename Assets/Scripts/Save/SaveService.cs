@@ -189,12 +189,19 @@ namespace Breach.Save
                     catch
                     {
                         File.Copy(TempPath, SavePath, true);
-                        File.Copy(TempPath, BackupPath, true);
                     }
                 }
                 else
                 {
                     File.Copy(TempPath, SavePath, true);
+                }
+
+                if (File.Exists(SavePath))
+                {
+                    File.Copy(SavePath, BackupPath, true);
+                }
+                else
+                {
                     File.Copy(TempPath, BackupPath, true);
                 }
             }

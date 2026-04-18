@@ -69,7 +69,9 @@ namespace Breach.UI
                     "hud.scene",
                     UnityEngine.SceneManagement.SceneManager.GetActiveScene().name));
 
-            var state = missionStateService != null ? missionStateService.CurrentState.ToString() : "missing_mission_state_service";
+            var state = missionStateService != null
+                ? LocalizationService.Resolve(GetMissionStateKey(missionStateService.CurrentState))
+                : "missing_mission_state_service";
             y = DrawLine(x, y, lineWidth, LocalizationService.ResolveFormat("hud.mission_state", state));
 
             if (objectiveService != null)
@@ -130,6 +132,21 @@ namespace Breach.UI
                 wordWrap = true
             };
             labelStyle.normal.textColor = new Color(0.9f, 0.95f, 1f);
+        }
+
+        private static string GetMissionStateKey(MissionState state)
+        {
+            return state switch
+            {
+                MissionState.NotStarted => "mission_state.not_started",
+                MissionState.Infiltration => "mission_state.infiltration",
+                MissionState.Engagement => "mission_state.engagement",
+                MissionState.HostageSecured => "mission_state.hostage_secured",
+                MissionState.Extraction => "mission_state.extraction",
+                MissionState.Success => "mission_state.success",
+                MissionState.Failed => "mission_state.failed",
+                _ => "mission_state.unknown"
+            };
         }
     }
 }
