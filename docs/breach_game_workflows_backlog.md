@@ -383,7 +383,7 @@ Items:
 ### BWF-036 - Combat and perception regression sweep
 
 - Steps: `42`
-- Status: `READY FOR VERIFICATION`
+- Status: `DONE`
 - Assigned: `xlabkm-ux / Codex`
 - Covered by:
   - combat resolver tests
@@ -393,7 +393,7 @@ Items:
 ### BWF-037 - Hostage success/fail scenario sweep
 
 - Steps: `43`
-- Status: `READY FOR VERIFICATION`
+- Status: `DONE`
 - Assigned: `xlabkm-ux / Codex`
 - Covered by:
   - hostage free/escort tests
@@ -403,13 +403,13 @@ Items:
 ### BWF-038 - Save/load resilience sweep
 
 - Steps: `44`
-- Status: `READY FOR VERIFICATION`
+- Status: `DONE`
 - Assigned: `xlabkm-ux / Antigravity`
 
 ### BWF-039 - Localization coverage sweep
 
 - Steps: `45`
-- Status: `READY FOR VERIFICATION`
+- Status: `DONE`
 - Assigned: `Codex`
 
 ### BWF-040 - Android perf/readability quick pass
@@ -427,7 +427,7 @@ Items:
 ### BWF-041 - Windows readability/input sanity pass
 
 - Steps: `47`
-- Status: `READY FOR VERIFICATION`
+- Status: `DONE`
 - Assigned: `loginovfedor`
 - Covered by:
   - quality profile checks
@@ -441,7 +441,7 @@ Items:
 - Status: `BLOCKED`
 - Assigned: `Antigravity / Team`
 - Blocked by:
-  - `BWF-035` through `BWF-041`
+  - `BWF-035` and `BWF-040`
 
 ## Current Product Read
 
