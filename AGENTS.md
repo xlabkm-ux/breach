@@ -37,6 +37,12 @@
 ### 5. Финальное ревью
 - Человек (xlabkm-ux или loginovfedor) всегда делает финальное одобрение и merge
 
+### 6. Рабочие пространства (Workspaces)
+- Для исключения конфликтов блокировки Unity (Library) и Git-индекса, агенты используют раздельные папки (Git Worktrees):
+  - **Antigravity**: работает в основной папке `E:\Games\Breach\BREACH`
+  - **Codex**: работает в отдельном вортри `E:\Games\Breach\BREACH_Codex`
+- Синхронизация между пространствами происходит исключительно через `git push` / `git pull`.
+
 # AGENTS.md
 
 ## Project Identity
