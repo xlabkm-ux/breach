@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Breach.Mission
+namespace TacticalBreach.Mission
 {
     public sealed class MissionPlayBootstrap : MonoBehaviour
     {

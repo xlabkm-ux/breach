@@ -1,8 +1,8 @@
 {
-  "name": "Breach.Editor",
+  "name": "TacticalBreach.Editor",
   "rootNamespace": "",
   "references": [
-    "Breach.Runtime"
+    "TacticalBreach.Runtime"
   ],
   "includePlatforms": [
     "Editor"

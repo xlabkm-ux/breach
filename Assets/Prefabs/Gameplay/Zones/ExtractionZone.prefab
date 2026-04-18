@@ -44,7 +44,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 491cc50652ed9834688be8a0ebb47391, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Mission.ExtractionZoneTrigger
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Mission.ExtractionZoneTrigger
   radius: 1.8
   objectiveService: {fileID: 0}
 --- !u!58 &4941673177684720440

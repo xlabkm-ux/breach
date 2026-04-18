@@ -1,7 +1,7 @@
 using UnityEngine;
-using Breach.Core;
+using TacticalBreach.Core;
 
-namespace Breach.Combat
+namespace TacticalBreach.Combat
 {
     [RequireComponent(typeof(HealthComponent))]
     [RequireComponent(typeof(SpriteRenderer))]

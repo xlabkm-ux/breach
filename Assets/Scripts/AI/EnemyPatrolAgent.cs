@@ -1,7 +1,7 @@
-using Breach.Combat;
+using TacticalBreach.Combat;
 using UnityEngine;
 
-namespace Breach.AI
+namespace TacticalBreach.AI
 {
     public sealed class EnemyPatrolAgent : MonoBehaviour
     {

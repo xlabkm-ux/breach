@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using NUnit.Framework;
 using UnityEditor;
 
-namespace Breach.Tests.EditMode
+namespace TacticalBreach.Tests.EditMode
 {
     public sealed class LocalizationCoverageTests
     {

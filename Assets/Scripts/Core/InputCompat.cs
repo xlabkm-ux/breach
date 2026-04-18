@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Breach.Core
+namespace TacticalBreach.Core
 {
     public static class InputCompat
     {

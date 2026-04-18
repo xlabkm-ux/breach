@@ -11,6 +11,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d033f7fdfd145f797b1fd8574d84dc5, type: 3}
   m_Name: LocalizationTableRefs
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Data.Localization.LocalizationTableRefs
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Data.Localization.LocalizationTableRefs
   defaultTable: {fileID: 11400000, guid: 3d24cb9b7f489e549adeb9ad5124b61d, type: 2}
   fallbackLanguage: en

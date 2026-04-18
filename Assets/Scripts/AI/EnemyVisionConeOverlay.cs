@@ -1,7 +1,7 @@
 using UnityEngine;
-using Breach.Core;
+using TacticalBreach.Core;
 
-namespace Breach.AI
+namespace TacticalBreach.AI
 {
     [RequireComponent(typeof(EnemyVisionCone))]
     public sealed class EnemyVisionConeOverlay : MonoBehaviour

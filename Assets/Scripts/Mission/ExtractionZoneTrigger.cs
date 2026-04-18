@@ -1,7 +1,7 @@
-using Breach.Hostage;
+using TacticalBreach.Hostage;
 using UnityEngine;
 
-namespace Breach.Mission
+namespace TacticalBreach.Mission
 {
     public sealed class ExtractionZoneTrigger : MonoBehaviour
     {

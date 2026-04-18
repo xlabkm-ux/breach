@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Breach.Mission
+namespace TacticalBreach.Mission
 {
     public enum MissionState
     {

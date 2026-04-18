@@ -1,9 +1,9 @@
-using Breach.Combat;
-using Breach.Mission;
-using Breach.Squad;
+using TacticalBreach.Combat;
+using TacticalBreach.Mission;
+using TacticalBreach.Squad;
 using UnityEngine;
 
-namespace Breach.Hostage
+namespace TacticalBreach.Hostage
 {
     public sealed class HostageController : MonoBehaviour
     {

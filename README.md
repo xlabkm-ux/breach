@@ -1,8 +1,8 @@
-# BREACH
-![BREACH](Screenshots/banner.jpg)
+# TACTICAL BREACH
+![TACTICAL BREACH](Screenshots/banner.jpg)
 
 
-Project workspace for the Unity 6 game **BREACH**.
+Project workspace for the Unity 6 game **TACTICAL BREACH**.
 
 ## Primary entry points
 - `AGENTS.md` - main operating contract for work in this repository

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Breach.Squad
+namespace TacticalBreach.Squad
 {
     public enum OperativeCommandMode
     {

@@ -1,9 +1,9 @@
-using Breach.Mission;
-using Breach.Squad;
-using Breach.Localization;
+using TacticalBreach.Mission;
+using TacticalBreach.Squad;
+using TacticalBreach.Localization;
 using UnityEngine;
 
-namespace Breach.UI
+namespace TacticalBreach.UI
 {
     public sealed class MissionRuntimeHud : MonoBehaviour
     {

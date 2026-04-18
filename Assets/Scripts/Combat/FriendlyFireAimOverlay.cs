@@ -1,9 +1,9 @@
-using Breach.Core;
-using Breach.Localization;
-using Breach.Squad;
+using TacticalBreach.Core;
+using TacticalBreach.Localization;
+using TacticalBreach.Squad;
 using UnityEngine;
 
-namespace Breach.Combat
+namespace TacticalBreach.Combat
 {
     public sealed class FriendlyFireAimOverlay : MonoBehaviour
     {

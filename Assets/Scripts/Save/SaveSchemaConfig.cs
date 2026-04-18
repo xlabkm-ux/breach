@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Breach.Save
+namespace TacticalBreach.Save
 {
     [CreateAssetMenu(menuName = "Breach/Save/Schema Config", fileName = "SaveSchemaConfig")]
     public sealed class SaveSchemaConfig : ScriptableObject

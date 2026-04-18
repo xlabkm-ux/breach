@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 26b39608b4d74ec5a31c590b79fdcbcc, type: 3}
   m_Name: DamageRules
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Data.Combat.DamageRulesConfig
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Data.Combat.DamageRulesConfig
   friendlyFireEnabled: 1
   headshotMultiplier: 1.5
   bodyshotMultiplier: 1

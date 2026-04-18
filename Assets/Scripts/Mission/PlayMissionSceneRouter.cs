@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Breach.Mission
+namespace TacticalBreach.Mission
 {
     public static class PlayMissionSceneRouter
     {

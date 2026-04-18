@@ -1,7 +1,7 @@
-using Breach.Localization;
+using TacticalBreach.Localization;
 using UnityEngine;
 
-namespace Breach.Data.Localization
+namespace TacticalBreach.Data.Localization
 {
     [CreateAssetMenu(menuName = "Breach/Localization/Table Refs", fileName = "LocalizationTableRefs")]
     public sealed class LocalizationTableRefs : ScriptableObject

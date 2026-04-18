@@ -1,7 +1,7 @@
-using Breach.Core;
+using TacticalBreach.Core;
 using UnityEngine;
 
-namespace Breach.Squad
+namespace TacticalBreach.Squad
 {
     public sealed class ActiveOperativeDirectControlService : MonoBehaviour
     {

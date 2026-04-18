@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Breach.Localization
+namespace TacticalBreach.Localization
 {
     [CreateAssetMenu(menuName = "Breach/Localization/Table", fileName = "LocalizationTable")]
     public sealed class LocalizationTableAsset : ScriptableObject

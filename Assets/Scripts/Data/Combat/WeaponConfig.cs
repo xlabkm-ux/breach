@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Breach.Data.Combat
+namespace TacticalBreach.Data.Combat
 {
     [CreateAssetMenu(menuName = "Breach/Combat/Weapon Config", fileName = "WeaponConfig")]
     public sealed class WeaponConfig : ScriptableObject

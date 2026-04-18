@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Breach.Data.Mission
+namespace TacticalBreach.Data.Mission
 {
     [CreateAssetMenu(menuName = "Breach/Mission/Mission Config", fileName = "MissionConfig")]
     public sealed class MissionConfig : ScriptableObject

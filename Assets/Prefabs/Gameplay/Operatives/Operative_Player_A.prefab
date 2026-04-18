@@ -43,6 +43,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b053837ce6222f42aab5bd137c03493, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Squad.OperativeMember
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Squad.OperativeMember
   operativeId: operative
   isActive: 0

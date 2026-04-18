@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Breach.Combat
+namespace TacticalBreach.Combat
 {
     public enum CoverType
     {

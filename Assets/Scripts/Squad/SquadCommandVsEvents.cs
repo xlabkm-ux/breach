@@ -3,7 +3,7 @@ using UnityEngine;
 using Unity.VisualScripting;
 #endif
 
-namespace Breach.Squad
+namespace TacticalBreach.Squad
 {
     public static class SquadCommandVsEvents
     {

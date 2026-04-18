@@ -1,8 +1,8 @@
-﻿{
-  "name": "Breach.EditModeTests",
+{
+  "name": "TacticalBreach.EditModeTests",
   "rootNamespace": "",
   "references": [
-    "Breach.Runtime",
+    "TacticalBreach.Runtime",
     "UnityEngine.TestRunner",
     "UnityEditor.TestRunner"
   ],

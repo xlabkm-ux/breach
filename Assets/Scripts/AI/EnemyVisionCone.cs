@@ -1,7 +1,7 @@
-using Breach.Squad;
+using TacticalBreach.Squad;
 using UnityEngine;
 
-namespace Breach.AI
+namespace TacticalBreach.AI
 {
     public sealed class EnemyVisionCone : MonoBehaviour
     {

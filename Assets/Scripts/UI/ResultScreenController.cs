@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Breach.UI
+namespace TacticalBreach.UI
 {
     public sealed class ResultScreenController : MonoBehaviour
     {

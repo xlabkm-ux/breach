@@ -1,7 +1,7 @@
 using UnityEngine;
-using Breach.Localization;
+using TacticalBreach.Localization;
 
-namespace Breach.AI
+namespace TacticalBreach.AI
 {
     public sealed class EnemyAlertStateOverlay : MonoBehaviour
     {

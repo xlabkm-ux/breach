@@ -1,7 +1,7 @@
-# BREACH Test Plan Checklist
+# TACTICAL BREACH Test Plan Checklist
 
 Date: 2026-04-07
-Scope: full project test checklist for BREACH v1 readiness.
+Scope: full project test checklist for TACTICAL BREACH v1 readiness.
 
 ## How to use
 
@@ -14,7 +14,7 @@ Scope: full project test checklist for BREACH v1 readiness.
 
 - [ ] Open the project in Unity 6 without script compile errors.
 - [ ] Confirm `Assets` runtime scripts compile successfully.
-- [ ] Confirm `Assets/Tests/EditMode/BreachVerificationTests.cs` compiles.
+- [ ] Confirm `Assets/Tests/EditMode/TacticalBreachVerificationTests.cs` compiles.
 - [ ] Confirm local packages do not block project compilation.
 
 ## 2. Scene And Prefab Integrity
