@@ -1,8 +1,8 @@
-using Breach.Localization;
-using Breach.Mission;
+using TacticalBreach.Localization;
+using TacticalBreach.Mission;
 using UnityEngine;
 
-namespace Breach.UI
+namespace TacticalBreach.UI
 {
     public sealed class MissionResultScreenRuntime : MonoBehaviour
     {

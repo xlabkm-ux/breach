@@ -1,6 +1,6 @@
 # Unity Package Guide: xLabMcp
 
-`xLabMcp` is optional. BREACH can be developed without it.
+`xLabMcp` is optional. TACTICAL BREACH can be developed without it.
 
 ## Install
 
@@ -41,8 +41,8 @@
 4. Delete `Library/PackageCache`.
 5. Reopen Unity.
 
-## BREACH without xLabMcp
+## TACTICAL BREACH without xLabMcp
 
 - Do not add `com.xlabkm.unity-mcp` to `Packages/manifest.json`.
 - Keep `packages-lock.json` free of that dependency.
-- Use BREACH normally with only the project’s own scripts and Unity packages.
+- Use TACTICAL BREACH normally with only the project’s own scripts and Unity packages.

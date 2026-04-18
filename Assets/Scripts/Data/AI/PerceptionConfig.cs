@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Breach.Data.AI
+namespace TacticalBreach.Data.AI
 {
     [CreateAssetMenu(menuName = "Breach/AI/Perception Config", fileName = "PerceptionConfig")]
     public sealed class PerceptionConfig : ScriptableObject

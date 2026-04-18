@@ -1,4 +1,4 @@
-# AGENTS.md — Правила для всех AI-агентов
+# TACTICAL BREACH AGENTS.md — Правила для всех AI-агентов
 
 ## Участники команды
 - **xlabkm-ux** (xlabkm@gmail.com) — Owner
@@ -44,13 +44,7 @@
   - **Codex**: работает в отдельном вортри `E:\Games\Breach\BREACH_Codex`
 - Синхронизация между пространствами происходит исключительно через `git push` / `git pull`.
 
-### 6. Рабочие пространства (Workspaces)
-- Для исключения конфликтов блокировки Unity (Library) и Git-индекса, агенты используют раздельные папки (Git Worktrees):
-  - **Antigravity**: работает в основной папке `E:\Games\Breach\BREACH`
-  - **Codex**: работает в отдельном вортри `E:\Games\Breach\BREACH_Codex`
-- Синхронизация между пространствами происходит исключительно через `git push` / `git pull`.
-
-# AGENTS.md
+# TACTICAL BREACH AGENTS.md
 
 ## Project Identity
 This is a commercial Unity 6 project using:

@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Breach.AI
+namespace TacticalBreach.AI
 {
     public readonly struct NoiseEvent
     {

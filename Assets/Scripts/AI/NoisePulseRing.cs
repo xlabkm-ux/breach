@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Breach.AI
+namespace TacticalBreach.AI
 {
     [RequireComponent(typeof(LineRenderer))]
     public sealed class NoisePulseRing : MonoBehaviour

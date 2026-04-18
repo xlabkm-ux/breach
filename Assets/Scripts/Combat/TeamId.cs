@@ -1,4 +1,4 @@
-namespace Breach.Combat
+namespace TacticalBreach.Combat
 {
     public enum TeamId
     {

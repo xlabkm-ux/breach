@@ -43,7 +43,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d29f8c1d8589cdb47988822895869027, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.UI.ResultScreenController
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.UI.ResultScreenController
   successTitleKey: ui.result.success.title
   failTitleKey: ui.result.fail.title
   successBodyKey: ui.result.success.body

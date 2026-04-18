@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Breach.Data.AI;
-using Breach.Data.Combat;
-using Breach.Data.Localization;
-using Breach.Data.Mission;
-using Breach.Localization;
-using Breach.Mission;
-using Breach.Save;
-using Breach.Squad;
-using Breach.UI;
+using TacticalBreach.Data.AI;
+using TacticalBreach.Data.Combat;
+using TacticalBreach.Data.Localization;
+using TacticalBreach.Data.Mission;
+using TacticalBreach.Localization;
+using TacticalBreach.Mission;
+using TacticalBreach.Save;
+using TacticalBreach.Squad;
+using TacticalBreach.UI;
 #if UNITY_VISUAL_SCRIPTING
 using Unity.VisualScripting;
 #endif
@@ -17,7 +17,7 @@ using UnityEditor.Build;
 using UnityEditor;
 using UnityEngine;
 
-namespace Breach.Editor
+namespace TacticalBreach.Editor
 {
     public static class ProjectBootstrapAssetsGenerator
     {

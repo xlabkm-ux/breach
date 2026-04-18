@@ -4,15 +4,15 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using Breach.AI;
-using Breach.Combat;
-using Breach.Core;
-using Breach.Localization;
-using Breach.Hostage;
-using Breach.Mission;
-using Breach.Squad;
-using Breach.Save;
-using Breach.UI;
+using TacticalBreach.AI;
+using TacticalBreach.Combat;
+using TacticalBreach.Core;
+using TacticalBreach.Localization;
+using TacticalBreach.Hostage;
+using TacticalBreach.Mission;
+using TacticalBreach.Squad;
+using TacticalBreach.Save;
+using TacticalBreach.UI;
 using NUnit.Framework;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -23,9 +23,9 @@ using Object = UnityEngine.Object;
 using Unity.VisualScripting;
 #endif
 
-namespace Breach.Tests.EditMode
+namespace TacticalBreach.Tests.EditMode
 {
-    public sealed class BreachVerificationTests
+    public sealed class TacticalBreachVerificationTests
     {
         [Test]
         public void SceneAndPrefabAssets_ShouldNotContainMissingReferences()

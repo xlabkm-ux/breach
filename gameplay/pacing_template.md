@@ -7,7 +7,7 @@ Low-pressure onboarding or staging window where the player can orient, place squ
 Threat density or decision pressure increases. Introduce crossfire, detection risk, or time pressure.
 
 ## Intensity_Spike
-Short high-risk window requiring decisive action: breach, rescue, defense peak, or counterattack.
+Short high-risk window requiring decisive action: TACTICAL BREACH, rescue, defense peak, or counterattack.
 
 ## Short_Recovery
 Brief stabilization phase for reload, reposition, wounded management, or objective reassessment.

@@ -1,8 +1,8 @@
-using Breach.Combat;
-using Breach.Squad;
+using TacticalBreach.Combat;
+using TacticalBreach.Squad;
 using UnityEngine;
 
-namespace Breach.Mission
+namespace TacticalBreach.Mission
 {
     public sealed class ObjectiveProgressTracker : MonoBehaviour
     {

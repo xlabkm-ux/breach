@@ -44,7 +44,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1b2a6ed44de5aa409e97652d5fded26, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.HealthComponent
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Combat.HealthComponent
   team: 0
   maxHealth: 100
   currentHealth: 100
@@ -59,6 +59,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee2bc41ac273ea649bcd1fcd8cfe99d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.AI.EnemyPatrolAgent
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.AI.EnemyPatrolAgent
   patrolRadius: 1.5
   patrolSpeed: 1.2

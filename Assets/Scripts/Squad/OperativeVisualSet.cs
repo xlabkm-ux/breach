@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Breach.Squad
+namespace TacticalBreach.Squad
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public sealed class OperativeVisualSet : MonoBehaviour

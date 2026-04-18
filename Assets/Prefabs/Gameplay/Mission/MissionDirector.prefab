@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e3075d0344420744a2d1e2b54eec836, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Squad.ActiveOperativeSwitchService
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Squad.ActiveOperativeSwitchService
   operatives: []
   activeIndex: 0
 --- !u!114 &1696573130494690160
@@ -63,7 +63,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c075901b197c4844cb0f339e9e506a55, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Squad.SquadCommandService
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Squad.SquadCommandService
   switchService: {fileID: 0}
 --- !u!114 &4439338077969849073
 MonoBehaviour:
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 746a7ada4267e364ca3bb6209e6b8f78, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Mission.ObjectiveService
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Mission.ObjectiveService
   infiltrationComplete: 0
   hostageFreed: 0
   hostageExtracted: 0
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 061c4c4da43e6ce42ac53a51cb87967f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Mission.MissionStateService
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Mission.MissionStateService
   currentState: 0
 --- !u!114 &2255042099946295389
 MonoBehaviour:
@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf4b235d83cdf804a8e98df4f42faa94, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Mission.MissionResultResolver
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Mission.MissionResultResolver
   missionStateService: {fileID: 0}
   objectiveService: {fileID: 0}
 --- !u!114 &8788674804526688891
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 612ba660a276a8d4399b19550d7b99f8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Save.SaveService
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Save.SaveService
   schemaVersion: 1
   loadOnStart: 0
   missionStateService: {fileID: 0}
@@ -136,7 +136,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d29f8c1d8589cdb47988822895869027, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.UI.ResultScreenController
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.UI.ResultScreenController
   successTitleKey: ui.result.success.title
   failTitleKey: ui.result.fail.title
   successBodyKey: ui.result.success.body

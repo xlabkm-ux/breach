@@ -4,7 +4,7 @@
 Used for moment-to-moment confirmation: successful order, clean hit, stealth takedown, secured room.
 
 ## Milestone_Reward
-Used for partial progress: checkpoint cleared, hostage room secured, breach completed, defense wave survived.
+Used for partial progress: checkpoint cleared, hostage room secured, TACTICAL BREACH completed, defense wave survived.
 
 ## Segment_Run_Completion_Reward
 Used for mission segment resolution: extraction reached, demolition objective complete, escort stage completed.

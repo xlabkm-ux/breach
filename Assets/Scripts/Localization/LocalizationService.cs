@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Globalization;
 
-namespace Breach.Localization
+namespace TacticalBreach.Localization
 {
     public sealed class LocalizationService : MonoBehaviour
     {

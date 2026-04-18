@@ -162,7 +162,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7ffde6f388107441a6d5bb2a1f42a71, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.CoverMarker
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Combat.CoverMarker
   coverType: 0
   protectionValue: 0.5
 --- !u!1001 &95601325
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1b2a6ed44de5aa409e97652d5fded26, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.HealthComponent
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Combat.HealthComponent
   team: 0
   maxHealth: 100
   currentHealth: 100
@@ -259,7 +259,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 135bbdcfd9a5c044eb3dca8e59b48251, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.SimpleShooter
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Combat.SimpleShooter
   damagePerShot: 34
   maxDistance: 20
 --- !u!1 &150376303
@@ -306,7 +306,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 491cc50652ed9834688be8a0ebb47391, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Mission.ExtractionZoneTrigger
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Mission.ExtractionZoneTrigger
   radius: 1.8
   objectiveService: {fileID: 0}
 --- !u!114 &150376306
@@ -320,7 +320,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a215ed77afb7f14d8293eba4517cdf7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Mission.ZoneVisualMarker
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Mission.ZoneVisualMarker
   markerColor: {r: 0, g: 1, b: 1, a: 1}
   size: {x: 1.2, y: 1.2}
 --- !u!1 &202668165
@@ -352,7 +352,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee2bc41ac273ea649bcd1fcd8cfe99d8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.AI.EnemyPatrolAgent
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.AI.EnemyPatrolAgent
   patrolRadius: 1.5
   patrolSpeed: 1.2
 --- !u!114 &202668167
@@ -366,7 +366,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1b2a6ed44de5aa409e97652d5fded26, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.HealthComponent
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Combat.HealthComponent
   team: 0
   maxHealth: 100
   currentHealth: 100
@@ -428,7 +428,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a215ed77afb7f14d8293eba4517cdf7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Mission.ZoneVisualMarker
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Mission.ZoneVisualMarker
   markerColor: {r: 0, g: 1, b: 1, a: 1}
   size: {x: 1.2, y: 1.2}
 --- !u!1 &453609651
@@ -822,7 +822,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a215ed77afb7f14d8293eba4517cdf7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Mission.ZoneVisualMarker
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Mission.ZoneVisualMarker
   markerColor: {r: 0, g: 1, b: 1, a: 1}
   size: {x: 1.2, y: 1.2}
 --- !u!1 &899830686
@@ -868,7 +868,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7ffde6f388107441a6d5bb2a1f42a71, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.CoverMarker
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Combat.CoverMarker
   coverType: 0
   protectionValue: 0.5
 --- !u!1 &998962264
@@ -1019,7 +1019,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e3075d0344420744a2d1e2b54eec836, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Squad.ActiveOperativeSwitchService
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Squad.ActiveOperativeSwitchService
   operatives: []
   activeIndex: 0
 --- !u!114 &998962268
@@ -1033,7 +1033,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c075901b197c4844cb0f339e9e506a55, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Squad.SquadCommandService
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Squad.SquadCommandService
   switchService: {fileID: 0}
 --- !u!114 &998962269
 MonoBehaviour:
@@ -1046,7 +1046,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5244feefd534e4c4592f788dedc13a4b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.CombatResolver
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Combat.CombatResolver
   friendlyFireEnabled: 1
 --- !u!114 &998962270
 MonoBehaviour:
@@ -1059,7 +1059,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 746a7ada4267e364ca3bb6209e6b8f78, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Mission.ObjectiveService
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Mission.ObjectiveService
   infiltrationComplete: 0
   hostageFreed: 0
   hostageExtracted: 0
@@ -1076,7 +1076,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf4b235d83cdf804a8e98df4f42faa94, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Mission.MissionResultResolver
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Mission.MissionResultResolver
   missionStateService: {fileID: 0}
   objectiveService: {fileID: 0}
 --- !u!114 &998962272
@@ -1090,7 +1090,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 061c4c4da43e6ce42ac53a51cb87967f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Mission.MissionStateService
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Mission.MissionStateService
   currentState: 0
 --- !u!114 &998962273
 MonoBehaviour:
@@ -1103,7 +1103,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 612ba660a276a8d4399b19550d7b99f8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Save.SaveService
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Save.SaveService
   schemaVersion: 1
   missionStateService: {fileID: 0}
   objectiveService: {fileID: 0}
@@ -1118,7 +1118,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0102905b893cdc479abdcce66414891, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Mission.ApartmentLayoutBuilder
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Mission.ApartmentLayoutBuilder
   rebuildInEditor: 1
 --- !u!1001 &1058739514
 PrefabInstance:
@@ -1206,7 +1206,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7415e4ed5bbd39499aa26ef0dd6b7c6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Hostage.HostageController
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Hostage.HostageController
   followSpeed: 2.3
   interactionDistance: 1.8
   switchService: {fileID: 0}
@@ -1222,7 +1222,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1b2a6ed44de5aa409e97652d5fded26, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.HealthComponent
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Combat.HealthComponent
   team: 0
   maxHealth: 100
   currentHealth: 100
@@ -1315,7 +1315,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7ffde6f388107441a6d5bb2a1f42a71, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.CoverMarker
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Combat.CoverMarker
   coverType: 0
   protectionValue: 0.5
 --- !u!1 &1223400025
@@ -1361,7 +1361,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7ffde6f388107441a6d5bb2a1f42a71, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.CoverMarker
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Combat.CoverMarker
   coverType: 0
   protectionValue: 0.5
 --- !u!1 &1258114837
@@ -1519,7 +1519,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d29f8c1d8589cdb47988822895869027, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.UI.ResultScreenController
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.UI.ResultScreenController
   successTitleKey: ui.result.success.title
   failTitleKey: ui.result.fail.title
   successBodyKey: ui.result.success.body
@@ -1618,7 +1618,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1b2a6ed44de5aa409e97652d5fded26, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.HealthComponent
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Combat.HealthComponent
   team: 0
   maxHealth: 100
   currentHealth: 100
@@ -1633,7 +1633,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 135bbdcfd9a5c044eb3dca8e59b48251, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Combat.SimpleShooter
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Combat.SimpleShooter
   damagePerShot: 34
   maxDistance: 20
 --- !u!1 &1550806360

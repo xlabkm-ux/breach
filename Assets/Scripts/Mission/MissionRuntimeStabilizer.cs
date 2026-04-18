@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using Breach.AI;
-using Breach.Combat;
-using Breach.Hostage;
-using Breach.Squad;
+using TacticalBreach.AI;
+using TacticalBreach.Combat;
+using TacticalBreach.Hostage;
+using TacticalBreach.Squad;
 using UnityEngine;
 
-namespace Breach.Mission
+namespace TacticalBreach.Mission
 {
     public sealed class MissionRuntimeStabilizer : MonoBehaviour
     {

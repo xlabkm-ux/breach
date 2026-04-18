@@ -1,7 +1,7 @@
-# Breach Game Workflows Backlog
+# TACTICAL BREACH Game Workflows Backlog
 
 Date: 2026-04-06
-Project: `BREACH`
+Project: `TACTICAL BREACH`
 Scope: game development backlog organized as workflows instead of a flat step list.
 
 ## Goal
@@ -359,7 +359,7 @@ Items:
 
 ### Automated verification suite
 
-- `Assets/Tests/EditMode/BreachVerificationTests.cs`
+- `Assets/Tests/EditMode/TacticalBreachVerificationTests.cs`
 - Covers:
   - combat damage and friendly-fire rules
   - enemy perception cone detection
@@ -470,7 +470,7 @@ Next highest-value workflow for the game is:
 
 ## Done Criteria
 
-The `Breach` workflow backlog reaches current v1 target when:
+The `TACTICAL BREACH` workflow backlog reaches current v1 target when:
 
 - `Workflow 1` through `Workflow 7` remain stable
 - `Workflow 8` is completed in Unity

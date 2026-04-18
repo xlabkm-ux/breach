@@ -1,7 +1,7 @@
 using UnityEngine;
-using Breach.Core;
+using TacticalBreach.Core;
 
-namespace Breach.AI
+namespace TacticalBreach.AI
 {
     public sealed class NoisePulseVisualizer : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Breach.Core
+namespace TacticalBreach.Core
 {
     public sealed class VisualQualityProfileRuntime : MonoBehaviour
     {

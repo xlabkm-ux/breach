@@ -1,9 +1,9 @@
 using System;
 using System.IO;
-using Breach.Mission;
+using TacticalBreach.Mission;
 using UnityEngine;
 
-namespace Breach.Save
+namespace TacticalBreach.Save
 {
     [Serializable]
     public sealed class MissionSaveSnapshot

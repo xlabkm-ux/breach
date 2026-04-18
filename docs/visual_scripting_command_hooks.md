@@ -3,10 +3,10 @@
 Current C# command system now emits Visual Scripting custom events, so graph orchestration can subscribe without changing runtime command code.
 
 ## Emitted events
-- `breach.squad.command.move`
-- `breach.squad.command.hold`
-- `breach.squad.command.follow`
-- `breach.squad.command.attack`
+- `TACTICAL BREACH.squad.command.move`
+- `TACTICAL BREACH.squad.command.hold`
+- `TACTICAL BREACH.squad.command.follow`
+- `TACTICAL BREACH.squad.command.attack`
 
 Emitter:
 - `Assets/Scripts/Squad/SquadCommandService.cs`

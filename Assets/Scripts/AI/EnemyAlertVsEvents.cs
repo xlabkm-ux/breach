@@ -3,7 +3,7 @@ using UnityEngine;
 using Unity.VisualScripting;
 #endif
 
-namespace Breach.AI
+namespace TacticalBreach.AI
 {
     public static class EnemyAlertVsEvents
     {

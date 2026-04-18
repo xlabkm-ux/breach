@@ -1,7 +1,7 @@
 using UnityEngine;
 using System;
 
-namespace Breach.Combat
+namespace TacticalBreach.Combat
 {
     public sealed class HealthComponent : MonoBehaviour
     {

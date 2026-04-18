@@ -11,5 +11,5 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae8fccd521ba1e4438ba2a4e893676f6, type: 3}
   m_Name: SaveSchemaConfig
-  m_EditorClassIdentifier: Assembly-CSharp::Breach.Save.SaveSchemaConfig
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Save.SaveSchemaConfig
   schemaVersion: 1

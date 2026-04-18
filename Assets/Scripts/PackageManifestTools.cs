@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 
-namespace Breach.Tools
+namespace TacticalBreach.Tools
 {
 #if UNITY_EDITOR
     public static class PackageManifestTools

@@ -1,9 +1,9 @@
-using Breach.Squad;
+using TacticalBreach.Squad;
 using UnityEngine;
-using Breach.AI;
-using Breach.Core;
+using TacticalBreach.AI;
+using TacticalBreach.Core;
 
-namespace Breach.Combat
+namespace TacticalBreach.Combat
 {
     public sealed class SimpleShooter : MonoBehaviour
     {

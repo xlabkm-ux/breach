@@ -2,7 +2,7 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine.SceneManagement;
 
-namespace Breach.Editor
+namespace TacticalBreach.Editor
 {
     public static class BreachTestLaunchMenu
     {

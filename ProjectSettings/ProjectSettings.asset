@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: LabKM
-  productName: BREACH
+  productName: TACTICAL BREACH
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -582,8 +582,8 @@ PlayerSettings:
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
-    Android: BREACH_ENABLE_EDITMODE_TESTS
-    Standalone: BREACH_ENABLE_EDITMODE_TESTS
+    Android: TACTICALBREACH_ENABLE_EDITMODE_TESTS
+    Standalone: TACTICALBREACH_ENABLE_EDITMODE_TESTS
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -604,14 +604,14 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: BREACH
+  metroPackageName: TACTICAL BREACH
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: BREACH
+  metroApplicationDescription: TACTICAL BREACH
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -686,7 +686,7 @@ PlayerSettings:
   cloudProjectId: 78093521-764e-4c54-ba2d-2467f0e1ab11
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: BREACH
+  projectName: TACTICAL BREACH
   organizationId: loginovfedor
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0

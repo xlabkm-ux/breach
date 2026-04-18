@@ -1,10 +1,10 @@
 #if UNITY_EDITOR && UNITY_INCLUDE_TESTS && BREACH_ENABLE_EDITMODE_TESTS
 using System;
 using System.IO;
-using Breach.Tools;
+using TacticalBreach.Tools;
 using NUnit.Framework;
 
-namespace Breach.Tests.EditMode
+namespace TacticalBreach.Tests.EditMode
 {
     public sealed class PackageManifestToolsTests
     {

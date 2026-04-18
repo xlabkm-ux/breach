@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
-namespace Breach.Mission
+namespace TacticalBreach.Mission
 {
     [ExecuteAlways]
     public sealed class ApartmentLayoutBuilder : MonoBehaviour

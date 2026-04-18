@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Breach.Data.Combat
+namespace TacticalBreach.Data.Combat
 {
     [CreateAssetMenu(menuName = "Breach/Combat/Damage Rules", fileName = "DamageRules")]
     public sealed class DamageRulesConfig : ScriptableObject

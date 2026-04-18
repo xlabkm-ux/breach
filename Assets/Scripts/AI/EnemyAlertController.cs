@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Breach.AI
+namespace TacticalBreach.AI
 {
     public enum EnemyAlertState
     {
