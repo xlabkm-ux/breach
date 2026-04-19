@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2517591593396030167
+--- !u!1 &6317477963375671756
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,14 +8,14 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4890873118229859464}
-  - component: {fileID: 398649916556057704}
-  - component: {fileID: 1696573130494690160}
-  - component: {fileID: 4439338077969849073}
-  - component: {fileID: 6559291665958535511}
-  - component: {fileID: 2255042099946295389}
-  - component: {fileID: 8788674804526688891}
-  - component: {fileID: 6454617963807654080}
+  - component: {fileID: 8471480903053520403}
+  - component: {fileID: 7682398791707577209}
+  - component: {fileID: 723361637967507703}
+  - component: {fileID: 4848255610145319129}
+  - component: {fileID: 784182515643602292}
+  - component: {fileID: 6664366578936166958}
+  - component: {fileID: 2005183166648981644}
+  - component: {fileID: 7908330241024292648}
   m_Layer: 0
   m_Name: MissionDirector
   m_TagString: Untagged
@@ -23,13 +23,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4890873118229859464
+--- !u!4 &8471480903053520403
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2517591593396030167}
+  m_GameObject: {fileID: 6317477963375671756}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -38,105 +38,105 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &398649916556057704
+--- !u!114 &7682398791707577209
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2517591593396030167}
+  m_GameObject: {fileID: 6317477963375671756}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e3075d0344420744a2d1e2b54eec836, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Squad.ActiveOperativeSwitchService
+  m_EditorClassIdentifier: TacticalBreach.Runtime::TacticalBreach.Squad.ActiveOperativeSwitchService
   operatives: []
   activeIndex: 0
---- !u!114 &1696573130494690160
+--- !u!114 &723361637967507703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2517591593396030167}
+  m_GameObject: {fileID: 6317477963375671756}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c075901b197c4844cb0f339e9e506a55, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Squad.SquadCommandService
+  m_EditorClassIdentifier: TacticalBreach.Runtime::TacticalBreach.Squad.SquadCommandService
   switchService: {fileID: 0}
---- !u!114 &4439338077969849073
+--- !u!114 &4848255610145319129
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2517591593396030167}
+  m_GameObject: {fileID: 6317477963375671756}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 746a7ada4267e364ca3bb6209e6b8f78, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Mission.ObjectiveService
+  m_EditorClassIdentifier: TacticalBreach.Runtime::TacticalBreach.Mission.ObjectiveService
   infiltrationComplete: 0
   hostageFreed: 0
   hostageExtracted: 0
   squadAlive: 1
   hostageAlive: 1
---- !u!114 &6559291665958535511
+--- !u!114 &784182515643602292
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2517591593396030167}
+  m_GameObject: {fileID: 6317477963375671756}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 061c4c4da43e6ce42ac53a51cb87967f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Mission.MissionStateService
+  m_EditorClassIdentifier: TacticalBreach.Runtime::TacticalBreach.Mission.MissionStateService
   currentState: 0
---- !u!114 &2255042099946295389
+--- !u!114 &6664366578936166958
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2517591593396030167}
+  m_GameObject: {fileID: 6317477963375671756}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf4b235d83cdf804a8e98df4f42faa94, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Mission.MissionResultResolver
+  m_EditorClassIdentifier: TacticalBreach.Runtime::TacticalBreach.Mission.MissionResultResolver
   missionStateService: {fileID: 0}
   objectiveService: {fileID: 0}
---- !u!114 &8788674804526688891
+--- !u!114 &2005183166648981644
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2517591593396030167}
+  m_GameObject: {fileID: 6317477963375671756}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 612ba660a276a8d4399b19550d7b99f8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Save.SaveService
+  m_EditorClassIdentifier: TacticalBreach.Runtime::TacticalBreach.Save.SaveService
   schemaVersion: 1
   loadOnStart: 0
   missionStateService: {fileID: 0}
   objectiveService: {fileID: 0}
---- !u!114 &6454617963807654080
+--- !u!114 &7908330241024292648
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2517591593396030167}
+  m_GameObject: {fileID: 6317477963375671756}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d29f8c1d8589cdb47988822895869027, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.UI.ResultScreenController
+  m_EditorClassIdentifier: TacticalBreach.Runtime::TacticalBreach.UI.ResultScreenController
   successTitleKey: ui.result.success.title
   failTitleKey: ui.result.fail.title
   successBodyKey: ui.result.success.body

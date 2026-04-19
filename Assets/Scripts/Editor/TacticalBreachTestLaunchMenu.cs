@@ -8,7 +8,6 @@ namespace TacticalBreach.Editor
     {
         private const string BootstrapScenePath = "Assets/Scenes/VerticalSlice/Bootstrap.unity";
         private const string TestScenePath = "Assets/Scenes/VerticalSlice/VS01_Rescue.unity";
-        private const string LastTestScenePath = "Assets/Scenes/VerticalSlice/VS01_Rescue.unity";
 
         [MenuItem("TacticalBreach/Testing/Open Bootstrap")]
         private static void OpenBootstrap()
@@ -32,18 +31,6 @@ namespace TacticalBreach.Editor
         private static bool CanOpenVs01Rescue()
         {
             return CanOpenScene(TestScenePath);
-        }
-
-        [MenuItem("TacticalBreach/Testing/Open Last Test Scene")]
-        private static void OpenLastTestScene()
-        {
-            OpenScene(LastTestScenePath);
-        }
-
-        [MenuItem("TacticalBreach/Testing/Open Last Test Scene", true)]
-        private static bool CanOpenLastTestScene()
-        {
-            return CanOpenScene(LastTestScenePath);
         }
 
         private static void OpenScene(string scenePath)

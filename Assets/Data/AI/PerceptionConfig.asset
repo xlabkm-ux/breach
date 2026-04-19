@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1a6a2f39b93f4691bfde81f99f2ebc15, type: 3}
   m_Name: PerceptionConfig
-  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Data.AI.PerceptionConfig
+  m_EditorClassIdentifier: TacticalBreach.Runtime::TacticalBreach.Data.AI.PerceptionConfig
   visionRadius: 6
   visionAngle: 70
   gunshotNoiseRadius: 8

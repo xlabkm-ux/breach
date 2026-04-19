@@ -7,10 +7,10 @@ namespace TacticalBreach.Squad
 {
     public static class SquadCommandVsEvents
     {
-        public const string MoveIssued = "tactical_breach.squad.command.move";
-        public const string HoldIssued = "tactical_breach.squad.command.hold";
-        public const string FollowIssued = "tactical_breach.squad.command.follow";
-        public const string AttackIssued = "tactical_breach.squad.command.attack";
+        public const string MoveIssued = "breach.squad.command.move";
+        public const string HoldIssued = "breach.squad.command.hold";
+        public const string FollowIssued = "breach.squad.command.follow";
+        public const string AttackIssued = "breach.squad.command.attack";
 
         public static void RaiseMove(GameObject sender, Vector3 worldPoint)
         {
