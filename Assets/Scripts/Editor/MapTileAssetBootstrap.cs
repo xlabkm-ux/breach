@@ -25,14 +25,14 @@ namespace TacticalBreach.Editor
 
         private static readonly IReadOnlyList<TileSpec> Specs = new[]
         {
-            new TileSpec("ApartmentFloor", "Assets/_Core/Graphics/Tiles/Kenney/tile_10.png"),
-            new TileSpec("ApartmentRoomFloor", "Assets/_Core/Graphics/Tiles/Kenney/tile_20.png"),
-            new TileSpec("ApartmentWall", "Assets/_Core/Graphics/Tiles/Kenney/tile_100.png"),
-            new TileSpec("ApartmentBoundary", "Assets/_Core/Graphics/Tiles/Kenney/tile_60.png"),
-            new TileSpec("ApartmentRoomBoundary", "Assets/_Core/Graphics/Tiles/Kenney/tile_40.png"),
-            new TileSpec("ApartmentDoor", "Assets/_Core/Graphics/Tiles/Kenney/tile_130.png"),
-            new TileSpec("ApartmentWindow", "Assets/_Core/Graphics/Tiles/Kenney/tile_133.png"),
-            new TileSpec("ApartmentExtract", "Assets/_Core/Graphics/Tiles/Kenney/tile_131.png"),
+            new TileSpec("ApartmentFloor", "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png"),
+            new TileSpec("ApartmentRoomFloor", "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png"),
+            new TileSpec("ApartmentWall", "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png"),
+            new TileSpec("ApartmentBoundary", "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png"),
+            new TileSpec("ApartmentRoomBoundary", "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png"),
+            new TileSpec("ApartmentDoor", "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png"),
+            new TileSpec("ApartmentWindow", "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png"),
+            new TileSpec("ApartmentExtract", "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png"),
         };
 
         [MenuItem("TacticalBreach/Tools/Generate Apartment Tiles")]
@@ -80,6 +80,8 @@ namespace TacticalBreach.Editor
                 return;
             }
 
+            var litMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/_Core/Materials/ConcreteFloor_Lit.mat");
+
             var tile = AssetDatabase.LoadAssetAtPath<Tile>(tileAssetPath);
             if (tile == null)
             {
@@ -89,6 +91,14 @@ namespace TacticalBreach.Editor
 
             tile.sprite = sprite;
             tile.color = Color.white;
+            
+            // Set the material if it exists to support 2D lighting.
+            #if UNITY_URP
+            // In a real project we'd set the material here, but standard Tile doesn't have a material field.
+            // We use the GameObject factory or a custom Tile subclass if needed.
+            // For now, we rely on the Tilemap Renderer using the correct material.
+            #endif
+
             EditorUtility.SetDirty(tile);
         }
 

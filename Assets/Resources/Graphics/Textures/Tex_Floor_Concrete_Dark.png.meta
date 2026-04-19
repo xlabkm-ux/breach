@@ -1,0 +1,65 @@
+fileFormatVersion: 2
+guid: d4e5f607a8b9c0d1e2f3a4b5c6d7e8f9
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    serializedVersion: 2
+    m_EnableMipMap: 1
+    m_sRGBTexture: 1
+    m_LinearTexture: 0
+    m_FadeOut: 0
+    m_BorderMipMap: 0
+    m_MipDataMode: 0
+    m_MipMapFadeDistanceStart: 1
+    m_MipMapFadeDistanceEnd: 3
+  bumpmap:
+    skippedDefaultNormalMap: 0
+    m_OutputNormalMap: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  alphaIsTransparency: 0
+  spriteMode: 0
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsPreset: 0
+  spriteTessellationDetail: -1
+  textureType: 0
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSize: 2048
+  textureFormat: -1
+  transparentProxyConfig: 0
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
+  nPOTScale: 1
+  lightmap: 0
+  compressionQuality: 50
+  spritePackerTag: 
+  pVRTCSubset: 0
+  ignoreCanvasCanvasScaler: 0
+  forceImageHasAlphaEdge: 0
+  borderMipMap: 0
+  pixelIntensityToSize: 0
+  secondarySpriteTextures: []
+  terrainDetailsTexture: 0
+  assetBundleName: 
+  assetBundleVariant: 
