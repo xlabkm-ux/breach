@@ -80,7 +80,7 @@ namespace TacticalBreach.Editor
                 return;
             }
 
-            var litMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/_Core/Materials/ConcreteFloor_Lit.mat");
+            var litMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/Resources/Materials/ConcreteFloor_Lit.mat");
 
             var tile = AssetDatabase.LoadAssetAtPath<Tile>(tileAssetPath);
             if (tile == null)

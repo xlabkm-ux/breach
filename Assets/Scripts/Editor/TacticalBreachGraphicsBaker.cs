@@ -34,7 +34,7 @@ namespace TacticalBreach.Ci
         private static void SetupTacticalEnvironment()
         {
             // 0. Tilemap Materials.
-            var litMatGuid = "3f244192667104e438139be6e06b7a68";
+            var litMatGuid = "51bc4a5b15d239941a796041609cd381"; // ConcreteFloor_Lit.mat guid
             var litMatPath = AssetDatabase.GUIDToAssetPath(litMatGuid);
             var litMat = AssetDatabase.LoadAssetAtPath<Material>(litMatPath);
 
