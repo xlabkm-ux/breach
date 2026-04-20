@@ -42,14 +42,29 @@ namespace TacticalBreach.Squad
             }
 
             var input = InputCompat.MoveVector;
-            if (input.sqrMagnitude <= 0.0001f)
+            var normalized = input.normalized;
+
+            var rb = activeOperative.GetComponent<Rigidbody2D>();
+            if (rb == null)
             {
-                return;
+                rb = activeOperative.gameObject.AddComponent<Rigidbody2D>();
+                rb.bodyType = RigidbodyType2D.Dynamic;
+                rb.gravityScale = 0f;
+                rb.freezeRotation = true;
+                rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+
+                var coll = activeOperative.gameObject.AddComponent<CircleCollider2D>();
+                coll.radius = 0.4f;
             }
 
-            var normalized = input.normalized;
-            var delta = new Vector3(normalized.x, normalized.y, 0f) * (moveSpeed * Time.deltaTime);
-            activeOperative.transform.position += delta;
+            if (input.sqrMagnitude <= 0.0001f)
+            {
+                rb.linearVelocity = Vector2.zero;
+            }
+            else
+            {
+                rb.linearVelocity = normalized * moveSpeed;
+            }
         }
     }
 }

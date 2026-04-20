@@ -15,7 +15,13 @@
   "precompiledReferences": [],
   "autoReferenced": true,
   "defineConstraints": [],
-  "versionDefines": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.test-framework",
+            "expression": "1.0.0",
+            "define": "BREACH_ENABLE_EDITMODE_TESTS"
+        }
+    ],
   "noEngineReferences": false,
   "testAssemblies": true
 }

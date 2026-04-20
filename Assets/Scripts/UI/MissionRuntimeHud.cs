@@ -1,3 +1,4 @@
+using TacticalBreach.Core;
 using TacticalBreach.Mission;
 using TacticalBreach.Squad;
 using TacticalBreach.Localization;
@@ -31,7 +32,7 @@ namespace TacticalBreach.UI
 
         private void Update()
         {
-            if (Breach.Core.InputCompat.GetKeyDown(KeyCode.F1))
+            if (InputCompat.GetKeyDown(KeyCode.F1))
             {
                 showDebugHud = !showDebugHud;
             }

@@ -22,10 +22,33 @@ namespace TacticalBreach.Editor
     public static class ProjectBootstrapAssetsGenerator
     {
         [InitializeOnLoadMethod]
+        private static void InitializeOnLoad()
+        {
+            EditorApplication.delayCall += SafeEnsureProjectAssets;
+        }
+
+        private static void SafeEnsureProjectAssets()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+            {
+                return;
+            }
+
+            if (EditorApplication.isCompiling || EditorApplication.isUpdating)
+            {
+                EditorApplication.delayCall += SafeEnsureProjectAssets;
+                return;
+            }
+
+            EnsureProjectAssets();
+        }
+
         private static void EnsureProjectAssets()
         {
             EnsureEditModeTestDefine(NamedBuildTarget.Standalone);
             EnsureEditModeTestDefine(NamedBuildTarget.Android);
+
+            bool anyAssetsChanged = false;
 
             EnsureFolder("Assets/Data");
             EnsureFolder("Assets/Data/Mission");
@@ -46,38 +69,47 @@ namespace TacticalBreach.Editor
             EnsureFolder("Assets/VisualScripting/Hostage");
             EnsureFolder("Assets/VisualScripting/UI");
 
-            var localizationTable = EnsureAsset<LocalizationTableAsset>("Assets/Resources/Localization/DefaultLocalizationTable.asset");
-            EnsureLocalizationDefaults(localizationTable);
+            var localizationTable = EnsureAsset<LocalizationTableAsset>("Assets/Resources/Localization/DefaultLocalizationTable.asset", out bool locCreated);
+            if (locCreated)
+            {
+                EnsureLocalizationDefaults(localizationTable);
+                anyAssetsChanged = true;
+            }
 
-            EnsureAsset<MissionConfig>("Assets/Data/Mission/MissionConfig_VS01.asset");
-            EnsureAsset<WeaponConfig>("Assets/Data/Combat/WeaponConfig_Rifle.asset");
-            EnsureAsset<DamageRulesConfig>("Assets/Data/Combat/DamageRules.asset");
-            EnsureAsset<PerceptionConfig>("Assets/Data/AI/PerceptionConfig.asset");
-            EnsureAsset<SaveSchemaConfig>("Assets/Data/Save/SaveSchemaConfig.asset");
+            EnsureAsset<MissionConfig>("Assets/Data/Mission/MissionConfig_VS01.asset", out bool c1); anyAssetsChanged |= c1;
+            EnsureAsset<WeaponConfig>("Assets/Data/Combat/WeaponConfig_Rifle.asset", out bool c2); anyAssetsChanged |= c2;
+            EnsureAsset<DamageRulesConfig>("Assets/Data/Combat/DamageRules.asset", out bool c3); anyAssetsChanged |= c3;
+            EnsureAsset<PerceptionConfig>("Assets/Data/AI/PerceptionConfig.asset", out bool c4); anyAssetsChanged |= c4;
+            EnsureAsset<SaveSchemaConfig>("Assets/Data/Save/SaveSchemaConfig.asset", out bool c5); anyAssetsChanged |= c5;
 
-            var refs = EnsureAsset<LocalizationTableRefs>("Assets/Data/Localization/LocalizationTableRefs.asset");
-            if (refs.defaultTable == null)
+            var refs = EnsureAsset<LocalizationTableRefs>("Assets/Data/Localization/LocalizationTableRefs.asset", out bool refsCreated);
+            if (refsCreated || refs.defaultTable == null)
             {
                 refs.defaultTable = localizationTable;
                 EditorUtility.SetDirty(refs);
+                anyAssetsChanged = true;
             }
 
-            EnsureExtractionZonePrefab();
-            EnsureMissionDirectorPrefab();
+            anyAssetsChanged |= EnsureExtractionZonePrefab();
+            anyAssetsChanged |= EnsureMissionDirectorPrefab();
 #if UNITY_VISUAL_SCRIPTING
-            var squadFlow = EnsureAsset<ScriptGraphAsset>("Assets/VisualScripting/Squad/SquadCommandFlow.asset");
-            var enemyFlow = EnsureAsset<ScriptGraphAsset>("Assets/VisualScripting/AI/EnemyAlertFlow.asset");
-            EnsureGraphPlaceholder("Assets/VisualScripting/Mission/MissionFlow.asset");
-            EnsureGraphPlaceholder("Assets/VisualScripting/Hostage/HostageFlow.asset");
-            EnsureGraphPlaceholder("Assets/VisualScripting/UI/ResultScreenFlow.asset");
+            var squadFlow = EnsureAsset<ScriptGraphAsset>("Assets/VisualScripting/Squad/SquadCommandFlow.asset", out bool sqCreated); anyAssetsChanged |= sqCreated;
+            var enemyFlow = EnsureAsset<ScriptGraphAsset>("Assets/VisualScripting/AI/EnemyAlertFlow.asset", out bool enCreated); anyAssetsChanged |= enCreated;
+            
+            anyAssetsChanged |= EnsureGraphPlaceholder("Assets/VisualScripting/Mission/MissionFlow.asset");
+            anyAssetsChanged |= EnsureGraphPlaceholder("Assets/VisualScripting/Hostage/HostageFlow.asset");
+            anyAssetsChanged |= EnsureGraphPlaceholder("Assets/VisualScripting/UI/ResultScreenFlow.asset");
 
-            EnsureSquadCommandFlow(squadFlow);
-            EnsureEnemyAlertFlow(enemyFlow);
-            EnsurePrefabScriptMachine("Assets/Prefabs/Gameplay/Mission/MissionDirector.prefab", squadFlow);
-            EnsurePrefabScriptMachine("Assets/Prefabs/Gameplay/Enemies/Enemy_Grunt.prefab", enemyFlow);
+            anyAssetsChanged |= EnsureSquadCommandFlow(squadFlow);
+            anyAssetsChanged |= EnsureEnemyAlertFlow(enemyFlow);
+            anyAssetsChanged |= EnsurePrefabScriptMachine("Assets/Prefabs/Gameplay/Mission/MissionDirector.prefab", squadFlow);
+            anyAssetsChanged |= EnsurePrefabScriptMachine("Assets/Prefabs/Gameplay/Enemies/Enemy_Grunt.prefab", enemyFlow);
 #endif
 
-            AssetDatabase.SaveAssets();
+            if (anyAssetsChanged)
+            {
+                AssetDatabase.SaveAssets();
+            }
         }
 
         private static void EnsureFolder(string path)
@@ -95,17 +127,24 @@ namespace TacticalBreach.Editor
             }
         }
 
-        private static T EnsureAsset<T>(string path) where T : ScriptableObject
+        private static T EnsureAsset<T>(string path, out bool wasCreated) where T : ScriptableObject
         {
             var existing = AssetDatabase.LoadAssetAtPath<T>(path);
             if (existing != null)
             {
+                wasCreated = false;
                 return existing;
             }
 
             var created = ScriptableObject.CreateInstance<T>();
             AssetDatabase.CreateAsset(created, path);
+            wasCreated = true;
             return created;
+        }
+
+        private static T EnsureAsset<T>(string path) where T : ScriptableObject
+        {
+            return EnsureAsset<T>(path, out _);
         }
 
         private static void EnsureEditModeTestDefine(NamedBuildTarget buildTarget)
@@ -155,12 +194,12 @@ namespace TacticalBreach.Editor
             EditorUtility.SetDirty(table);
         }
 
-        private static void EnsureExtractionZonePrefab()
+        private static bool EnsureExtractionZonePrefab()
         {
             const string path = "Assets/Prefabs/Gameplay/Zones/ExtractionZone.prefab";
             if (AssetDatabase.LoadAssetAtPath<GameObject>(path) != null)
             {
-                return;
+                return false;
             }
 
             var go = new GameObject("ExtractionZone");
@@ -169,14 +208,15 @@ namespace TacticalBreach.Editor
             circle.isTrigger = true;
             PrefabUtility.SaveAsPrefabAsset(go, path);
             UnityEngine.Object.DestroyImmediate(go);
+            return true;
         }
 
-        private static void EnsureMissionDirectorPrefab()
+        private static bool EnsureMissionDirectorPrefab()
         {
             const string path = "Assets/Prefabs/Gameplay/Mission/MissionDirector.prefab";
             if (AssetDatabase.LoadAssetAtPath<GameObject>(path) != null)
             {
-                return;
+                return false;
             }
 
             var go = new GameObject("MissionDirector");
@@ -189,25 +229,27 @@ namespace TacticalBreach.Editor
             go.AddComponent<ResultScreenController>();
             PrefabUtility.SaveAsPrefabAsset(go, path);
             UnityEngine.Object.DestroyImmediate(go);
+            return true;
         }
 
 #if UNITY_VISUAL_SCRIPTING
-        private static void EnsureGraphPlaceholder(string path)
+        private static bool EnsureGraphPlaceholder(string path)
         {
             if (AssetDatabase.LoadAssetAtPath<ScriptGraphAsset>(path) != null)
             {
-                return;
+                return false;
             }
 
             var graph = ScriptableObject.CreateInstance<ScriptGraphAsset>();
             AssetDatabase.CreateAsset(graph, path);
+            return true;
         }
 
-        private static void EnsureSquadCommandFlow(ScriptGraphAsset flow)
+        private static bool EnsureSquadCommandFlow(ScriptGraphAsset flow)
         {
             if (flow == null)
             {
-                return;
+                return false;
             }
 
             var relays = new[]
@@ -220,18 +262,19 @@ namespace TacticalBreach.Editor
 
             if (HasAllEventRelays(flow.graph, relays))
             {
-                return;
+                return false;
             }
 
             flow.graph = BuildRelayGraph(relays);
             EditorUtility.SetDirty(flow);
+            return true;
         }
 
-        private static void EnsureEnemyAlertFlow(ScriptGraphAsset flow)
+        private static bool EnsureEnemyAlertFlow(ScriptGraphAsset flow)
         {
             if (flow == null)
             {
-                return;
+                return false;
             }
 
             var relays = new[]
@@ -243,11 +286,12 @@ namespace TacticalBreach.Editor
 
             if (HasAllEventRelays(flow.graph, relays))
             {
-                return;
+                return false;
             }
 
             flow.graph = BuildRelayGraph(relays);
             EditorUtility.SetDirty(flow);
+            return true;
         }
 
         private static FlowGraph BuildRelayGraph(IEnumerable<(string listenEvent, string relayEvent)> relays)
@@ -344,36 +388,45 @@ namespace TacticalBreach.Editor
             return false;
         }
 
-        private static void EnsurePrefabScriptMachine(string prefabPath, ScriptGraphAsset graphAsset)
+        private static bool EnsurePrefabScriptMachine(string prefabPath, ScriptGraphAsset graphAsset)
         {
             var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
             if (prefab == null)
             {
-                return;
+                return false;
             }
 
             var root = PrefabUtility.LoadPrefabContents(prefabPath);
             try
             {
+                bool changed = false;
                 var variables = root.GetComponent<Variables>();
                 if (variables == null)
                 {
                     variables = root.AddComponent<Variables>();
+                    changed = true;
                 }
 
                 var machine = root.GetComponent<ScriptMachine>();
                 if (machine == null)
                 {
                     machine = root.AddComponent<ScriptMachine>();
+                    changed = true;
                 }
 
                 if (machine.nest.macro != graphAsset)
                 {
                     machine.nest.SwitchToMacro(graphAsset);
+                    changed = true;
                 }
 
-                EditorUtility.SetDirty(root);
-                PrefabUtility.SaveAsPrefabAsset(root, prefabPath);
+                if (changed)
+                {
+                    EditorUtility.SetDirty(root);
+                    PrefabUtility.SaveAsPrefabAsset(root, prefabPath);
+                    return true;
+                }
+                return false;
             }
             finally
             {

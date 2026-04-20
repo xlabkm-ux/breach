@@ -582,8 +582,8 @@ PlayerSettings:
   webWasm2023: 0
   webEnableSubmoduleStrippingCompatibility: 0
   scriptingDefineSymbols:
-    Android: TACTICALBREACH_ENABLE_EDITMODE_TESTS
-    Standalone: TACTICALBREACH_ENABLE_EDITMODE_TESTS
+    Android: TACTICALBREACH_ENABLE_EDITMODE_TESTS;BREACH_ENABLE_EDITMODE_TESTS
+    Standalone: TACTICALBREACH_ENABLE_EDITMODE_TESTS;BREACH_ENABLE_EDITMODE_TESTS
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:

@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 344bb76890d84e82b66f504eaa83e0c5, type: 3}
   m_Name: DefaultLocalizationTable
-  m_EditorClassIdentifier: Assembly-CSharp::TacticalBreach.Localization.LocalizationTableAsset
+  m_EditorClassIdentifier: TacticalBreach.Runtime::TacticalBreach.Localization.LocalizationTableAsset
   entries:
   - key: ui.result.success.title
     value: 

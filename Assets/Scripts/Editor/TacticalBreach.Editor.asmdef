@@ -2,7 +2,11 @@
   "name": "TacticalBreach.Editor",
   "rootNamespace": "",
   "references": [
-    "TacticalBreach.Runtime"
+    "TacticalBreach.Runtime",
+    "Unity.RenderPipelines.Universal.Runtime",
+    "Unity.RenderPipelines.Universal.2D.Runtime",
+    "Unity.RenderPipelines.Universal.Editor",
+    "Unity.RenderPipelines.Core.Runtime"
   ],
   "includePlatforms": [
     "Editor"
