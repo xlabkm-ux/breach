@@ -26,18 +26,19 @@ namespace TacticalBreach.Editor
         private static readonly IReadOnlyList<TileSpec> Specs = new[]
         {
             new TileSpec("ApartmentFloor", "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png"),
-            new TileSpec("ApartmentRoomFloor", "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png"),
-            new TileSpec("ApartmentWall", "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png"),
-            new TileSpec("ApartmentBoundary", "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png"),
-            new TileSpec("ApartmentRoomBoundary", "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png"),
-            new TileSpec("ApartmentDoor", "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png"),
-            new TileSpec("ApartmentWindow", "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png"),
-            new TileSpec("ApartmentExtract", "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png"),
+            new TileSpec("ApartmentRoomFloor", "Assets/Resources/Graphics/Textures/Tex_Floor_Room_Dark.png"),
+            new TileSpec("ApartmentWall", "Assets/Resources/Graphics/Textures/Tex_Wall_Concrete_Dark.png"),
+            new TileSpec("ApartmentBoundary", "Assets/Resources/Graphics/Textures/Tex_Wall_Concrete_Dark.png"),
+            new TileSpec("ApartmentRoomBoundary", "Assets/Resources/Graphics/Textures/Tex_Wall_Concrete_Dark.png"),
+            new TileSpec("ApartmentDoor", "Assets/Resources/Graphics/Textures/Tex_Door_Dark.png"),
+            new TileSpec("ApartmentWindow", "Assets/Resources/Graphics/Textures/Tex_Window_Dark.png"),
+            new TileSpec("ApartmentExtract", "Assets/Resources/Graphics/Textures/Tex_Extract_Dark.png"),
         };
 
         [MenuItem("TacticalBreach/Tools/Generate Apartment Tiles")]
         public static void GenerateApartmentTiles()
         {
+            AssetDatabase.Refresh();
             EnsureFolder(ResourceFolder);
 
             foreach (var spec in Specs)
@@ -91,6 +92,7 @@ namespace TacticalBreach.Editor
 
             tile.sprite = sprite;
             tile.color = Color.white;
+            tile.colliderType = Tile.ColliderType.Sprite;
             
             // Set the material if it exists to support 2D lighting.
             #if UNITY_URP

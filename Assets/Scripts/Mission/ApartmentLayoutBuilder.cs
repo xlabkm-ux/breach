@@ -43,9 +43,23 @@ namespace TacticalBreach.Mission
             var collisionMap = FindTilemap("World_Collision");
             var decorMap = FindTilemap("World_Decor");
             var interactablesMap = FindTilemap("World_Interactables");
-            if (baseMap == null || collisionMap == null || decorMap == null || interactablesMap == null)
+            if (collisionMap == null || decorMap == null || baseMap == null)
             {
+                Debug.LogWarning("Missing Tilemap references!");
                 return;
+            }
+            
+            baseMap.GetComponent<TilemapRenderer>().sortingOrder = -500;
+            collisionMap.GetComponent<TilemapRenderer>().sortingOrder = -300;
+            decorMap.GetComponent<TilemapRenderer>().sortingOrder = -200;
+            if (interactablesMap != null) interactablesMap.GetComponent<TilemapRenderer>().sortingOrder = -100;
+            
+            // Add physics components to collisionMap if missing
+            if (collisionMap.GetComponent<TilemapCollider2D>() == null)
+            {
+                collisionMap.gameObject.AddComponent<TilemapCollider2D>();
+                var rb = collisionMap.gameObject.AddComponent<Rigidbody2D>();
+                rb.bodyType = RigidbodyType2D.Static;
             }
 
             baseMap.ClearAllTiles();

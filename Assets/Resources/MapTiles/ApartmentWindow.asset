@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: ApartmentWindow
   m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.Tilemaps.Tile
-  m_Sprite: {fileID: 5919093204803878336, guid: 3fcbb957f1fe0ee4eafddb0ab6d35062, type: 3}
+  m_Sprite: {fileID: 4270585141095025741, guid: 0f4cef1e5273b1a468e11c5daea7595f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:
     e00: 1
