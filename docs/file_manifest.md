@@ -32,20 +32,20 @@
 - `architecture/localization_contract.md`
 
 ## Project docs
-- `docs/project_docs_index.md`
+- `docs/td_docs/project_docs_index.md`
 - `docs/project_brief_v1.md`
-- `docs/gameplay_brief_v1.md`
-- `docs/technical_implementation_v1.md`
-- `docs/control_reference_v1.md`
-- `docs/rescue_slice_acceptance_v1.md`
-- `docs/cqb_reference_sheet.md`
-- `docs/combat_readability.md`
-- `docs/enemy_archetypes.md`
-- `docs/level_design_rules.md`
-- `docs/vision_roadmap.md`
-- `docs/mission_grammar.md`
-- `docs/economy_of_information.md`
-- `docs/analogs_references.md`
+- `docs/td_docs/gameplay_brief_v1.md`
+- `docs/td_docs/technical_implementation_v1.md`
+- `docs/td_docs/control_reference_v1.md`
+- `docs/td_docs/rescue_slice_acceptance_v1.md`
+- `docs/td_docs/cqb_reference_sheet.md`
+- `docs/td_docs/combat_readability.md`
+- `docs/td_docs/enemy_archetypes.md`
+- `docs/td_docs/level_design_rules.md`
+- `docs/td_docs/vision_roadmap.md`
+- `docs/td_docs/mission_grammar.md`
+- `docs/td_docs/economy_of_information.md`
+- `docs/td_docs/analogs_references.md`
 - `docs/file_manifest.md`
 - `docs/tactical_breach_game_workflows_backlog.md`
 - `docs/tactical_breach_test_plan_checklist.md`
