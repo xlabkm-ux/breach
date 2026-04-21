@@ -24,6 +24,7 @@
 - [`mission_grammar_v1.md`](../systems_and_level_design/mission_grammar_v1.md): Грамматика, ритм и структура миссий (планирование -> проникновение -> кульминация).
 - [`economy_of_information_v1.md`](../systems_and_level_design/economy_of_information_v1.md): Механики работы с информацией. Что игрок знает (чертежи здания), а что должен выяснить через камеры и дроны (Fog of War).
 - [`level_design_rules_v1.md`](../systems_and_level_design/level_design_rules_v1.md): Строгие метрики геометрии. Размеры проемов (1.5м), правила расстановки укрытий и "направляющих".
+- [`extended_missions_plan_v1.md`](../systems_and_level_design/extended_missions_plan_v1.md): Полный план развития миссий в 3 категориях (Заложники, Рейды, Штурм), структура левел-дизайна и примеры (Vertical Slice).
 
 ### 🎮 Player Interaction (`/player_interaction`)
 Документация, описывающая взаимодействие игрока с системами управления и боевые тактические паттерны.

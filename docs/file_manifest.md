@@ -41,6 +41,7 @@
 - `docs/td_docs/systems_and_level_design/enemy_archetypes_v1.md`
 - `docs/td_docs/systems_and_level_design/level_design_rules_v1.md`
 - `docs/td_docs/systems_and_level_design/combat_readability_guidelines_v1.md`
+- `docs/td_docs/systems_and_level_design/extended_missions_plan_v1.md`
 - `docs/td_docs/player_interaction/control_reference_v1.md`
 - `docs/td_docs/player_interaction/cqb_reference_sheet_v1.md`
 - `docs/td_docs/architecture_and_qa/technical_implementation_v1.md`
