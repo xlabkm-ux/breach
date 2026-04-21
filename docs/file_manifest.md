@@ -32,20 +32,19 @@
 - `architecture/localization_contract.md`
 
 ## Project docs
-- `docs/td_docs/project_docs_index.md`
-- `docs/project_brief_v1.md`
-- `docs/td_docs/gameplay_brief_v1.md`
-- `docs/td_docs/technical_implementation_v1.md`
-- `docs/td_docs/control_reference_v1.md`
-- `docs/td_docs/rescue_slice_acceptance_v1.md`
-- `docs/td_docs/cqb_reference_sheet.md`
-- `docs/td_docs/combat_readability.md`
-- `docs/td_docs/enemy_archetypes.md`
-- `docs/td_docs/level_design_rules.md`
-- `docs/td_docs/vision_roadmap.md`
-- `docs/td_docs/mission_grammar.md`
-- `docs/td_docs/economy_of_information.md`
-- `docs/td_docs/analogs_references.md`
+- `docs/td_docs/core_vision/project_docs_index.md`
+- `docs/td_docs/core_vision/gameplay_brief_v1.md`
+- `docs/td_docs/core_vision/vision_roadmap_v1.md`
+- `docs/td_docs/core_vision/analogs_references_v1.md`
+- `docs/td_docs/systems_and_level_design/mission_grammar_v1.md`
+- `docs/td_docs/systems_and_level_design/economy_of_information_v1.md`
+- `docs/td_docs/systems_and_level_design/enemy_archetypes_v1.md`
+- `docs/td_docs/systems_and_level_design/level_design_rules_v1.md`
+- `docs/td_docs/systems_and_level_design/combat_readability_guidelines_v1.md`
+- `docs/td_docs/player_interaction/control_reference_v1.md`
+- `docs/td_docs/player_interaction/cqb_reference_sheet_v1.md`
+- `docs/td_docs/architecture_and_qa/technical_implementation_v1.md`
+- `docs/td_docs/architecture_and_qa/rescue_slice_acceptance_v1.md`
 - `docs/file_manifest.md`
 - `docs/tactical_breach_game_workflows_backlog.md`
 - `docs/tactical_breach_test_plan_checklist.md`
