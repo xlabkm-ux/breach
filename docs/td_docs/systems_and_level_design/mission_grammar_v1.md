@@ -1,16 +1,31 @@
-﻿# TACTICAL BREACH: Mission Grammar
+# TACTICAL BREACH: Mission Grammar
 
 > **Project:** TACTICAL BREACH
 > **Version:** 1.0 (Draft)
 > **Status:** Pending Expansion
-> **Path:** docs/td_docs/mission_grammar.md
+> **Path:** `docs/td_docs/systems_and_level_design/mission_grammar_v1.md`
 
 ## 1. Overview
 - **Loop:** Setup (Perimeter study) -> Infiltration (Stealth) -> Choke Point (High tension) -> Hostage Room (Crescendo).
 
 
-## 2. Proposed Expansions (TODO)
-- **Mathematical Boundaries:** Define exact constants, speeds, and radii.
-- **Edge Cases:** Document conflicting states and interruption logic.
-- **Technical Mapping:** Link real-world rules to C# interfaces (interface IEntity, ScriptableObject).
-- **Test Scenarios:** Add Given-When-Then conditions.
+## 2. Tension Envelope & Pacing (Кривая напряжения)
+Вся игра строится на контрасте медленной паранойи и миллисекунд хаоса.
+
+### Расчетное время фаз:
+1. **Setup (Планирование):** `~1.0 мин.` 
+   * *Эмоция:* Контроль. 
+   * Анализ чертежей, распределение снаряжения, выбор точки Breach Point.
+2. **Infiltration (Проникновение):** `~2.0 мин.` 
+   * *Эмоция:* Нарастающая паранойя.
+   * Медленное продвижение, проверка углов и растяжек. Шум сведен к минимуму.
+3. **Choke Point (Узкое горлышко):** `~0.5 мин.` 
+   * *Эмоция:* Высокое напряжение (Пик).
+   * Использование Optiwand, подготовка гранат. Синхронизация отряда (Stacking).
+4. **Crescendo (Кульминация):** `~0.1 - 0.2 мин.` (от 6 до 15 секунд).
+   * *Эмоция:* Взрыв адреналина, хаос.
+   * Штурм, выстрелы, крики, принятие решений в доли секунды.
+5. **Resolution (Разрешение):** `~0.5 мин.`
+   * *Эмоция:* Облегчение. Оценка последствий (кто выжил, кто ранен), связывание врагов.
+
+*Суммарное время сессии одной миссии:* **От 4 до 5 минут.** Геймплей не должен быть затянутым. Игрок должен умирать быстро и так же быстро перезапускать миссию (Fast Restart).

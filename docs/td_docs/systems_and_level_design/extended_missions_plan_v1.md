@@ -83,8 +83,37 @@
 *   **Ловушки:** Рандомное размещение растяжек на дверях.
 *   **Позиции:** Заложники могут находиться в разных комнатах при каждом прохождении.
 
-## 2. Proposed Expansions (TODO)
-- **Mathematical Boundaries:** Define precise RNG constraints and time-to-kill metrics in code.
-- **Level Metric Mapping:** Map "1.5m funnel" to Unity grid snapping values.
-- **AI Behavior Hooking:** Detail the C# implementation of "Dynamic Response" and "Human Factor".
-- **Mission Templating:** Create a `ScriptableObject` template in Unity aligning directly with the 5 Structure blocks.
+## 2. Mission Templating & Data Structure
+Для стандартизации производства в движке создается `MissionTemplate : ScriptableObject`, в котором хранятся все 5 базовых структурных блоков.
+
+### C# Data Model (Псевдокод)
+```csharp
+[CreateAssetMenu(fileName = "NewMission", menuName = "Breach/Mission Template")]
+public class MissionTemplate : ScriptableObject
+{
+    [Header("1. Narrative Briefing")]
+    public string missionTitle;
+    [TextArea] public string narrativeContext;
+    public AudioClip briefingAudio;
+
+    [Header("2. Level Layout")]
+    public SceneReference sceneToLoad;
+    public Texture2D blueprintMap;
+    public List<Vector3> entryPoints;
+
+    [Header("3. Enemy Intel")]
+    public ThreatLevel expectedThreat;
+    public List<EnemyType> possibleEnemyRoles;
+    [Range(0f, 1f)] public float surpriseChance; // Вероятность того, что Интел ошибается
+
+    [Header("4. Player Loadout")]
+    public EquipmentModifier requiredGear; // e.g. NightVision
+
+    [Header("5. Success Criteria")]
+    public List<ObjectiveData> objectives;
+}
+```
+
+### Метрики Сетки
+- `Fatal Funnel` всегда привязывается к мировым юнитам кратным `1.0m`.
+- Стены вокруг дверей (для Stacking) имеют коллайдеры шириной минимум `1.5m`.
