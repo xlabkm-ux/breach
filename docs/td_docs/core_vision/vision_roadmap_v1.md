@@ -1,9 +1,9 @@
-﻿# TACTICAL BREACH: Vision & Roadmap
+# TACTICAL BREACH: Vision & Roadmap
 
 > **Project:** TACTICAL BREACH
 > **Version:** 1.0 (Draft)
 > **Status:** Pending Expansion
-> **Path:** docs/td_docs/vision_roadmap.md
+> **Path:** `docs/td_docs/core_vision/vision_roadmap_v1.md`
 
 ## 1. Overview
 - **Phase 1 (Current):** Vertical Slice (Rescue Mission).
@@ -11,8 +11,16 @@
 - **Phase 3:** Full Campaign and multi-vector entries (Roof/Windows).
 
 
-## 2. Proposed Expansions (TODO)
-- **Mathematical Boundaries:** Define exact constants, speeds, and radii.
-- **Edge Cases:** Document conflicting states and interruption logic.
-- **Technical Mapping:** Link real-world rules to C# interfaces (interface IEntity, ScriptableObject).
-- **Test Scenarios:** Add Given-When-Then conditions.
+## 2. Sprint Integrations (Интеграция с GitHub Projects)
+
+### Phase 1 (Vertical Slice) -> Sprint: Release Verification workflows 
+*   **Scope Constraint:** Ограничено одной миссией ("Квартира: Жилой сектор «Олимп»"). Выполняются задачи `BWF-035` - `BWF-042`. 
+*   **Focus:** Core loop, Lethality, Stacking AI.
+*   **Constraint:** Без разрушаемости стен. Без систем сложной ночной маскировки.
+
+### Phase 2 (Night Ops & Advanced Breaching) -> Workflow Backlog 
+*   **Focus:** Генерация теней в реальном времени, добавление NVG (Прибора ночного видения), рубильники, ПНВ-боты.
+*   **Constraint:** Требует рефакторинга LayerMask (ShadowArea) для рейкастов ИИ. Ожидать полной стабилизации Phase 1.
+
+### Phase 3 (Campaign) -> Future Backlog
+*   **Focus:** Связанная прогрессия (мета), многоуровневые объекты, механики спуска на тросах через окна (Rappelling).
