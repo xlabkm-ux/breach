@@ -1,4 +1,9 @@
-# Unity Implementation Plan Template
+﻿# TACTICAL BREACH: Unity Implementation Plan Template
+
+> **Project:** TACTICAL BREACH
+> **Version:** 1.0
+> **Status:** Template / Contract
+> **Path:** $relPath
 
 ## Goal
 
@@ -26,3 +31,4 @@
 ## Expected deliverables
 - files/assets changed
 - acceptance evidence
+

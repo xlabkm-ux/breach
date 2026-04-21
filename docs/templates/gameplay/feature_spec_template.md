@@ -1,4 +1,9 @@
-# Feature Spec Template
+﻿# TACTICAL BREACH: Feature Spec Template
+
+> **Project:** TACTICAL BREACH
+> **Version:** 1.0
+> **Status:** Template / Contract
+> **Path:** $relPath
 
 ## Goal
 
@@ -43,3 +48,4 @@ Out of scope:
 - save compatibility
 - localization
 - platform quality profiles
+

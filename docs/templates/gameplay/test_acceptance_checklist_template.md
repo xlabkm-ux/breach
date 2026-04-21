@@ -1,4 +1,9 @@
-# Test and Acceptance Checklist Template
+﻿# TACTICAL BREACH: Test and Acceptance Checklist Template
+
+> **Project:** TACTICAL BREACH
+> **Version:** 1.0
+> **Status:** Template / Contract
+> **Path:** $relPath
 
 ## Compile / boot
 - [ ] Project compiles
@@ -39,3 +44,4 @@
 
 ## Residual risks logged
 - [ ] Yes
+

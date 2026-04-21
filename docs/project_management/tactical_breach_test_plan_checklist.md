@@ -1,4 +1,9 @@
-# TACTICAL BREACH Test Plan Checklist
+﻿# TACTICAL BREACH: Test Plan Checklist
+
+> **Project:** TACTICAL BREACH
+> **Version:** 1.0
+> **Status:** Active
+> **Path:** docs/project_management/tactical_breach_test_plan_checklist.md
 
 Date: 2026-04-07
 Scope: full project test checklist for TACTICAL BREACH v1 readiness.
@@ -117,3 +122,4 @@ Scope: full project test checklist for TACTICAL BREACH v1 readiness.
 - [ ] No compile errors remain in the project.
 - [ ] No critical regressions remain in scenes, prefabs, or graphs.
 - [ ] Release candidate can be tagged.
+

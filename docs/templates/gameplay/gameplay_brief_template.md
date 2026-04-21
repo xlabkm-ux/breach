@@ -1,4 +1,9 @@
-# Gameplay Brief Template
+﻿# TACTICAL BREACH: Gameplay Brief Template
+
+> **Project:** TACTICAL BREACH
+> **Version:** 1.0
+> **Status:** Template / Contract
+> **Path:** $relPath
 
 ## 1. Passport
 - Feature name:
@@ -93,3 +98,4 @@
 - Save checks:
 - Localization checks:
 - Regression risks:
+

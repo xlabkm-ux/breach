@@ -1,4 +1,9 @@
-# System Contract Template
+﻿# TACTICAL BREACH: System Contract Template
+
+> **Project:** TACTICAL BREACH
+> **Version:** 1.0
+> **Status:** Template / Contract
+> **Path:** $relPath
 
 ## System name
 
@@ -38,3 +43,4 @@
 - achievements hooks
 - graph-semantic hooks
 - release-sensitive hooks
+

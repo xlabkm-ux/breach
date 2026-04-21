@@ -1,4 +1,9 @@
-# TACTICAL BREACH Game Workflows Backlog
+﻿# TACTICAL BREACH: Game Workflows Backlog
+
+> **Project:** TACTICAL BREACH
+> **Version:** 1.0
+> **Status:** Active
+> **Path:** docs/project_management/tactical_breach_game_workflows_backlog.md
 
 Date: 2026-04-06
 Project: `TACTICAL BREACH`
@@ -475,3 +480,4 @@ The `TACTICAL BREACH` workflow backlog reaches current v1 target when:
 - `Workflow 1` through `Workflow 7` remain stable
 - `Workflow 8` is completed in Unity
 - release candidate baseline is committed after successful verification
+

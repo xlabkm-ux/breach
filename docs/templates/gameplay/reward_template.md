@@ -1,4 +1,9 @@
-# Reward Template Library v1
+﻿# TACTICAL BREACH: Reward Template Library v1
+
+> **Project:** TACTICAL BREACH
+> **Version:** 1.0
+> **Status:** Template / Contract
+> **Path:** $relPath
 
 ## Immediate_Feedback_Reward
 Used for moment-to-moment confirmation: successful order, clean hit, stealth takedown, secured room.
@@ -17,3 +22,4 @@ Optional roguelite extension where the player chooses between rewards rather tha
 
 ## Usage rule
 Every feature must identify its dominant reward template and confirm that reward signaling stays readable.
+

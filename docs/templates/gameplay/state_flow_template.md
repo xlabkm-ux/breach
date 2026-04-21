@@ -1,4 +1,9 @@
-# State Flow Template
+﻿# TACTICAL BREACH: State Flow Template
+
+> **Project:** TACTICAL BREACH
+> **Version:** 1.0
+> **Status:** Template / Contract
+> **Path:** $relPath
 
 ## System / Feature
 
@@ -26,3 +31,4 @@
 - source state
 - target state
 - validation rules
+

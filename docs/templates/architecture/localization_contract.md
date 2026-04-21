@@ -1,4 +1,9 @@
-# Localization Contract v1
+﻿# TACTICAL BREACH: Localization Contract v1
+
+> **Project:** TACTICAL BREACH
+> **Version:** 1.0
+> **Status:** Template / Contract
+> **Path:** $relPath
 
 ## Core rules
 - all UI text uses string keys
@@ -26,3 +31,4 @@
 - fallback entries added
 - no clipped critical UI
 - no hardcoded strings in graphs or gameplay scripts unless explicitly justified
+

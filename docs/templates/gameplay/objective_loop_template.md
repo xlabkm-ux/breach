@@ -1,4 +1,9 @@
-# Objective Loop Template
+﻿# TACTICAL BREACH: Objective Loop Template
+
+> **Project:** TACTICAL BREACH
+> **Version:** 1.0
+> **Status:** Template / Contract
+> **Path:** $relPath
 
 ## Objective name
 
@@ -24,3 +29,4 @@
 - tracker text key
 - state indicator
 - warning indicator
+

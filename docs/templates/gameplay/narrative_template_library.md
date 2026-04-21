@@ -1,4 +1,9 @@
-# Narrative Template Library v1
+﻿# TACTICAL BREACH: Narrative Template Library v1
+
+> **Project:** TACTICAL BREACH
+> **Version:** 1.0
+> **Status:** Template / Contract
+> **Path:** $relPath
 
 ## Intro_Context
 Short setup establishing operational situation and mission stakes.
@@ -32,3 +37,4 @@ Non-blocking world flavor that does not interrupt tactical readability.
 - Keep lines short and reusable.
 - Prefer variable-safe text tokens.
 - Do not introduce cinematic overgrowth in v1.
+

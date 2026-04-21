@@ -1,4 +1,9 @@
-# Save Architecture Contract v1
+﻿# TACTICAL BREACH: Save Architecture Contract v1
+
+> **Project:** TACTICAL BREACH
+> **Version:** 1.0
+> **Status:** Template / Contract
+> **Path:** $relPath
 
 ## Objectives
 - local reliability
@@ -40,3 +45,4 @@
 - compatibility checked after any data contract change
 - autosave triggers reviewed after state-flow changes
 - fallback path tested for corrupt/incompatible payloads
+

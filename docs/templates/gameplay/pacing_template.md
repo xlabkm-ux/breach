@@ -1,4 +1,9 @@
-# Pacing Template Library v1
+﻿# TACTICAL BREACH: Pacing Template Library v1
+
+> **Project:** TACTICAL BREACH
+> **Version:** 1.0
+> **Status:** Template / Contract
+> **Path:** $relPath
 
 ## Safe_Start
 Low-pressure onboarding or staging window where the player can orient, place squad members, and read objectives.
@@ -17,3 +22,4 @@ Final commitment phase that resolves the mission with the clearest tactical and 
 
 ## Usage rule
 Every mission/feature should explicitly state which pacing template it enters, extends, or transitions into.
+
