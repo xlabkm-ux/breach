@@ -1,4 +1,11 @@
-﻿# TACTICAL BREACH Docs Index
+﻿# TACTICAL BREACH: Docs Index
+
+> **Project:** TACTICAL BREACH
+> **Version:** 1.0 (Draft)
+> **Status:** Pending Expansion
+> **Path:** docs/td_docs/project_docs_index.md
+
+## 1. Overview
 - **Status:** Draft v2 (Expanded with Systems & LD)
 - **Philosophy:** Focus on risk management and command-based CQB in tight architecture where errors are lethal.
 - **Structure:**
@@ -15,3 +22,10 @@
   - ision_roadmap.md: Future goals and project vision.
   - economy_of_information.md: Fog of war and recon mechanics.
   - nalogs_references.md: Benchmarks and references.
+
+
+## 2. Proposed Expansions (TODO)
+- **Mathematical Boundaries:** Define exact constants, speeds, and radii.
+- **Edge Cases:** Document conflicting states and interruption logic.
+- **Technical Mapping:** Link real-world rules to C# interfaces (interface IEntity, ScriptableObject).
+- **Test Scenarios:** Add Given-When-Then conditions.
