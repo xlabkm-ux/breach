@@ -5,8 +5,8 @@
 - `AGENTS.md`
 - `code_review.md`
 
-## Codex
-- `.codex/config.toml`
+## Antigravity
+- `.antigravity/config.toml`
 
 ## Skills
 - `.agents/skills/unity-feature-implementation/SKILL.md`

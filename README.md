@@ -6,7 +6,7 @@ Project workspace for the Unity 6 game **TACTICAL BREACH**.
 
 ## Primary entry points
 - `AGENTS.md` - main operating contract for work in this repository
-- `.codex/config.toml` - local Codex configuration
+- `.antigravity/config.toml` - local Antigravity configuration
 - `docs/file_manifest.md` - canonical document index
 - `docs/project_brief_v1.md` - current game brief
 - `docs/tactical_breach_game_workflows_backlog.md` - active gameplay roadmap

@@ -6,17 +6,14 @@ namespace TacticalBreach.Mission
     [ExecuteAlways]
     public sealed class ApartmentLayoutBuilder : MonoBehaviour
     {
-        [SerializeField] private bool rebuildInEditor = true;
-        [SerializeField] private bool rebuildOnPlay = true;
+        [SerializeField] private bool rebuildInEditor = false;
+        [SerializeField] private bool rebuildOnPlay = false;
+        public bool AutoRebuildEnabled => rebuildInEditor || rebuildOnPlay;
 
         private static Tile _floorTile;
         private static Tile _wallTile;
         private static Tile _roomTile;
         private static Tile _extractTile;
-        private static Tile _boundaryTile;
-        private static Tile _roomBoundaryTile;
-        private static Tile _doorTile;
-        private static Tile _windowTile;
 
         private void OnEnable()
         {
@@ -43,23 +40,9 @@ namespace TacticalBreach.Mission
             var collisionMap = FindTilemap("World_Collision");
             var decorMap = FindTilemap("World_Decor");
             var interactablesMap = FindTilemap("World_Interactables");
-            if (collisionMap == null || decorMap == null || baseMap == null)
+            if (baseMap == null || collisionMap == null || decorMap == null || interactablesMap == null)
             {
-                Debug.LogWarning("Missing Tilemap references!");
                 return;
-            }
-            
-            baseMap.GetComponent<TilemapRenderer>().sortingOrder = -500;
-            collisionMap.GetComponent<TilemapRenderer>().sortingOrder = -300;
-            decorMap.GetComponent<TilemapRenderer>().sortingOrder = -200;
-            if (interactablesMap != null) interactablesMap.GetComponent<TilemapRenderer>().sortingOrder = -100;
-            
-            // Add physics components to collisionMap if missing
-            if (collisionMap.GetComponent<TilemapCollider2D>() == null)
-            {
-                collisionMap.gameObject.AddComponent<TilemapCollider2D>();
-                var rb = collisionMap.gameObject.AddComponent<Rigidbody2D>();
-                rb.bodyType = RigidbodyType2D.Static;
             }
 
             baseMap.ClearAllTiles();
@@ -72,25 +55,17 @@ namespace TacticalBreach.Mission
 
             // Main walls.
             FillRectBorder(collisionMap, -12, -6, 24, 12, _wallTile);
-            FillRectBorder(decorMap, -13, -7, 26, 14, _boundaryTile);
-            PlaceWindowBand(decorMap, -8, 6, 2, _windowTile);
-            PlaceWindowBand(decorMap, 0, 6, 2, _windowTile);
-            PlaceWindowBand(decorMap, 8, 6, 2, _windowTile);
 
             // Hostage room block.
             FillRect(baseMap, 4, -2, 7, 5, _roomTile);
             FillRectBorder(collisionMap, 4, -2, 7, 5, _wallTile);
-            FillRectBorder(decorMap, 4, -2, 7, 5, _roomBoundaryTile);
 
             // Door opening to hostage room.
             ClearRect(collisionMap, 4, 0, 1, 1);
-            SetTile(decorMap, 4, 0, _doorTile);
 
             // Two entry points.
             ClearRect(collisionMap, -12, 2, 1, 1);
             ClearRect(collisionMap, 0, -6, 1, 1);
-            SetTile(decorMap, -12, 2, _doorTile);
-            SetTile(decorMap, 0, -6, _doorTile);
 
             // Extraction zone marker.
             FillRect(interactablesMap, -10, -5, 3, 2, _extractTile);
@@ -144,40 +119,34 @@ namespace TacticalBreach.Mission
             }
         }
 
-        private static void PlaceWindowBand(Tilemap map, int startX, int y, int length, Tile tile)
-        {
-            for (var ix = startX; ix < startX + length; ix++)
-            {
-                map.SetTile(new Vector3Int(ix, y, 0), tile);
-            }
-        }
-
-        private static void SetTile(Tilemap map, int x, int y, Tile tile)
-        {
-            map.SetTile(new Vector3Int(x, y, 0), tile);
-        }
-
         private static void EnsureTiles()
         {
-            _floorTile ??= LoadTile("ApartmentFloor");
-            _wallTile ??= LoadTile("ApartmentWall");
-            _roomTile ??= LoadTile("ApartmentRoomFloor");
-            _extractTile ??= LoadTile("ApartmentExtract");
-            _boundaryTile ??= LoadTile("ApartmentBoundary");
-            _roomBoundaryTile ??= LoadTile("ApartmentRoomBoundary");
-            _doorTile ??= LoadTile("ApartmentDoor");
-            _windowTile ??= LoadTile("ApartmentWindow");
+            _floorTile ??= BuildTile(BuildSolidSprite(new Color(0.25f, 0.29f, 0.34f)), Color.white);
+            _wallTile ??= BuildTile(BuildSolidSprite(new Color(0.42f, 0.44f, 0.48f)), Color.white);
+            _roomTile ??= BuildTile(BuildSolidSprite(new Color(0.33f, 0.37f, 0.42f)), Color.white);
+            _extractTile ??= BuildTile(BuildSolidSprite(new Color(0.22f, 0.55f, 0.52f)), Color.white);
         }
 
-        private static Tile LoadTile(string resourceName)
+        private static Tile BuildTile(Sprite sprite, Color color)
         {
-            var tile = Resources.Load<Tile>($"MapTiles/{resourceName}");
-            if (tile == null)
-            {
-                Debug.LogError($"Missing tile asset: Resources/MapTiles/{resourceName}");
-            }
-
+            var tile = ScriptableObject.CreateInstance<Tile>();
+            tile.sprite = sprite;
+            tile.color = color;
             return tile;
+        }
+
+        private static Sprite BuildSolidSprite(Color color)
+        {
+            var texture = new Texture2D(32, 32, TextureFormat.RGBA32, false);
+            var pixels = new Color[32 * 32];
+            for (var i = 0; i < pixels.Length; i++)
+            {
+                pixels[i] = color;
+            }
+            texture.SetPixels(pixels);
+            texture.filterMode = FilterMode.Point;
+            texture.Apply();
+            return Sprite.Create(texture, new Rect(0, 0, 32, 32), new Vector2(0.5f, 0.5f), 32f);
         }
     }
 }

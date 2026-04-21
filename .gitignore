@@ -1,4 +1,4 @@
-﻿# Unity generated
+# Unity generated
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -28,4 +28,4 @@ Assets/AssetStoreTools*
 Thumbs.db
 
 # Codex local runtime
-.codex/sessions/
+.codex/

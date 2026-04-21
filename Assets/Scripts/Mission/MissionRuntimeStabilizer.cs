@@ -14,11 +14,6 @@ namespace TacticalBreach.Mission
         [SerializeField] private int minEnemyCount = 2;
 
         private static Sprite fallbackSprite;
-        private static Sprite operativeIcon;
-        private static Sprite hostageIcon;
-        private static Sprite enemyIcon;
-        private static Material unitLitMaterial;
-
         private ActiveOperativeSwitchService switchService;
         private Camera mainCamera;
         private bool initialized;
@@ -74,12 +69,6 @@ namespace TacticalBreach.Mission
             mainCamera = Camera.main;
             switchService = FindAnyObjectByType<ActiveOperativeSwitchService>();
 
-            // Load new tactical assets.
-            operativeIcon ??= Resources.Load<Sprite>("Graphics/Icons/Icon_Operative_Tactical");
-            hostageIcon ??= Resources.Load<Sprite>("Graphics/Icons/Icon_Hostage_Tactical");
-            enemyIcon ??= Resources.Load<Sprite>("Graphics/Icons/Icon_Enemy_Tactical");
-            unitLitMaterial ??= Resources.Load<Material>("Materials/TacticalUnit_Lit");
-
             EnsureLayout();
             EnsureOperatives();
             EnsureEnemies();
@@ -100,7 +89,10 @@ namespace TacticalBreach.Mission
             var builders = FindObjectsByType<ApartmentLayoutBuilder>(UnityEngine.FindObjectsInactive.Exclude);
             foreach (var builder in builders)
             {
-                builder.Rebuild();
+                if (builder != null && builder.AutoRebuildEnabled)
+                {
+                    builder.Rebuild();
+                }
             }
         }
 
@@ -115,7 +107,7 @@ namespace TacticalBreach.Mission
                     continue;
                 }
 
-                EnsureVisual(operative.gameObject, Color.white, 0.8f, operativeIcon);
+                EnsureVisual(operative.gameObject, new Color(0.2f, 0.95f, 0.3f, 1f), 0.45f);
                 EnsureCollider(operative.gameObject, 0.35f);
                 EnsureTeam(operative.GetComponent<HealthComponent>(), TeamId.Squad);
                 EnsureDamageFeedback(operative.gameObject);
@@ -169,7 +161,7 @@ namespace TacticalBreach.Mission
                     enemyObject.AddComponent<EnemyAlertController>();
                 }
 
-                EnsureVisual(enemyObject, Color.white, 0.8f, enemyIcon);
+                EnsureVisual(enemyObject, new Color(1f, 0.25f, 0.25f, 1f), 0.45f);
                 EnsureCollider(enemyObject, 0.35f);
                 EnsureTeam(health, TeamId.Enemy);
                 EnsureDamageFeedback(enemyObject);
@@ -242,7 +234,7 @@ namespace TacticalBreach.Mission
                 return;
             }
 
-            EnsureVisual(hostage.gameObject, Color.white, 0.75f, hostageIcon);
+            EnsureVisual(hostage.gameObject, new Color(1f, 0.9f, 0.15f, 1f), 0.42f);
             EnsureCollider(hostage.gameObject, 0.32f);
             EnsureTeam(hostage.GetComponent<HealthComponent>(), TeamId.Neutral);
             EnsureDamageFeedback(hostage.gameObject);
@@ -261,9 +253,6 @@ namespace TacticalBreach.Mission
             }
 
             mainCamera.orthographic = true;
-            mainCamera.backgroundColor = new Color(0.04f, 0.04f, 0.04f, 1f); // Deep charcoal
-            mainCamera.clearFlags = CameraClearFlags.SolidColor;
-
             if (mainCamera.orthographicSize < defaultCameraSize)
             {
                 mainCamera.orthographicSize = defaultCameraSize;
@@ -275,7 +264,7 @@ namespace TacticalBreach.Mission
             }
         }
 
-        private static void EnsureVisual(GameObject target, Color color, float scale, Sprite overrideSprite = null)
+        private static void EnsureVisual(GameObject target, Color color, float scale)
         {
             var renderer = target.GetComponent<SpriteRenderer>();
             if (renderer == null)
@@ -283,29 +272,21 @@ namespace TacticalBreach.Mission
                 renderer = target.AddComponent<SpriteRenderer>();
             }
 
-            if (unitLitMaterial != null && renderer.sharedMaterial != unitLitMaterial)
+            if (fallbackSprite == null)
             {
-                renderer.sharedMaterial = unitLitMaterial;
+                var texture = new Texture2D(16, 16, TextureFormat.RGBA32, false);
+                var pixels = new Color[16 * 16];
+                for (var i = 0; i < pixels.Length; i++)
+                {
+                    pixels[i] = Color.white;
+                }
+                texture.SetPixels(pixels);
+                texture.Apply();
+                fallbackSprite = Sprite.Create(texture, new Rect(0, 0, 16, 16), new Vector2(0.5f, 0.5f), 16f);
             }
 
-            if (overrideSprite != null)
+            if (renderer.sprite == null)
             {
-                renderer.sprite = overrideSprite;
-            }
-            else if (renderer.sprite == null)
-            {
-                if (fallbackSprite == null)
-                {
-                    var texture = new Texture2D(16, 16, TextureFormat.RGBA32, false);
-                    var pixels = new Color[16 * 16];
-                    for (var i = 0; i < pixels.Length; i++)
-                    {
-                        pixels[i] = Color.white;
-                    }
-                    texture.SetPixels(pixels);
-                    texture.Apply();
-                    fallbackSprite = Sprite.Create(texture, new Rect(0, 0, 16, 16), new Vector2(0.5f, 0.5f), 16f);
-                }
                 renderer.sprite = fallbackSprite;
             }
 

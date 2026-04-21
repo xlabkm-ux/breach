@@ -5,11 +5,11 @@
 - **loginovfedor-spec** (loginovfedor@gmail.com) — Maintain
 
 ## AI-агенты
-- **Codex** (OpenAI) — cloud / CLI / @codex в комментариях PR
-- **Antigravity** (Google) — Agent Manager / Mission Control
+- **Antigravity** (Google) — Основной агент на стороне xlabkm (Mission Control, Code, Tests, Localization)
+- **Codex** (OpenAI) — Основной агент на стороне loginovfedor (cloud / CLI)
 - Каждый пользователь может запускать 2–3 агента одновременно
 
-## Обязательные правила для ВСЕХ агентов (Codex + Antigravity)
+## Обязательные правила для ВСЕХ агентов (Antigravity + Codex)
 
 ### 1. Ветки
 - Работать **только** в feature-ветках
@@ -28,7 +28,7 @@
 ### 3. Коммиты и PR
 - Использовать **Conventional Commits**
 - После изменений агент **обязан** открыть **Draft Pull Request**
-- Название PR: `[Codex] / [Antigravity] Название задачи (#123)`
+- Название PR: `[Antigravity] / [Codex] Название задачи (#123)`
 
 ### 4. Работа на разных компьютерах
 - Использовать `sparse-checkout` для нужных папок
@@ -39,9 +39,8 @@
 - Обязательное финальное ревью человеком отменено.
 
 ### 6. Рабочие пространства (Workspaces)
-- Для исключения конфликтов блокировки Unity (Library) и Git-индекса, агенты используют раздельные папки (Git Worktrees):
+- Рабочее пространство (Git Worktree):
   - **Antigravity**: работает в основной папке `E:\Games\Breach\BREACH`
-  - **Codex**: работает в отдельном вортри `E:\Games\Breach\BREACH_Codex`
 - Синхронизация между пространствами происходит исключительно через `git push` / `git pull`.
 
 # TACTICAL BREACH AGENTS.md
@@ -51,7 +50,7 @@ This is a commercial Unity 6 project using:
 - URP
 - 2D production pipeline with HD-2D presentation
 - Visual Scripting + C# hybrid architecture
-- local Codex workflow
+- local Antigravity / Codex workflow
 - Git as the source-control layer
 
 v1 targets:

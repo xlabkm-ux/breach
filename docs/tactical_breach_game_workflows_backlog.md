@@ -384,7 +384,7 @@ Items:
 
 - Steps: `42`
 - Status: `DONE`
-- Assigned: `xlabkm-ux / Codex`
+- Assigned: `xlabkm-ux / Antigravity`
 - Covered by:
   - combat resolver tests
   - enemy vision cone tests
@@ -394,7 +394,7 @@ Items:
 
 - Steps: `43`
 - Status: `DONE`
-- Assigned: `xlabkm-ux / Codex`
+- Assigned: `xlabkm-ux / Antigravity`
 - Covered by:
   - hostage free/escort tests
   - extraction zone tests
@@ -410,7 +410,7 @@ Items:
 
 - Steps: `45`
 - Status: `DONE`
-- Assigned: `Codex`
+- Assigned: `Antigravity`
 
 ### BWF-040 - Android perf/readability quick pass
 
