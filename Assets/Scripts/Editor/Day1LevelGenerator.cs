@@ -24,7 +24,7 @@ namespace TacticalBreach.Editor
         // Generation Settings
         private const int MapWidth = 40;
         private const int MapHeight = 30;
-        private const int MinRoomSize = 10; // Increased from 6 to 10 for fewer walls
+        private const int MinRoomSize = 12; // Increased for more space
         private const float SplitThreshold = 1.25f;
 
         [MenuItem("TacticalBreach/Generate Mission (BSP Procedural)")]
@@ -79,6 +79,10 @@ namespace TacticalBreach.Editor
                 return;
             }
 
+            // CLEAR OLD TILES
+            baseMap.ClearAllTiles();
+            collisionMap.ClearAllTiles();
+
             // 2. Procedural Layout (Floor + Walls)
             int startX = -MapWidth / 2;
             int startY = -MapHeight / 2;
@@ -128,49 +132,32 @@ namespace TacticalBreach.Editor
 
             // 4. Final Setup and Environment Polishing
             SetupEnvironment();
+            SetupColliders(baseMap); // Floor MUST have collider for NavMesh surface!
             SetupColliders(collisionMap);
             SetupSpawnArea(baseMap, collisionMap);
             
-            // Move players while disabled
+            // Initial positioning
             PositionOperativesOnStreet();
+            SpawnEnemies(leaves);
             
             // Bake NavMesh
             BakeNavMesh();
 
-            // Re-enable agents after bake with Snapping
-            var agents = Object.FindObjectsByType<UnityEngine.AI.NavMeshAgent>(FindObjectsInactive.Include);
-            foreach (var a in agents) 
-            {
-                // Force Z=0 one last time
-                a.transform.position = new Vector3(a.transform.position.x, a.transform.position.y, 0f);
-                
-                // Try to find nearest point on NavMesh within 5.0 units
-                if (UnityEngine.AI.NavMesh.SamplePosition(a.transform.position, out UnityEngine.AI.NavMeshHit hit, 5.0f, UnityEngine.AI.NavMesh.AllAreas))
-                {
-                    a.transform.position = hit.position;
-                    a.enabled = true;
-                    Debug.Log($"[NavMesh] Snapped {a.name} to {hit.position}");
-                }
-                else
-                {
-                    a.enabled = true; // Still enable, but it might fail if far away
-                    Debug.LogWarning($"[NavMesh] Could not snap {a.name} - no NavMesh nearby!");
-                }
-                a.transform.localScale = Vector3.one;
-            }
+            // Final Snap and enable agents
+            SnapAllAgentsToNavMesh();
 
-            // Focus camera on operatives and ensure it SEES EVERYTHING
+            // Focus camera on operatives
             var cam = Camera.main;
             if (cam != null)
             {
-                cam.cullingMask = -1; // See all layers
+                cam.cullingMask = -1;
                 cam.orthographic = true;
-                cam.orthographicSize = 10; // Zoom out a bit to see more
+                cam.orthographicSize = 10;
                 cam.transform.position = new Vector3(0, -MapHeight/2 - 5f, -10f);
             }
 
             EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
-            Debug.Log("Total Visibility Generation Complete! Camera reset and focused.");
+            Debug.Log("Total Generation Complete! All agents snapped and camera focused.");
         }
 
         private static void DrawRect(Tilemap map, int x, int y, int w, int h, Tile tile)
@@ -192,6 +179,10 @@ namespace TacticalBreach.Editor
             bool splitH = Random.value > 0.5f;
             if (room.w > room.h && (float)room.w / room.h >= SplitThreshold) splitH = false;
             else if (room.h > room.w && (float)room.h / room.w >= SplitThreshold) splitH = true;
+
+            // Stop splitting if room is too small for TWO rooms of minSize
+            if (splitH && room.h <= minSize * 2) return;
+            if (!splitH && room.w <= minSize * 2) return;
 
             int max = (splitH ? room.h : room.w) - minSize;
             if (max <= minSize) return;
@@ -325,7 +316,6 @@ namespace TacticalBreach.Editor
 
         private static void SpawnEnemies(List<BSPRoom> rooms)
         {
-            // Try different possible paths for enemy prefab
             string[] possiblePaths = {
                 "Assets/Prefabs/Gameplay/Enemies/Enemy_Grunt.prefab",
                 "Assets/Prefabs/Enemies/Enemy_Grunt.prefab",
@@ -341,19 +331,19 @@ namespace TacticalBreach.Editor
 
             if (enemyPrefab == null)
             {
-                Debug.LogWarning("Enemy Grunt prefab NOT FOUND in any common path!");
+                Debug.LogError("[Spawn] Enemy Grunt prefab NOT FOUND in any path!");
                 return;
             }
 
             var enemiesContainer = GameObject.Find("Enemies") ?? new GameObject("Enemies");
-            enemiesContainer.transform.position = new Vector3(0, 0, 0);
+            enemiesContainer.transform.position = Vector3.zero;
 
+            int totalEnemies = 0;
             foreach (var room in rooms)
             {
-                // Skip spawning enemies in the very first room (entrance)
                 if (room.y == -MapHeight / 2) continue;
 
-                int count = Random.Range(1, 3);
+                int count = Random.Range(1, 2); // 1 enemy per room for now
                 for (int i = 0; i < count; i++)
                 {
                     int ex = room.x + Random.Range(2, room.w - 2);
@@ -362,7 +352,22 @@ namespace TacticalBreach.Editor
                     var go = (GameObject)PrefabUtility.InstantiatePrefab(enemyPrefab, enemiesContainer.transform);
                     go.transform.position = new Vector3(ex + 0.5f, ey + 0.5f, 0);
                     go.transform.localScale = Vector3.one;
+                    totalEnemies++;
                 }
+            }
+            Debug.Log($"[Spawn] Instantiated {totalEnemies} enemies.");
+        }
+
+        private static void PositionOperativesOnStreet()
+        {
+            var ops = Object.FindObjectsByType<TacticalBreach.Squad.OperativeMember>(FindObjectsInactive.Include);
+            Debug.Log($"[Spawn] Found {ops.Length} operatives in scene to position.");
+            
+            for (int i = 0; i < ops.Length; i++)
+            {
+                ops[i].gameObject.SetActive(true);
+                ops[i].transform.position = new Vector3(-2f + i * 2f, -MapHeight/2 - 5f, 0f);
+                ops[i].transform.localScale = Vector3.one;
             }
         }
 
@@ -401,12 +406,6 @@ namespace TacticalBreach.Editor
                     baseMap.SetTile(new Vector3Int(ix, iy, 0), floorTile);
         }
 
-        private static void PositionOperativesOnStreet()
-        {
-            var ops = Object.FindObjectsByType<TacticalBreach.Squad.OperativeMember>(FindObjectsInactive.Include);
-            for (int i = 0; i < ops.Length; i++)
-                ops[i].transform.position = new Vector3(-2f + i * 2f, -MapHeight/2 - 5f, 0f);
-        }
 
         private static void ForceCleanupScene()
         {
@@ -501,14 +500,16 @@ namespace TacticalBreach.Editor
             if (node.right != null) CollectLeaves(node.right, leaves);
         }
 
-        private static void SetupColliders(Tilemap collisionMap)
+        private static void SetupColliders(Tilemap map)
         {
-            var tilemapCollider = collisionMap.GetComponent<TilemapCollider2D>() ?? collisionMap.gameObject.AddComponent<TilemapCollider2D>();
-            var composite = collisionMap.GetComponent<CompositeCollider2D>() ?? collisionMap.gameObject.AddComponent<CompositeCollider2D>();
-            var rb = collisionMap.GetComponent<Rigidbody2D>();
-            if (rb != null) rb.bodyType = RigidbodyType2D.Static;
+            if (map == null) return;
+            var tilemapCollider = map.GetComponent<TilemapCollider2D>() ?? map.gameObject.AddComponent<TilemapCollider2D>();
+            var composite = map.GetComponent<CompositeCollider2D>() ?? map.gameObject.AddComponent<CompositeCollider2D>();
+            var rb = map.GetComponent<Rigidbody2D>() ?? map.gameObject.AddComponent<Rigidbody2D>();
+            rb.bodyType = RigidbodyType2D.Static;
             
             tilemapCollider.compositeOperation = Collider2D.CompositeOperation.Merge;
+            tilemapCollider.usedByComposite = true;
             composite.geometryType = CompositeCollider2D.GeometryType.Polygons;
         }
 
@@ -525,20 +526,51 @@ namespace TacticalBreach.Editor
                 
                 // 0 = All Objects, 1 = Volume, 2 = Current Hierarchy
                 surfaceType.GetProperty("collectObjects")?.SetValue(surfaceComponent, 0); 
-                // 0 = Render Meshes, 1 = Physics Colliders
-                surfaceType.GetProperty("useGeometry")?.SetValue(surfaceComponent, 0); 
+                // 1 = Physics Colliders
+                surfaceType.GetProperty("useGeometry")?.SetValue(surfaceComponent, 1); 
 
-                // Important: Set agent settings to be slightly smaller than 0.5 for better fitting
                 var settings = surfaceType.GetMethod("GetOrCreateDefaultSettings")?.Invoke(surfaceComponent, null);
                 if (settings != null)
                 {
-                    settings.GetType().GetField("agentRadius")?.SetValue(settings, 0.4f); // 0.4 instead of 0.5
+                    settings.GetType().GetField("agentRadius")?.SetValue(settings, 0.3f);
                     settings.GetType().GetField("agentClimb")?.SetValue(settings, 0.1f);
-                    settings.GetType().GetField("agentSlope")?.SetValue(settings, 45f);
                 }
 
                 surfaceType.GetMethod("BuildNavMesh")?.Invoke(surfaceComponent, null);
-                Debug.Log("[NavMesh] Baked successfully on Z=0 plane using Renderers.");
+                Debug.Log("[NavMesh] Baked successfully on Z=0 plane using Physics.");
+            }
+        }
+
+        private static void SnapAllAgentsToNavMesh()
+        {
+            var agents = Object.FindObjectsByType<UnityEngine.AI.NavMeshAgent>(FindObjectsInactive.Include);
+            Debug.Log($"[NavMesh] Found {agents.Length} agents to snap.");
+
+            foreach (var agent in agents)
+            {
+                agent.gameObject.SetActive(true);
+                Vector3 pos = agent.transform.position;
+                pos.z = 0; // Physics stays at zero
+                
+                if (UnityEngine.AI.NavMesh.SamplePosition(pos, out UnityEngine.AI.NavMeshHit hit, 10.0f, UnityEngine.AI.NavMesh.AllAreas))
+                {
+                    agent.transform.position = hit.position;
+                    agent.enabled = true;
+                    
+                    // FORCE VISIBILITY: GameObject at Z=0, but visuals at Z=-3
+                    var sr = agent.GetComponentInChildren<SpriteRenderer>();
+                    if (sr != null)
+                    {
+                        sr.transform.localPosition = new Vector3(0, 0, -3.0f);
+                        sr.sortingOrder = 3;
+                        sr.enabled = true;
+                    }
+                    agent.transform.localScale = Vector3.one;
+                }
+                else
+                {
+                    Debug.LogWarning($"[NavMesh] Could not snap {agent.name} at {pos} - no NavMesh nearby!");
+                }
             }
         }
 
