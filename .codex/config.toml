@@ -1,0 +1,80 @@
+# ZAHVAT Codex configuration
+version = "0.1"
+project = "ZAHVAT"
+project_type = "unity6_game"
+default_profile = "local_unity"
+
+[model]
+name = "gpt-5.4-thinking"
+reasoning_effort = "high"
+temperature = 0.1
+
+[workflow]
+solo_development = true
+require_reviewable_changes = true
+prefer_small_batches = true
+require_verification_after_mutation = true
+require_risk_summary = true
+
+[unity]
+engine = "Unity 6"
+render_pipeline = "URP"
+production_pipeline = "2D"
+visual_style = "HD-2D"
+architecture = "Visual Scripting + C#"
+prefer_mcp_editor_operations = true
+avoid_manual_yaml_asset_edits = true
+
+[platforms]
+primary = ["Windows_10_11", "Android_Mobile"]
+quality_profiles = ["PC_Default", "Android_Default", "Android_Low"]
+
+[game]
+profile_tags = ["mixed_genre_system_composition", "ui_heavy", "physics_heavy", "narrative", "roguelite", "top_down_tactical_shooter", "stealth", "squad_commands"]
+core_pipeline = ["state-flow", "objective-loop", "pacing", "reward-templates"]
+required_pacing_templates = ["Safe_Start", "Escalation", "Intensity_Spike", "Short_Recovery", "Climax_Final_Push"]
+required_reward_templates = ["Immediate_Feedback_Reward", "Milestone_Reward", "Segment_Run_Completion_Reward", "Unlock_Meta_Progress_Reward"]
+optional_reward_templates = ["Choice_Reward"]
+required_narrative_templates = ["Intro_Context", "Objective_Brief", "Progress_Update", "Warning_Critical_State", "Encounter_Event_Trigger", "Success_Resolution", "Failure_Resolution", "Unlock_Reward_Line", "Optional_Flavor_Lore_Snippet"]
+semantic_reaction_patterns = ["hit", "heavy_hit", "crit", "damage_taken", "death", "pickup", "objective_progress", "objective_complete", "low_health", "danger", "wave_start", "wave_end", "run_success", "run_fail", "suppressed", "detected", "order_confirmed", "hostage_secured"]
+
+[change_policy]
+require_plan_before_significant_change = true
+require_affected_systems = true
+require_serialization_risk_callout = true
+require_changed_assets_summary = true
+
+[change_policy.safe_by_default_projectsettings]
+enabled = true
+items = [
+  "build_profiles",
+  "quality_matrix",
+  "platform_overrides",
+  "android_performance_reductions",
+  "basic_app_metadata"
+]
+
+[change_policy.confirm_required_projectsettings]
+enabled = true
+items = [
+  "graphics_api",
+  "color_space",
+  "scripting_backend",
+  "input_backend",
+  "permissions",
+  "min_target_api",
+  "signing",
+  "physics_audio_timing",
+  "stripping",
+  "package_app_id",
+  "ux_or_compatibility_or_store_behavior_change"
+]
+
+[csharp]
+prefer_for = ["reusable_systems", "performance_critical_logic", "complex_calculations", "data_modeling", "save_load_logic", "validation_heavy_logic", "custom_units", "integrations", "platform_sensitive_systems", "ballistics", "damage_model", "mission_scoring"]
+
+[visual_scripting]
+prefer_for = ["orchestration", "event_sequencing", "state_transitions", "interaction_flow", "control_reaction_composition", "rapid_gameplay_iteration"]
+
+[save]
+required = true

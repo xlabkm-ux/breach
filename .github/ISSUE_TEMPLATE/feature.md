@@ -1,6 +1,6 @@
 ---
 name: Feature Request
-about: Шаблон для задач, которые берут агенты Codex / Antigravity
+about: Шаблон для задач, которые берут агенты Codex
 title: '[feat] Краткое название'
 labels: feature, ready
 assignees: ''
@@ -18,4 +18,4 @@ assignees: ''
 (укажи, например /Assets/Scripts/)
 
 ## Owner
-(выбери xlabkm-ux / loginovfedor / Codex / Antigravity)
+(выбери xlabkm-ux / loginovfedor / Codex)

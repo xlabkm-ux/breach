@@ -28,4 +28,6 @@ Assets/AssetStoreTools*
 Thumbs.db
 
 # Codex local runtime
-.codex/
+.codex/*
+!.codex/
+!.codex/config.toml

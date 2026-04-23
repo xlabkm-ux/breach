@@ -389,7 +389,7 @@ Items:
 
 - Steps: `42`
 - Status: `DONE`
-- Assigned: `xlabkm-ux / Antigravity`
+- Assigned: `xlabkm-ux / Codex`
 - Covered by:
   - combat resolver tests
   - enemy vision cone tests
@@ -399,7 +399,7 @@ Items:
 
 - Steps: `43`
 - Status: `DONE`
-- Assigned: `xlabkm-ux / Antigravity`
+- Assigned: `xlabkm-ux / Codex`
 - Covered by:
   - hostage free/escort tests
   - extraction zone tests
@@ -409,13 +409,13 @@ Items:
 
 - Steps: `44`
 - Status: `DONE`
-- Assigned: `xlabkm-ux / Antigravity`
+- Assigned: `xlabkm-ux / Codex`
 
 ### BWF-039 - Localization coverage sweep
 
 - Steps: `45`
 - Status: `DONE`
-- Assigned: `Antigravity`
+- Assigned: `Codex`
 
 ### BWF-040 - Android perf/readability quick pass
 
@@ -444,7 +444,7 @@ Items:
 
 - Steps: `48`
 - Status: `BLOCKED`
-- Assigned: `Antigravity / Team`
+- Assigned: `Codex / Team`
 - Blocked by:
   - `BWF-035` and `BWF-040`
 

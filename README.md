@@ -6,7 +6,7 @@ Project workspace for the Unity 6 game **TACTICAL BREACH**.
 
 ## Primary entry points
 - `AGENTS.md` - main operating contract for work in this repository
-- `.antigravity/config.toml` - local Antigravity configuration
+- `.codex/config.toml` - local Codex configuration
 - `docs/project_docs_index.md` - Canonical Document Index (Master Point)
 - `docs/project_management/...` - Workflows, Test plans, and Checklists
 
