@@ -237,6 +237,26 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
+    "com.unity.services.cloud-diagnostics": {
+      "version": "file:com.unity.services.cloud-diagnostics",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {
+        "com.unity.services.core": "1.12.5",
+        "com.unity.modules.unityanalytics": "1.0.0"
+      }
+    },
+    "com.unity.services.core": {
+      "version": "1.16.0",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.modules.androidjni": "1.0.0",
+        "com.unity.nuget.newtonsoft-json": "3.2.1",
+        "com.unity.modules.unitywebrequest": "1.0.0"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.shadergraph": {
       "version": "17.4.0",
       "depth": 1,
@@ -298,9 +318,9 @@
       "url": "https://packages.unity.com"
     },
     "com.xlabkm.unity-mcp": {
-      "version": "file:E:/Games/Breach/xLabMcp/dotnet-prototype/unity/com.xlabkm.unity-mcp",
+      "version": "file:com.xlabkm.unity-mcp",
       "depth": 0,
-      "source": "local",
+      "source": "embedded",
       "dependencies": {}
     },
     "com.unity.modules.accessibility": {

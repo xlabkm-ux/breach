@@ -1,13 +1,10 @@
 # ZAHVAT Codex configuration
 version = "0.1"
-project = "ZAHVAT"
+project = "TACTICAL BREACH"
 project_type = "unity6_game"
 default_profile = "local_unity"
 
-[model]
-name = "gpt-5.4-thinking"
-reasoning_effort = "high"
-temperature = 0.1
+model = "gpt-5.4"
 
 [workflow]
 solo_development = true
