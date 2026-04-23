@@ -4,7 +4,7 @@ using System.IO;
 
 public static class TileTextureGenerator
 {
-    [MenuItem("TacticalBreach/CI/Generate Flat Textures")]
+    // [MenuItem("TacticalBreach/CI/Generate Flat Textures")]
     public static void Generate()
     {
         GenerateFlat(1024, "Assets/Resources/Graphics/Textures/Tex_Floor_Concrete_Dark.png", new Color32(150, 150, 150, 255), false, true);

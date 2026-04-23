@@ -70,8 +70,8 @@ namespace TacticalBreach.Mission
             switchService = FindAnyObjectByType<ActiveOperativeSwitchService>();
 
             EnsureLayout();
-            EnsureOperatives();
-            EnsureEnemies();
+            // EnsureOperatives();
+            // EnsureEnemies();
             EnsureHostage();
             EnsureCameraDefaults();
 
@@ -270,6 +270,7 @@ namespace TacticalBreach.Mission
             if (renderer == null)
             {
                 renderer = target.AddComponent<SpriteRenderer>();
+            if (renderer.sprite != null && renderer.sprite.name.Contains("Tactical")) return;
             }
 
             if (fallbackSprite == null)

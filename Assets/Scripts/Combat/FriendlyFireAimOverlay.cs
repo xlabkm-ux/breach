@@ -95,6 +95,12 @@ namespace TacticalBreach.Combat
 
             var from = activeShooter.transform.position;
             var screen = InputCompat.MousePosition;
+            if (float.IsNaN(screen.x) || float.IsNaN(screen.y))
+            {
+                lineRenderer.enabled = false;
+                return;
+            }
+
             var world = cachedCamera.ScreenToWorldPoint(new Vector3(screen.x, screen.y, Mathf.Abs(cachedCamera.transform.position.z)));
             var direction = world - from;
             direction.z = 0f;

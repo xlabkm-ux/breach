@@ -14,21 +14,18 @@ namespace TacticalBreach.Mission
         private static Tile _wallTile;
         private static Tile _roomTile;
         private static Tile _extractTile;
+        private static Tile _corridorTile;
+        private static Tile _kitchenTile;
+        private static Tile _bathroomTile;
 
         private void OnEnable()
         {
-            if (!Application.isPlaying && rebuildInEditor)
-            {
-                Rebuild();
-            }
+            // Auto-rebuild disabled to prevent destructive scene wiping
         }
 
         private void Start()
         {
-            if (Application.isPlaying && rebuildOnPlay)
-            {
-                Rebuild();
-            }
+            // Auto-rebuild disabled to prevent destructive scene wiping
         }
 
         [ContextMenu("Rebuild Apartment Layout")]
@@ -50,30 +47,52 @@ namespace TacticalBreach.Mission
             decorMap.ClearAllTiles();
             interactablesMap.ClearAllTiles();
 
-            // Main apartment floor block.
-            FillRect(baseMap, -12, -6, 24, 12, _floorTile);
+            int startX = -14, startY = -8;
+            int width = 28, height = 16;
 
-            // Main walls.
-            FillRectBorder(collisionMap, -12, -6, 24, 12, _wallTile);
+            // 1. Base floor layer
+            FillRect(baseMap, startX, startY, width, height, _floorTile);
 
-            // Hostage room block.
-            FillRect(baseMap, 4, -2, 7, 5, _roomTile);
-            FillRectBorder(collisionMap, 4, -2, 7, 5, _wallTile);
+            // 2. Outer Walls
+            FillRectBorder(collisionMap, startX, startY, width, height, _wallTile);
 
-            // Door opening to hostage room.
-            ClearRect(collisionMap, 4, 0, 1, 1);
+            // 3. Central Corridor
+            FillRect(baseMap, -4, -2, 12, 4, _corridorTile);
 
-            // Two entry points.
-            ClearRect(collisionMap, -12, 2, 1, 1);
-            ClearRect(collisionMap, 0, -6, 1, 1);
+            // 4. Kitchen (Top Left)
+            FillRect(baseMap, -12, 2, 8, 6, _kitchenTile);
+            FillRectBorder(collisionMap, -13, 2, 10, 7, _wallTile);
+            ClearRect(collisionMap, -5, 4, 1, 1); // Door to corridor
 
-            // Extraction zone marker.
-            FillRect(interactablesMap, -10, -5, 3, 2, _extractTile);
+            // 5. Bathroom (Bottom Left)
+            FillRect(baseMap, -12, -7, 8, 5, _bathroomTile);
+            FillRectBorder(collisionMap, -13, -8, 10, 7, _wallTile);
+            ClearRect(collisionMap, -5, -4, 1, 1); // Door to corridor
 
-            // Minimal decor anchors for readability.
-            FillRect(decorMap, -6, 3, 2, 1, _roomTile);
-            FillRect(decorMap, 0, 3, 2, 1, _roomTile);
-            FillRect(decorMap, -2, -1, 1, 2, _roomTile);
+            // 6. Hostage Room (Top Right)
+            FillRect(baseMap, 8, 2, 6, 6, _roomTile);
+            FillRectBorder(collisionMap, 7, 2, 8, 7, _wallTile);
+            ClearRect(collisionMap, 7, 4, 1, 1); // Door to corridor
+
+            // 7. Guard Room (Bottom Right)
+            FillRect(baseMap, 8, -7, 6, 5, _roomTile);
+            FillRectBorder(collisionMap, 7, -8, 8, 7, _wallTile);
+            ClearRect(collisionMap, 7, -4, 1, 1); // Door to corridor
+
+            // Clean up overlaps in main corridor
+            ClearRect(collisionMap, -4, -2, 12, 4);
+
+            // Two main entry points on outer walls
+            ClearRect(collisionMap, startX, 0, 1, 2); // Left entrance
+            ClearRect(collisionMap, startX + width - 1, 0, 1, 2); // Right entrance
+
+            // Extraction zone
+            FillRect(interactablesMap, startX - 2, -1, 2, 4, _extractTile);
+
+            // Minimal decor anchors
+            FillRect(decorMap, -11, 6, 2, 1, _roomTile); // Kitchen counter
+            FillRect(decorMap, -11, -6, 1, 2, _roomTile); // Bathroom tub
+            FillRect(decorMap, 11, 6, 1, 1, _roomTile); // Hostage chair
         }
 
         private static Tilemap FindTilemap(string objectName)
@@ -121,10 +140,24 @@ namespace TacticalBreach.Mission
 
         private static void EnsureTiles()
         {
-            _floorTile ??= BuildTile(BuildSolidSprite(new Color(0.25f, 0.29f, 0.34f)), Color.white);
-            _wallTile ??= BuildTile(BuildSolidSprite(new Color(0.42f, 0.44f, 0.48f)), Color.white);
-            _roomTile ??= BuildTile(BuildSolidSprite(new Color(0.33f, 0.37f, 0.42f)), Color.white);
-            _extractTile ??= BuildTile(BuildSolidSprite(new Color(0.22f, 0.55f, 0.52f)), Color.white);
+            _floorTile ??= Resources.Load<Tile>("MapTiles/ApartmentFloor") ?? BuildTile(BuildSolidSprite(new Color(0.25f, 0.29f, 0.34f)), Color.white);
+            _wallTile ??= Resources.Load<Tile>("MapTiles/ApartmentWall") ?? BuildTile(BuildSolidSprite(new Color(0.42f, 0.44f, 0.48f)), Color.white);
+            _roomTile ??= Resources.Load<Tile>("MapTiles/ApartmentRoomFloor") ?? BuildTile(BuildSolidSprite(new Color(0.33f, 0.37f, 0.42f)), Color.white);
+            _extractTile ??= Resources.Load<Tile>("MapTiles/ApartmentExtract") ?? BuildTile(BuildSolidSprite(new Color(0.22f, 0.55f, 0.52f)), Color.white);
+            
+            _corridorTile ??= BuildTintedTile("MapTiles/ApartmentFloor", new Color(0.85f, 0.85f, 0.9f)) ?? BuildTile(BuildSolidSprite(new Color(0.28f, 0.30f, 0.35f)), Color.white);
+            _kitchenTile ??= BuildTintedTile("MapTiles/ApartmentFloor", new Color(0.95f, 0.95f, 0.8f)) ?? BuildTile(BuildSolidSprite(new Color(0.35f, 0.35f, 0.30f)), Color.white);
+            _bathroomTile ??= BuildTintedTile("MapTiles/ApartmentFloor", new Color(0.75f, 0.85f, 0.95f)) ?? BuildTile(BuildSolidSprite(new Color(0.25f, 0.35f, 0.40f)), Color.white);
+        }
+
+        private static Tile BuildTintedTile(string path, Color color)
+        {
+            var baseTile = Resources.Load<Tile>(path);
+            if (baseTile == null) return null;
+            var tile = ScriptableObject.CreateInstance<Tile>();
+            tile.sprite = baseTile.sprite;
+            tile.color = color;
+            return tile;
         }
 
         private static Tile BuildTile(Sprite sprite, Color color)
@@ -150,3 +183,4 @@ namespace TacticalBreach.Mission
         }
     }
 }
+

@@ -39,7 +39,7 @@ namespace TacticalBreach.Squad
                 rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
 
                 var coll = gameObject.AddComponent<CircleCollider2D>();
-                coll.radius = 0.35f;
+                coll.radius = 0.5f;
             }
         }
 

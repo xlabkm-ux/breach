@@ -5,7 +5,7 @@ namespace TacticalBreach.Editor
 {
     public static class AssetDatabaseFixer
     {
-        [MenuItem("TacticalBreach/Tools/Force Reimport Localization")]
+        // [MenuItem("TacticalBreach/Tools/Force Reimport Localization")]
         public static void ForceReimport()
         {
             string path = "Assets/Resources/Localization/DefaultLocalizationTable.asset";

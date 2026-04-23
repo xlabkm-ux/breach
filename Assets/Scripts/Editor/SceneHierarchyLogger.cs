@@ -4,14 +4,14 @@ using UnityEngine;
 
 public static class SceneHierarchyLogger
 {
-    [MenuItem("TacticalBreach/Debug/Log Scene Hierarchy")]
+    // [MenuItem("TacticalBreach/Debug/Log Scene Hierarchy")]
     public static void LogHierarchy()
     {
         const string scenePath = "Assets/Scenes/VerticalSlice/VS01_Rescue.unity";
         var scene = EditorSceneManager.OpenScene(scenePath, OpenSceneMode.Single);
         
         Debug.Log($"--- Hierarchy for {scene.name} ---");
-        var allObjects = Object.FindObjectsByType<GameObject>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        var allObjects = Object.FindObjectsByType<GameObject>(FindObjectsInactive.Include);
         foreach (var go in allObjects)
         {
             if (go.transform.parent == null)

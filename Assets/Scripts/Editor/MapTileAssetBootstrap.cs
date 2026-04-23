@@ -35,7 +35,7 @@ namespace TacticalBreach.Editor
             new TileSpec("ApartmentExtract", "Assets/Resources/Graphics/Textures/Tex_Extract_Dark.png"),
         };
 
-        [MenuItem("TacticalBreach/Tools/Generate Apartment Tiles")]
+        // [MenuItem("TacticalBreach/Tools/Generate Apartment Tiles")]
         public static void GenerateApartmentTiles()
         {
             AssetDatabase.Refresh();
@@ -51,7 +51,7 @@ namespace TacticalBreach.Editor
             Debug.Log("Apartment map tiles generated.");
         }
 
-        [MenuItem("TacticalBreach/Tools/Bake VS01 Rescue Layout")]
+        // [MenuItem("TacticalBreach/Tools/Bake VS01 Rescue Layout")]
         public static void BakeVs01RescueLayout()
         {
             const string scenePath = "Assets/Scenes/VerticalSlice/VS01_Rescue.unity";

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class FullProjectBake
 {
-    [MenuItem("TacticalBreach/CI/Full Bake")]
+    // [MenuItem("TacticalBreach/CI/Full Bake")]
     public static void RunFullBake()
     {
         if (Application.isPlaying)
@@ -39,6 +39,12 @@ public static class FullProjectBake
             Debug.LogError("[CI] ApartmentLayoutBuilder not found in scene!");
         }
 
+        // 3.5 Bake NavMesh (Note: UnityEditor.AI.NavMeshBuilder is deprecated, moving to NavMeshSurface in the future)
+        #pragma warning disable CS0618
+        UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
+        #pragma warning restore CS0618
+        Debug.Log("[CI] NavMesh baked.");
+
         // 4. Setup environment (Lights/Post)
         // We'll call the logic from GraphicsBaker if possible, or just copy it.
         // Since GraphicsBaker has errors, let's just do it here.
@@ -60,12 +66,12 @@ public static class FullProjectBake
 
         if (litMat != null)
         {
-            var renderers = Object.FindObjectsByType<UnityEngine.Tilemaps.TilemapRenderer>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+            var renderers = Object.FindObjectsByType<UnityEngine.Tilemaps.TilemapRenderer>(FindObjectsInactive.Include);
             foreach (var r in renderers) { r.sharedMaterial = litMat; }
         }
 
         // Global Light
-        var lights = Object.FindObjectsByType<UnityEngine.Rendering.Universal.Light2D>(FindObjectsInactive.Include, FindObjectsSortMode.None);
+        var lights = Object.FindObjectsByType<UnityEngine.Rendering.Universal.Light2D>(FindObjectsInactive.Include);
         foreach (var l in lights)
         {
             if (l.lightType == UnityEngine.Rendering.Universal.Light2D.LightType.Global && l.gameObject.name != "GlobalLight2D")

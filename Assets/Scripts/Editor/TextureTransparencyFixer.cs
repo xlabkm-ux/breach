@@ -4,7 +4,7 @@ using System.IO;
 
 public static class TextureTransparencyFixer
 {
-    [MenuItem("TacticalBreach/Graphics/Fix Texture Settings")]
+    // [MenuItem("TacticalBreach/Graphics/Fix Texture Settings")]
     public static void FixSettings()
     {
         AssetDatabase.Refresh(); // Ensure files generated previously exist in DB
